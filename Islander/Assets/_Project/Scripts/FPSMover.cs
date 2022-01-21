@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Gisha.Islander
 {
-    [RequireComponent(typeof(CapsuleCollider))]
+    [RequireComponent(typeof(FPSCamera))]
     [RequireComponent(typeof(Rigidbody))]
     public class FPSMover : MonoBehaviour
     {
