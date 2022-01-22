@@ -1,3 +1,5 @@
+using System;
+using UnityEditor;
 using UnityEngine;
 
 public class FPSMover : MonoBehaviour
@@ -13,10 +15,11 @@ public class FPSMover : MonoBehaviour
     [SerializeField] private float sprintSpeed = 6f;
     [SerializeField] private float acceleration = 10f;
 
-    [Header("Jumping")] [SerializeField]
-    private float jumpForce = 5f;
+    [Header("Jumping")] [SerializeField] private float jumpForce = 5f;
 
-    [Header("Keybindings")] [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+    [Header("Keybindings")] [SerializeField]
+    private KeyCode jumpKey = KeyCode.Space;
+
     [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
     [SerializeField] private KeyCode crouchKey = KeyCode.LeftControl;
 
@@ -29,13 +32,14 @@ public class FPSMover : MonoBehaviour
 
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private float groundDistance = 0.2f;
+    [SerializeField] private float groundDistanceWaterMultiplier = 2f;
 
     private bool IsGrounded { get; set; }
     private bool IsSwimming { get; set; }
 
     private float _xInput, _yInput, _zInput;
 
-    private Vector3 _moveDirection, _slopeMoveDirection;
+    private Vector3 _moveDirection;
     private RaycastHit _slopeHit;
 
     private Rigidbody _rb;
@@ -56,16 +60,18 @@ public class FPSMover : MonoBehaviour
         else
             ApplyWaterSettings();
 
-        GetInput();
+        GetInput(out var inputMoveDirection);
         ControlDrag();
         ControlSpeed();
 
-        if (!IsSwimming)
-        {
-            if (Input.GetKeyDown(jumpKey) && IsGrounded)
-                Jump();
-            _slopeMoveDirection = Vector3.ProjectOnPlane(_moveDirection, _slopeHit.normal);
-        }
+        if (Input.GetKeyDown(jumpKey) && IsGrounded && !IsSwimming)
+            Jump();
+
+        // Setting move direction according to slopes under the player.
+        if (CheckForSlope() && IsGrounded)
+            _moveDirection = Vector3.ProjectOnPlane(inputMoveDirection, _slopeHit.normal);
+        else
+            _moveDirection = inputMoveDirection;
     }
 
     private void FixedUpdate()
@@ -73,7 +79,7 @@ public class FPSMover : MonoBehaviour
         MovePlayer();
     }
 
-    private void GetInput()
+    private void GetInput(out Vector3 inputMoveDirection)
     {
         _xInput = Input.GetAxisRaw("Horizontal");
         _zInput = Input.GetAxisRaw("Vertical");
@@ -89,7 +95,7 @@ public class FPSMover : MonoBehaviour
                 _yInput = -0.5f;
         }
 
-        _moveDirection = transform.forward * _zInput + transform.right * _xInput + transform.up * _yInput;
+        inputMoveDirection = transform.forward * _zInput + transform.right * _xInput + transform.up * _yInput;
     }
 
     private void ApplyBasicSettings()
@@ -131,20 +137,36 @@ public class FPSMover : MonoBehaviour
 
     private void MovePlayer()
     {
-        bool isOnSlope = CheckSlope();
-        if (IsSwimming)
-            _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier * waterMultiplier,
-                ForceMode.Acceleration);
-        else if (!IsSwimming && IsGrounded && !isOnSlope)
-            _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
-        else if (!IsSwimming && IsGrounded && isOnSlope)
-            _rb.AddForce(_slopeMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
-        else if (!IsSwimming && !IsGrounded)
-            _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier,
-                ForceMode.Acceleration);
+        float envMultiplier;
+        if (!IsGrounded && !IsSwimming)
+            envMultiplier = airMultiplier;
+        else if (!IsGrounded && IsSwimming)
+            envMultiplier = waterMultiplier;
+        else
+            envMultiplier = 1f;
+
+        _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier * envMultiplier,
+            ForceMode.Acceleration);
+
+        // if (IsSwimming && IsGrounded && !isOnSlope)
+        //     _rb.AddForce(_rawMoveDirection.normalized * moveSpeed * movementMultiplier * waterMultiplier,
+        //         ForceMode.Acceleration);
+        // else if (IsSwimming && IsGrounded && isOnSlope)
+        //     _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier * waterMultiplier,
+        //         ForceMode.Acceleration);
+        // else if (IsSwimming && !IsGrounded)
+        //     _rb.AddForce(_rawMoveDirection.normalized * moveSpeed * movementMultiplier * waterMultiplier,
+        //         ForceMode.Acceleration);
+        // else if (!IsSwimming && IsGrounded && !isOnSlope)
+        //     _rb.AddForce(_rawMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+        // else if (!IsSwimming && IsGrounded && isOnSlope)
+        //     _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
+        // else if (!IsSwimming && !IsGrounded)
+        //     _rb.AddForce(_rawMoveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier,
+        //         ForceMode.Acceleration);
     }
 
-    private bool CheckSlope()
+    private bool CheckForSlope()
     {
         if (Physics.Raycast(transform.position, Vector3.down, out _slopeHit, playerHeight / 2 + 0.5f))
         {
@@ -157,11 +179,18 @@ public class FPSMover : MonoBehaviour
 
     private bool CheckGround()
     {
-        return Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        float dst = IsSwimming ? groundDistance * groundDistanceWaterMultiplier : groundDistance;
+        return Physics.CheckSphere(groundCheck.position, dst, groundMask);
     }
 
     private bool CheckSwimming()
     {
         return transform.position.y < 0f;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, _moveDirection * 2f);
     }
 }

@@ -357,8 +357,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698347321}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.36, z: 0}
+  m_LocalRotation: {x: 0.003649808, y: -0.98611605, z: 0.022495631, w: 0.1644865}
+  m_LocalPosition: {x: 6.484825, y: -1.9486507, z: 18.897526}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -813,7 +813,7 @@ MonoBehaviour:
   walkSpeed: 4
   sprintSpeed: 6
   acceleration: 10
-  jumpForce: 5
+  jumpForce: 8
   jumpKey: 32
   sprintKey: 304
   crouchKey: 306
@@ -825,6 +825,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   groundDistance: 0.2
+  groundDistanceWaterMultiplier: 2
 --- !u!54 &1252614021
 Rigidbody:
   m_ObjectHideFlags: 0
