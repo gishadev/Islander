@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FPSMover : MonoBehaviour
@@ -32,31 +30,14 @@ public class FPSMover : MonoBehaviour
 
     private float _horizontalMovement;
     private float _verticalMovement;
-    
+
     private Vector3 _moveDirection;
     private Vector3 _slopeMoveDirection;
     private RaycastHit _slopeHit;
 
     private Rigidbody _rb;
 
-    private bool OnSlope()
-    {
-        if (Physics.Raycast(transform.position, Vector3.down, out _slopeHit, playerHeight / 2 + 0.5f))
-        {
-            if (_slopeHit.normal != Vector3.up)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        return false;
-    }
-
-    private void Start()
+    private void Awake()
     {
         _rb = GetComponent<Rigidbody>();
         _rb.freezeRotation = true;
@@ -66,19 +47,22 @@ public class FPSMover : MonoBehaviour
     {
         IsGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        MyInput();
+        GetInput();
         ControlDrag();
         ControlSpeed();
 
         if (Input.GetKeyDown(jumpKey) && IsGrounded)
-        {
             Jump();
-        }
 
         _slopeMoveDirection = Vector3.ProjectOnPlane(_moveDirection, _slopeHit.normal);
     }
 
-    void MyInput()
+    private void FixedUpdate()
+    {
+        MovePlayer();
+    }
+
+    private void GetInput()
     {
         _horizontalMovement = Input.GetAxisRaw("Horizontal");
         _verticalMovement = Input.GetAxisRaw("Vertical");
@@ -86,7 +70,7 @@ public class FPSMover : MonoBehaviour
         _moveDirection = transform.forward * _verticalMovement + transform.right * _horizontalMovement;
     }
 
-    void Jump()
+    private void Jump()
     {
         if (IsGrounded)
         {
@@ -95,49 +79,41 @@ public class FPSMover : MonoBehaviour
         }
     }
 
-    void ControlSpeed()
+    private void ControlSpeed()
     {
         if (Input.GetKey(sprintKey) && IsGrounded)
-        {
             moveSpeed = Mathf.Lerp(moveSpeed, sprintSpeed, acceleration * Time.deltaTime);
-        }
         else
-        {
             moveSpeed = Mathf.Lerp(moveSpeed, walkSpeed, acceleration * Time.deltaTime);
-        }
     }
 
-    void ControlDrag()
+    private void ControlDrag()
     {
         if (IsGrounded)
-        {
             _rb.drag = groundDrag;
-        }
         else
-        {
             _rb.drag = airDrag;
-        }
-    }
-
-    private void FixedUpdate()
-    {
-        MovePlayer();
     }
 
     void MovePlayer()
     {
-        if (IsGrounded && !OnSlope())
-        {
+        if (IsGrounded && !CheckSlope())
             _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
-        }
-        else if (IsGrounded && OnSlope())
-        {
+        else if (IsGrounded && CheckSlope())
             _rb.AddForce(_slopeMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
-        }
         else if (!IsGrounded)
-        {
             _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier,
                 ForceMode.Acceleration);
+    }
+
+    private bool CheckSlope()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out _slopeHit, playerHeight / 2 + 0.5f))
+        {
+            if (_slopeHit.normal != Vector3.up)
+                return true;
         }
+
+        return false;
     }
 }
