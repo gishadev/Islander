@@ -1,7 +1,6 @@
-using System;
 using UnityEngine;
 
-namespace Gisha.Islander
+namespace Gisha.Islander.Character
 {
     public class FPSLimiter : MonoBehaviour
     {
