@@ -357,8 +357,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698347321}
-  m_LocalRotation: {x: 0.003649808, y: -0.98611605, z: 0.022495631, w: 0.1644865}
-  m_LocalPosition: {x: 6.484825, y: -1.9486507, z: 18.897526}
+  m_LocalRotation: {x: 0.12134327, y: -0.17926785, z: -0.021847596, w: -0.9760438}
+  m_LocalPosition: {x: 13.059702, y: -2.7653177, z: -0.33272934}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -707,6 +707,7 @@ GameObject:
   - component: {fileID: 1252614021}
   - component: {fileID: 1252614020}
   - component: {fileID: 1252614022}
+  - component: {fileID: 1252614023}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -856,6 +857,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTrans: {fileID: 354763089}
   cameraSensitivity: 75
+--- !u!114 &1252614023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252614015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ecb88adc495ad0479e28b585284790e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawnPrefab: {fileID: 8646737221561437876, guid: c87a80045a3f4f94db84a873549efb26, type: 3}
+  spawnOffset: 1.5
 --- !u!1 &1288910421
 GameObject:
   m_ObjectHideFlags: 0
