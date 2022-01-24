@@ -230,12 +230,12 @@ Rigidbody:
   m_GameObject: {fileID: 8646737221561437876}
   serializedVersion: 2
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 0.5
+  m_AngularDrag: 0.15
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &783180965
 MonoBehaviour:
@@ -249,12 +249,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60695d7dc97764d43afc6193a66d7216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionPoints:
-  - {fileID: 296748201}
-  - {fileID: 305763060}
-  - {fileID: 1495006739}
-  - {fileID: 1789918960}
   waterLevel: 0
-  floatHeight: 2
-  waterDensity: 0.05
-  downForce: 0.5
