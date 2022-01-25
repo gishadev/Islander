@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Gisha.Islander
+namespace Gisha.Islander.Core
 {
     public class Floater : MonoBehaviour
     {

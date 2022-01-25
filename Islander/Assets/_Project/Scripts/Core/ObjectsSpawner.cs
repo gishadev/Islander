@@ -1,8 +1,7 @@
-using System.Numerics;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 
-namespace Gisha.Islander
+namespace Gisha.Islander.Core
 {
     public class ObjectsSpawner : MonoBehaviour
     {
