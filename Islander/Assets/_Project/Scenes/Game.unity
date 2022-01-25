@@ -988,6 +988,7 @@ GameObject:
   - component: {fileID: 1522318144}
   - component: {fileID: 1522318143}
   - component: {fileID: 1522318145}
+  - component: {fileID: 1522318146}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -1034,6 +1035,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxFps: 60
+--- !u!114 &1522318146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522318142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bc90bd6524445e997824c92f889748c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!64 &1663634522
 MeshCollider:
   m_ObjectHideFlags: 0

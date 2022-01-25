@@ -1,4 +1,5 @@
 using Gisha.Islander.Character;
+using Gisha.Islander.Utilities;
 using UnityEngine;
 
 namespace Gisha.Islander.Environment
@@ -9,8 +10,10 @@ namespace Gisha.Islander.Environment
 
         public void Mine()
         {
+            float part = transform.localScale.x / 10f;
+            TweenAnimator.Scale(transform, transform.localScale.x - part, 0.5f, true);
             _health--;
-            if (_health <= 0) 
+            if (_health <= 0)
                 Gather();
         }
 
