@@ -1,4 +1,5 @@
 using System;
+using Gisha.Islander.UI;
 using UnityEngine;
 
 namespace Gisha.Islander.Character
@@ -19,7 +20,7 @@ namespace Gisha.Islander.Character
         public static void ChangeWoodCount(int count)
         {
             Instance._woodCount += count;
-            Debug.Log($"Current wood count: <color=brown>{Instance._woodCount}</color>");
+            UIManager.UpdateResourcesCount(Instance._woodCount);
         }
     }
 }
