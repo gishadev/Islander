@@ -19,7 +19,7 @@ namespace Gisha.Islander.Environment
 
         private void Gather()
         {
-            InventoryManager.ChangeWoodCount(5);
+            InventoryManager.Instance.ChangeWoodCount(5);
             Destroy(gameObject);
         }
     }

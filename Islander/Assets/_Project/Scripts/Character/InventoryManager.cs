@@ -6,21 +6,21 @@ namespace Gisha.Islander.Character
 {
     public class InventoryManager : MonoBehaviour
     {
-        private static InventoryManager Instance { get; set; }
+        public static InventoryManager Instance { get; private set; }
 
         private int _woodCount;
 
-        public int WoodCount => _woodCount;
+        public int WoodCount => Instance._woodCount;
 
         private void Awake()
         {
             Instance = this;
         }
 
-        public static void ChangeWoodCount(int count)
+        public void ChangeWoodCount(int count)
         {
             Instance._woodCount += count;
-            UIManager.UpdateResourcesCount(Instance._woodCount);
+            UIManager.Instance.UpdateResourcesCount(Instance._woodCount);
         }
     }
 }

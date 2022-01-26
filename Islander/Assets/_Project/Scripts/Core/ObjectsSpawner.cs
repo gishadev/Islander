@@ -1,3 +1,4 @@
+using Gisha.Islander.Character;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 
@@ -11,11 +12,15 @@ namespace Gisha.Islander.Core
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.E))
-                SpawnObject();
+                CraftObject(25);
         }
 
-        private void SpawnObject()
+        private void CraftObject(int woodCost)
         {
+            if (InventoryManager.Instance.WoodCount < woodCost)
+                return;
+
+            InventoryManager.Instance.ChangeWoodCount(-woodCost);
             var position = transform.position + transform.forward * spawnOffset;
             var rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
 

@@ -6,7 +6,7 @@ namespace Gisha.Islander.UI
 {
     public class UIManager : MonoBehaviour
     {
-        private static UIManager Instance { get; set; }
+        public static UIManager Instance { get; private set; }
 
         [SerializeField] private TMP_Text woodCountText;
 
@@ -15,7 +15,7 @@ namespace Gisha.Islander.UI
             Instance = this;
         }
 
-        public static void UpdateResourcesCount(int woodCount)
+        public void UpdateResourcesCount(int woodCount)
         {
             Instance.woodCountText.text = woodCount.ToString();
         }
