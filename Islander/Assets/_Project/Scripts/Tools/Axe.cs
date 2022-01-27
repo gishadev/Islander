@@ -21,16 +21,15 @@ namespace Gisha.Islander.Tools
                 return;
 
             if (Input.GetMouseButtonDown(0))
-                _photonView.RPC("Attack", RpcTarget.All);
+                Attack();
         }
-
-        [PunRPC]
+        
         private void Attack()
         {
-            //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 0.25f);
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 0.25f);
 
-            if (Physics.Raycast(transform.position, transform.forward, out var raycastHit, maxDistance))
+            if (Physics.Raycast(ray, out var raycastHit, maxDistance))
             {
                 if (raycastHit.collider.CompareTag("Mineable"))
                 {
