@@ -1,4 +1,5 @@
 using Gisha.Islander.Environment;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Gisha.Islander.Tools
@@ -7,18 +8,29 @@ namespace Gisha.Islander.Tools
     {
         [SerializeField] private float maxDistance;
 
-        private void Update()
+        private PhotonView _photonView;
+
+        private void Awake()
         {
-            if (Input.GetMouseButtonDown(0))
-                Attack();
+            _photonView = GetComponent<PhotonView>();
         }
 
+        private void Update()
+        {
+            if (!_photonView.IsMine)
+                return;
+
+            if (Input.GetMouseButtonDown(0))
+                _photonView.RPC("Attack", RpcTarget.All);
+        }
+
+        [PunRPC]
         private void Attack()
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 0.25f);
-            
-            if (Physics.Raycast(ray, out var raycastHit, maxDistance))
+            //var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 0.25f);
+
+            if (Physics.Raycast(transform.position, transform.forward, out var raycastHit, maxDistance))
             {
                 if (raycastHit.collider.CompareTag("Mineable"))
                 {

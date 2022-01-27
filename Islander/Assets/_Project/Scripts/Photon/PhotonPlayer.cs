@@ -15,8 +15,6 @@ namespace Gisha.Islander.Photon
 
         private void Start()
         {
-            Debug.Log(_photonView.IsMine);
-            
             if (!_photonView.IsMine)
                 return;
             

@@ -1,5 +1,6 @@
 using Gisha.Islander.Character;
 using Gisha.Islander.Utilities;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Gisha.Islander.Environment
@@ -16,7 +17,7 @@ namespace Gisha.Islander.Environment
             if (_health <= 0)
                 Gather();
         }
-
+        
         private void Gather()
         {
             InventoryManager.Instance.ChangeWoodCount(5);
