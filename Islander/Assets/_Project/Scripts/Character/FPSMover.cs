@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 namespace Gisha.Islander.Character
@@ -43,15 +44,20 @@ namespace Gisha.Islander.Character
         private RaycastHit _slopeHit;
 
         private Rigidbody _rb;
+        private PhotonView _pv;
 
         private void Awake()
         {
+            _pv = GetComponent<PhotonView>();
             _rb = GetComponent<Rigidbody>();
             _rb.freezeRotation = true;
         }
 
         private void Update()
         {
+            if (!_pv.IsMine)
+                return;
+
             IsGrounded = CheckGround();
             IsSwimming = CheckSwimming();
 
@@ -76,6 +82,9 @@ namespace Gisha.Islander.Character
 
         private void FixedUpdate()
         {
+            if (!_pv.IsMine)
+                return;
+            
             MovePlayer();
         }
 

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 namespace Gisha.Islander.Character
@@ -8,14 +9,30 @@ namespace Gisha.Islander.Character
         [SerializeField] private float cameraSensitivity = 1.6f;
 
         private float _xRot, _yRot;
-        
+
+        private PhotonView _pv;
+
+        private void Awake()
+        {
+            _pv = GetComponent<PhotonView>();
+        }
+
         private void Start()
         {
+            if (!_pv.IsMine)
+            {
+                Destroy(cameraTrans.gameObject);
+                return;
+            }
+
             Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void FixedUpdate()
         {
+            if (!_pv.IsMine)
+                return;
+
             var mouseX = Input.GetAxis("Mouse X") * cameraSensitivity * Time.fixedDeltaTime;
             var mouseY = Input.GetAxis("Mouse Y") * cameraSensitivity * Time.fixedDeltaTime;
 
