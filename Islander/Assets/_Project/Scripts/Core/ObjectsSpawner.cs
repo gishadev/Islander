@@ -1,4 +1,5 @@
 using Gisha.Islander.Character;
+using Photon.Pun;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 
@@ -9,14 +10,22 @@ namespace Gisha.Islander.Core
         [SerializeField] private GameObject objectToSpawnPrefab;
         [SerializeField] private float spawnOffset;
 
+        private PhotonView _pv;
+
         private void Update()
         {
+            if (!_pv.IsMine)
+                return;
+            
             if (Input.GetKeyDown(KeyCode.E))
                 CraftObject(25);
         }
 
         private void CraftObject(int woodCost)
         {
+            if (!_pv.IsMine)
+                return;
+            
             if (InventoryManager.Instance.WoodCount < woodCost)
                 return;
 
@@ -24,7 +33,7 @@ namespace Gisha.Islander.Core
             var position = transform.position + transform.forward * spawnOffset;
             var rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
 
-            Instantiate(objectToSpawnPrefab, position, rotation);
+            PhotonNetwork.Instantiate(objectToSpawnPrefab.name, position, rotation);
         }
     }
 }
