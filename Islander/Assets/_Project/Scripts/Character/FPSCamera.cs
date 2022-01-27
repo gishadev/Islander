@@ -25,7 +25,7 @@ namespace Gisha.Islander.Character
                 return;
             }
 
-            Cursor.lockState = CursorLockMode.Locked;
+            // Cursor.lockState = CursorLockMode.Locked;
         }
 
         private void FixedUpdate()
