@@ -36,7 +36,7 @@ namespace Gisha.Islander.Character
         [SerializeField] private float groundDistanceWaterMultiplier = 2f;
 
         private bool IsGrounded { get; set; }
-        private bool IsSwimming { get; set; }
+        public bool IsSwimming { get; private set; }
 
         private float _xInput, _yInput, _zInput;
 
