@@ -1,30 +1,13 @@
 using Gisha.Islander.Environment;
-using Photon.Pun;
 using UnityEngine;
 
-namespace Gisha.Islander.Tools
+namespace Gisha.Islander.Player.Tools
 {
-    public class Axe : MonoBehaviour
+    public class Tool : MonoBehaviour
     {
         [SerializeField] private float maxDistance;
 
-        private PhotonView _photonView;
-
-        private void Awake()
-        {
-            _photonView = GetComponent<PhotonView>();
-        }
-
-        private void Update()
-        {
-            if (!_photonView.IsMine)
-                return;
-
-            if (Input.GetMouseButtonDown(0))
-                Attack();
-        }
-        
-        private void Attack()
+        public virtual void PrimaryUse()
         {
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 0.25f);
