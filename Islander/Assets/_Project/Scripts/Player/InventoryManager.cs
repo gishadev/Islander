@@ -2,7 +2,7 @@ using System;
 using Gisha.Islander.UI;
 using UnityEngine;
 
-namespace Gisha.Islander.Character
+namespace Gisha.Islander.Player
 {
     public class InventoryManager : MonoBehaviour
     {

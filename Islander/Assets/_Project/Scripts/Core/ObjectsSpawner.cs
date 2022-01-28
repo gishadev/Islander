@@ -1,4 +1,4 @@
-using Gisha.Islander.Character;
+using Gisha.Islander.Player;
 using Photon.Pun;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;

@@ -1,4 +1,4 @@
-using Gisha.Islander.Character;
+using Gisha.Islander.Player;
 using Gisha.Islander.Utilities;
 using Photon.Pun;
 using UnityEngine;
