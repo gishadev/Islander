@@ -21,7 +21,7 @@ namespace Gisha.Islander.Core
         {
             if (!_pv.IsMine)
                 return;
-            
+
             if (Input.GetKeyDown(KeyCode.E))
                 CraftObject(25);
         }
@@ -30,11 +30,11 @@ namespace Gisha.Islander.Core
         {
             if (!_pv.IsMine)
                 return;
-            
+
             if (InventoryManager.Instance.WoodCount < woodCost)
                 return;
 
-            InventoryManager.Instance.ChangeWoodCount(-woodCost);
+            InventoryManager.Instance.ChangeResourceCount(ResourceType.Wood, -woodCost);
             var position = transform.position + transform.forward * spawnOffset;
             var rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
 

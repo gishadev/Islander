@@ -8,19 +8,48 @@ namespace Gisha.Islander.Player
     {
         public static InventoryManager Instance { get; private set; }
 
-        private int _woodCount;
+        private int _woodCount, _stoneCount, _ironCount, _titaniumCount;
 
-        public int WoodCount => Instance._woodCount;
+        public int WoodCount => _woodCount;
+        public int StoneCount => _stoneCount;
+        public int IronCount => _ironCount;
+        public int TitaniumCount => _titaniumCount;
+
 
         private void Awake()
         {
             Instance = this;
         }
 
-        public void ChangeWoodCount(int count)
+        public void ChangeResourceCount(ResourceType resourceType, int count)
         {
-            Instance._woodCount += count;
-            UIManager.Instance.UpdateResourcesCount(Instance._woodCount);
+            switch (resourceType)
+            {
+                case ResourceType.Wood:
+                    _woodCount += count;
+                    break;
+                case ResourceType.Stone:
+                    _stoneCount += count;
+                    break;
+                case ResourceType.Iron:
+                    _ironCount += count;
+                    break;
+                case ResourceType.Titanium:
+                    _titaniumCount += count;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null);
+            }
+
+            UIManager.Instance.UpdateResourcesCount();
         }
+    }
+
+    public enum ResourceType
+    {
+        Wood,
+        Stone,
+        Iron,
+        Titanium
     }
 }

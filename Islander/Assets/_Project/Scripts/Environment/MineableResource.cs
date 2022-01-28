@@ -5,10 +5,12 @@ using UnityEngine;
 
 namespace Gisha.Islander.Environment
 {
-    public class Tree : MonoBehaviour, IMineable
+    public class MineableResource : MonoBehaviour, IMineable
     {
-        private int _health = 5;
+        [SerializeField] private ResourceType resourceType;
+        [SerializeField] private int resourcesToGather = 5;
 
+        private int _health = 5;
         private PhotonView _pv;
 
         private void Awake()
@@ -24,10 +26,10 @@ namespace Gisha.Islander.Environment
             if (_health <= 0)
                 Gather();
         }
-        
+
         private void Gather()
         {
-            InventoryManager.Instance.ChangeWoodCount(5);
+            InventoryManager.Instance.ChangeResourceCount(resourceType, resourcesToGather);
             _pv.RPC("RPC_Destroy", RpcTarget.All);
         }
 
