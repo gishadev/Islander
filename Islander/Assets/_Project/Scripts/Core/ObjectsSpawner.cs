@@ -12,6 +12,11 @@ namespace Gisha.Islander.Core
 
         private PhotonView _pv;
 
+        private void Awake()
+        {
+            _pv = GetComponent<PhotonView>();
+        }
+
         private void Update()
         {
             if (!_pv.IsMine)
