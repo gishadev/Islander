@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Gisha.Islander.Player
 {
-    public class Player : MonoBehaviour
+    public class PlayerController : MonoBehaviour
     {
         [Header("Player Settings")] [SerializeField]
         private int maxHealth = 100;

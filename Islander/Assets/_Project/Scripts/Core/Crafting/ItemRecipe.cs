@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace Gisha.Islander.Core.Crafting
 {
-    [CreateAssetMenu(fileName = "ItemBlueprint", menuName = "Scriptable Objects/Crafting/Item Blueprint", order = 0)]
-    public class ItemBlueprint : ScriptableObject
+    [CreateAssetMenu(fileName = "ItemRecipe", menuName = "Scriptable Objects/Crafting/Item Recipe", order = 0)]
+    public class ItemRecipe : ScriptableObject
     {
         [SerializeField] private CraftRecipe craftRecipe;
         [SerializeField] private GameObject prefab;

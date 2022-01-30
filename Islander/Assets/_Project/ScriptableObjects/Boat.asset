@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8462ff4c38124dbea9b79660ebe29487, type: 3}
   m_Name: Boat
   m_EditorClassIdentifier: 
-  itemName: Boat
   craftRecipe:
-    resourceForCraft:
+    resourcesForCraft:
     - resourceType: 0
       count: 25
+  prefab: {fileID: 4310458856361244130, guid: eef116fe23e29cd47aedd8083335811f, type: 3}
