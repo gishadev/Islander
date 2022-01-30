@@ -43,6 +43,18 @@ namespace Gisha.Islander.Player
 
             UIManager.Instance.UpdateResourcesCount();
         }
+
+        public int GetResourceCount(ResourceType resourceType)
+        {
+            return resourceType switch
+            {
+                ResourceType.Wood => _woodCount,
+                ResourceType.Stone => _stoneCount,
+                ResourceType.Iron => _ironCount,
+                ResourceType.Titanium => _titaniumCount,
+                _ => throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null)
+            };
+        }
     }
 
     public enum ResourceType

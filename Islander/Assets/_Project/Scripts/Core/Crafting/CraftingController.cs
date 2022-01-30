@@ -1,14 +1,13 @@
 using Gisha.Islander.Player;
 using Photon.Pun;
 using UnityEngine;
-using Quaternion = UnityEngine.Quaternion;
 
 namespace Gisha.Islander.Core.Crafting
 {
     public class CraftingController : MonoBehaviour
     {
-        [SerializeField] private GameObject objectToSpawnPrefab;
-        [SerializeField] private float spawnOffset;
+        [SerializeField] private ItemBlueprint[] itemBlueprints;
+        [SerializeField] private float spawnForwardOffset;
 
         private PhotonView _pv;
 
@@ -21,24 +20,29 @@ namespace Gisha.Islander.Core.Crafting
         {
             if (!_pv.IsMine)
                 return;
-
-            if (Input.GetKeyDown(KeyCode.E))
-                CraftObject(25);
         }
 
-        private void CraftObject(int woodCost)
+        private void Craft(ItemBlueprint blueprintToCraft)
         {
             if (!_pv.IsMine)
                 return;
 
-            if (InventoryManager.Instance.WoodCount < woodCost)
-                return;
+            // Check if all resources are in an enough count to craft an item. 
+            foreach (var resourceForCraft in blueprintToCraft.Recipe.ResourcesForCraft)
+                if (resourceForCraft.Count < InventoryManager.Instance.GetResourceCount(resourceForCraft.ResourceType))
+                {
+                    Debug.Log($"Not enough {resourceForCraft.ResourceType} to craft {blueprintToCraft.name}");
+                    return;
+                }
 
-            InventoryManager.Instance.ChangeResourceCount(ResourceType.Wood, -woodCost);
-            var position = transform.position + transform.forward * spawnOffset;
+            // Subtract resources count.
+            foreach (var resourceForCraft in blueprintToCraft.Recipe.ResourcesForCraft)
+                InventoryManager.Instance.ChangeResourceCount(resourceForCraft.ResourceType, resourceForCraft.Count);
+
+            var position = transform.position + transform.forward * spawnForwardOffset;
             var rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
 
-            PhotonNetwork.Instantiate(objectToSpawnPrefab.name, position, rotation);
+            PhotonNetwork.Instantiate(blueprintToCraft.Prefab.name, position, rotation);
         }
     }
 }

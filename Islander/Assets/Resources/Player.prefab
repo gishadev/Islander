@@ -129,7 +129,6 @@ GameObject:
   - component: {fileID: 5213691690135786312}
   - component: {fileID: 6832327027218691626}
   - component: {fileID: 6832327027218691624}
-  - component: {fileID: 6832327027218691625}
   - component: {fileID: 8680530244576474758}
   - component: {fileID: 605117402}
   - component: {fileID: 1374141082317999496}
@@ -299,20 +298,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraTrans: {fileID: 6832327026455062783}
   cameraSensitivity: 75
---- !u!114 &6832327027218691625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6832327027218691793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ecb88adc495ad0479e28b585284790e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToSpawnPrefab: {fileID: 4310458856361244130, guid: eef116fe23e29cd47aedd8083335811f, type: 3}
-  spawnOffset: 1.5
 --- !u!114 &8680530244576474758
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -2106,6 +2106,7 @@ GameObject:
   - component: {fileID: 1522318145}
   - component: {fileID: 1522318146}
   - component: {fileID: 1522318147}
+  - component: {fileID: 1522318149}
   m_Layer: 0
   m_Name: GameMaster
   m_TagString: Untagged
@@ -2195,6 +2196,20 @@ MonoBehaviour:
   spawnpoints:
   - {fileID: 980630606}
   - {fileID: 2087845388}
+--- !u!114 &1522318149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1522318142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ecb88adc495ad0479e28b585284790e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawnPrefab: {fileID: 0}
+  spawnOffset: 0
 --- !u!1 &1643609088
 GameObject:
   m_ObjectHideFlags: 0
