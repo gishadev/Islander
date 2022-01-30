@@ -3,9 +3,9 @@ using Photon.Pun;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
 
-namespace Gisha.Islander.Core
+namespace Gisha.Islander.Core.Crafting
 {
-    public class ObjectsSpawner : MonoBehaviour
+    public class CraftingController : MonoBehaviour
     {
         [SerializeField] private GameObject objectToSpawnPrefab;
         [SerializeField] private float spawnOffset;
