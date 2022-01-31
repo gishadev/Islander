@@ -1,4 +1,5 @@
 using System;
+using Gisha.Islander.UI;
 using UnityEngine;
 
 namespace Gisha.Islander.Player
@@ -6,7 +7,7 @@ namespace Gisha.Islander.Player
     public class PlayerController : MonoBehaviour
     {
         [Header("Player Settings")] [SerializeField]
-        private int maxHealth = 100;
+        private float maxHealth = 100;
 
         [Header("Other")] [SerializeField] private float swimmingDamagePerSecond = 10;
 
@@ -40,7 +41,7 @@ namespace Gisha.Islander.Player
                 Debug.Log($"<color=red>{gameObject.name} is dead now :c</color>");
             }
 
-            Debug.Log($"Current health: {_health}");
+            UIManager.Instance.UpdateHealthBar(_health, maxHealth);
         }
     }
 }
