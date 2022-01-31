@@ -27,13 +27,14 @@ namespace Gisha.Islander.Player.Tools
                 _selectedTool.PrimaryUse();
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                SelectTool(0);
+                _pv.RPC("SelectTool", RpcTarget.AllBuffered, 0);
             else if (Input.GetKeyDown(KeyCode.Alpha2))
-                SelectTool(1);
+                _pv.RPC("SelectTool", RpcTarget.AllBuffered, 1);
             else if (Input.GetKeyDown(KeyCode.Alpha3))
-                SelectTool(2);
+                _pv.RPC("SelectTool", RpcTarget.AllBuffered, 2);
         }
 
+        [PunRPC]
         private void SelectTool(int index)
         {
             _selectedTool.gameObject.SetActive(false);
