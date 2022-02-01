@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 1
-  resourcesToGather: 3
+  resourcesToGather: 7
 --- !u!114 &25925889043667279
 MonoBehaviour:
   m_ObjectHideFlags: 0
