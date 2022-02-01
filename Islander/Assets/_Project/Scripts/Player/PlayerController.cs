@@ -1,5 +1,7 @@
 using System;
+using Gisha.Islander.Photon;
 using Gisha.Islander.UI;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Gisha.Islander.Player
@@ -11,11 +13,15 @@ namespace Gisha.Islander.Player
 
         [Header("Other")] [SerializeField] private float swimmingDamagePerSecond = 10;
 
+        public Action Destroyed;
+        
         private float _health;
         private FPSMover _fpsMover;
+        private PhotonView _pv;
 
         private void Awake()
         {
+            _pv = GetComponent<PhotonView>();
             _fpsMover = GetComponent<FPSMover>();
         }
 
@@ -26,6 +32,9 @@ namespace Gisha.Islander.Player
 
         private void Update()
         {
+            if (!_pv.IsMine)
+                return;
+
             if (_fpsMover.IsSwimming)
                 GetDamage(swimmingDamagePerSecond * Time.deltaTime);
         }
@@ -38,10 +47,15 @@ namespace Gisha.Islander.Player
             {
                 _health = 0;
 
-                Debug.Log($"<color=red>{gameObject.name} is dead now :c</color>");
+                PhotonNetwork.Destroy(gameObject);
             }
 
             UIManager.Instance.UpdateHealthBar(_health, maxHealth);
+        }
+
+        private void OnDestroy()
+        {
+            Destroyed?.Invoke();
         }
     }
 }
