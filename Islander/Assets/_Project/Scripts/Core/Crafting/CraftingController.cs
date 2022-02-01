@@ -25,10 +25,11 @@ namespace Gisha.Islander.Core.Crafting
             foreach (var resourceForCraft in recipeToCraft.Recipe.ResourcesForCraft)
                 InventoryManager.Instance.ChangeResourceCount(resourceForCraft.ResourceType, -resourceForCraft.Count);
 
-            var position = playerController.transform.position + playerController.transform.forward * spawnForwardOffset;
+            var position = playerController.transform.position +
+                           playerController.transform.forward * spawnForwardOffset;
             var rotation = Quaternion.Euler(0f, playerController.transform.rotation.eulerAngles.y, 0f);
 
-            PhotonNetwork.Instantiate(recipeToCraft.Prefab.name, position, rotation);
+            PhotonNetwork.Instantiate("Floaters/" + recipeToCraft.Prefab.name, position, rotation);
         }
     }
 }
