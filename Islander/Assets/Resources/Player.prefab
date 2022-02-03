@@ -420,12 +420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9bb67cc8aed499abf8ec44768fc7291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toolsPrefabs:
+  tools:
   - {fileID: 5159271304097630950, guid: 45a181f546ae3d74685740ebc05ea09f, type: 3}
-  - {fileID: 6443311490499174108, guid: 351593871c391744ba175a8841206112, type: 3}
-  - {fileID: 2772608048462803666, guid: 404b10f77b128fa40a0843ec259220b4, type: 3}
-  - {fileID: 5468854561329888152, guid: 990585dfb3cad2241b7520bf2582aa97, type: 3}
-  - {fileID: 1694385996737343349, guid: 70b50f94a6585c74db033e981f83fbc3, type: 3}
 --- !u!114 &605117402
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,13 +5,22 @@ using UnityEngine;
 namespace Gisha.Islander.Core.Crafting
 {
     [CreateAssetMenu(fileName = "ItemRecipe", menuName = "Scriptable Objects/Crafting/Item Recipe", order = 0)]
-    public class ItemRecipe : ScriptableObject
+    public class ItemCraftData : ScriptableObject
     {
+        [SerializeField] private ItemCraftType itemCraftType;
         [SerializeField] private CraftRecipe craftRecipe;
         [SerializeField] private GameObject prefab;
-        
+
         public CraftRecipe Recipe => craftRecipe;
         public GameObject Prefab => prefab;
+
+        public ItemCraftType ItemCraftType => itemCraftType;
+    }
+
+    public enum ItemCraftType
+    {
+        Object,
+        Tool
     }
 
     [Serializable]

@@ -6,30 +6,48 @@ namespace Gisha.Islander.Core.Crafting
 {
     public class CraftingController : MonoBehaviour
     {
-        [SerializeField] private ItemRecipe[] itemRecipes;
+        [SerializeField] private ItemCraftData[] itemRecipes;
         [SerializeField] private float spawnForwardOffset;
 
-        public ItemRecipe[] ItemRecipes => itemRecipes;
+        public ItemCraftData[] ItemRecipes => itemRecipes;
 
-        public void Craft(ItemRecipe recipeToCraft, PlayerController playerController)
+        public void Craft(ItemCraftData craftData, PlayerController playerController)
         {
             // Check if all resources are in an enough count to craft an item. 
-            foreach (var resourceForCraft in recipeToCraft.Recipe.ResourcesForCraft)
+            foreach (var resourceForCraft in craftData.Recipe.ResourcesForCraft)
                 if (resourceForCraft.Count > InventoryManager.Instance.GetResourceCount(resourceForCraft.ResourceType))
                 {
-                    Debug.Log($"Not enough {resourceForCraft.ResourceType} to craft {recipeToCraft.name}");
+                    Debug.Log($"Not enough {resourceForCraft.ResourceType} to craft {craftData.name}");
                     return;
                 }
 
             // Subtract resources count.
-            foreach (var resourceForCraft in recipeToCraft.Recipe.ResourcesForCraft)
+            foreach (var resourceForCraft in craftData.Recipe.ResourcesForCraft)
                 InventoryManager.Instance.ChangeResourceCount(resourceForCraft.ResourceType, -resourceForCraft.Count);
 
+            switch (craftData.ItemCraftType)
+            {
+                case ItemCraftType.Object:
+                    CraftObject(craftData, playerController);
+                    break;
+                case ItemCraftType.Tool:
+                    CraftTool(craftData, playerController);
+                    break;
+            }
+        }
+
+        private void CraftObject(ItemCraftData craftData, PlayerController playerController)
+        {
             var position = playerController.transform.position +
                            playerController.transform.forward * spawnForwardOffset;
             var rotation = Quaternion.Euler(0f, playerController.transform.rotation.eulerAngles.y, 0f);
 
-            PhotonNetwork.Instantiate("Floaters/" + recipeToCraft.Prefab.name, position, rotation);
+            PhotonNetwork.Instantiate("Floaters/" + craftData.Prefab.name, position, rotation);
+        }
+
+        private void CraftTool(ItemCraftData craftData, PlayerController playerController)
+        {
+            playerController.AddTool(craftData.Prefab);
         }
     }
 }

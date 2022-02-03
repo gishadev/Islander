@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
 
@@ -5,16 +6,22 @@ namespace Gisha.Islander.Player.Tools
 {
     public class ToolController : MonoBehaviour
     {
-        [SerializeField] private GameObject[] toolsPrefabs;
+        [SerializeField] private List<GameObject> tools = new List<GameObject>();
 
-        private Tool _selectedTool;
+        private Tool _equippedTool;
         private PhotonView _pv;
+
+        public List<GameObject> Tools
+        {
+            get => tools;
+            set => tools = value;
+        }
 
 
         private void Awake()
         {
             _pv = GetComponent<PhotonView>();
-            SelectTool(0);
+            Equip(0);
         }
 
         private void Update()
@@ -23,31 +30,31 @@ namespace Gisha.Islander.Player.Tools
                 return;
 
             if (Input.GetMouseButtonDown(0))
-                _selectedTool.PrimaryUse();
+                _equippedTool.PrimaryUse();
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
-                _pv.RPC("SelectTool", RpcTarget.AllBuffered, 0);
+                _pv.RPC("Equip", RpcTarget.AllBuffered, 0);
             else if (Input.GetKeyDown(KeyCode.Alpha2))
-                _pv.RPC("SelectTool", RpcTarget.AllBuffered, 1);
+                _pv.RPC("Equip", RpcTarget.AllBuffered, 1);
             else if (Input.GetKeyDown(KeyCode.Alpha3))
-                _pv.RPC("SelectTool", RpcTarget.AllBuffered, 2);
+                _pv.RPC("Equip", RpcTarget.AllBuffered, 2);
             else if (Input.GetKeyDown(KeyCode.Alpha4))
-                _pv.RPC("SelectTool", RpcTarget.AllBuffered, 3);
+                _pv.RPC("Equip", RpcTarget.AllBuffered, 3);
             else if (Input.GetKeyDown(KeyCode.Alpha5))
-                _pv.RPC("SelectTool", RpcTarget.AllBuffered, 4);
+                _pv.RPC("Equip", RpcTarget.AllBuffered, 4);
         }
 
         [PunRPC]
-        private void SelectTool(int index)
+        private void Equip(int index)
         {
-            if (_selectedTool != null)
-                Destroy(_selectedTool.gameObject);
+            if (_equippedTool != null)
+                Destroy(_equippedTool.gameObject);
 
             var hand = Camera.main.transform.GetChild(0);
-            var toolGO = Instantiate(toolsPrefabs[index], hand);
+            var toolGO = Instantiate(Tools[index], hand);
             toolGO.transform.SetPositionAndRotation(hand.position, hand.rotation);
 
-            _selectedTool = toolGO.GetComponent<Tool>();
+            _equippedTool = toolGO.GetComponent<Tool>();
         }
     }
 }

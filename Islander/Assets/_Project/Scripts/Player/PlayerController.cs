@@ -1,5 +1,6 @@
 using System;
 using Gisha.Islander.Photon;
+using Gisha.Islander.Player.Tools;
 using Gisha.Islander.UI;
 using Photon.Pun;
 using UnityEngine;
@@ -16,11 +17,14 @@ namespace Gisha.Islander.Player
         public Action Destroyed;
 
         private float _health;
+
+        private ToolController _toolController;
         private FPSMover _fpsMover;
         private PhotonView _pv;
 
         private void Awake()
         {
+            _toolController = GetComponent<ToolController>();
             _pv = GetComponent<PhotonView>();
             _fpsMover = GetComponent<FPSMover>();
         }
@@ -52,6 +56,11 @@ namespace Gisha.Islander.Player
             }
 
             UIManager.Instance.UpdateHealthBar(_health, maxHealth);
+        }
+
+        public void AddTool(GameObject toolPrefab)
+        {
+            _toolController.Tools.Add(toolPrefab);
         }
     }
 }

@@ -44,6 +44,7 @@ MonoBehaviour:
   - Attack
   - RPC_Destroy
   - SelectTool
+  - Equip
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
