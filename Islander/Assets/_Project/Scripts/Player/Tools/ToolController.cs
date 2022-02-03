@@ -1,4 +1,3 @@
-using System;
 using Photon.Pun;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ namespace Gisha.Islander.Player.Tools
 {
     public class ToolController : MonoBehaviour
     {
-        [SerializeField] private Tool[] tools;
+        [SerializeField] private GameObject[] toolsPrefabs;
 
         private Tool _selectedTool;
         private PhotonView _pv;
@@ -15,7 +14,7 @@ namespace Gisha.Islander.Player.Tools
         private void Awake()
         {
             _pv = GetComponent<PhotonView>();
-            _selectedTool = tools[0];
+            SelectTool(0);
         }
 
         private void Update()
@@ -32,14 +31,23 @@ namespace Gisha.Islander.Player.Tools
                 _pv.RPC("SelectTool", RpcTarget.AllBuffered, 1);
             else if (Input.GetKeyDown(KeyCode.Alpha3))
                 _pv.RPC("SelectTool", RpcTarget.AllBuffered, 2);
+            else if (Input.GetKeyDown(KeyCode.Alpha4))
+                _pv.RPC("SelectTool", RpcTarget.AllBuffered, 3);
+            else if (Input.GetKeyDown(KeyCode.Alpha5))
+                _pv.RPC("SelectTool", RpcTarget.AllBuffered, 4);
         }
 
         [PunRPC]
         private void SelectTool(int index)
         {
-            _selectedTool.gameObject.SetActive(false);
-            _selectedTool = tools[index];
-            _selectedTool.gameObject.SetActive(true);
+            if (_selectedTool != null)
+                Destroy(_selectedTool.gameObject);
+
+            var hand = Camera.main.transform.GetChild(0);
+            var toolGO = Instantiate(toolsPrefabs[index], hand);
+            toolGO.transform.SetPositionAndRotation(hand.position, hand.rotation);
+
+            _selectedTool = toolGO.GetComponent<Tool>();
         }
     }
 }
