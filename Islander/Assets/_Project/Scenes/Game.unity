@@ -2178,12 +2178,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ecb88adc495ad0479e28b585284790e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemRecipes:
+  itemsCraftData:
   - {fileID: 11400000, guid: 3e47994927dd156459277bbb4129b0dc, type: 2}
   - {fileID: 11400000, guid: bb2aac839cda4c243b3e920aa3223b67, type: 2}
   - {fileID: 11400000, guid: 0eab6d961c98cf64d9fd90a3ef8ecf45, type: 2}
-  - {fileID: 11400000, guid: dc5bb90b85cf6d642a24ffb4b668af9f, type: 2}
   - {fileID: 11400000, guid: 6933abc2fb127534b8334787fac49690, type: 2}
+  - {fileID: 11400000, guid: dc5bb90b85cf6d642a24ffb4b668af9f, type: 2}
   spawnForwardOffset: 1
 --- !u!1 &1643609088
 GameObject:

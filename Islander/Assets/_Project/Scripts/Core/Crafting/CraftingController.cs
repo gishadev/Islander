@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Gisha.Islander.Player;
 using Photon.Pun;
 using UnityEngine;
@@ -6,10 +8,12 @@ namespace Gisha.Islander.Core.Crafting
 {
     public class CraftingController : MonoBehaviour
     {
-        [SerializeField] private ItemCraftData[] itemRecipes;
+        [SerializeField] private List<ItemCraftData> itemsCraftData;
         [SerializeField] private float spawnForwardOffset;
 
-        public ItemCraftData[] ItemRecipes => itemRecipes;
+        public Action Crafted;
+
+        public List<ItemCraftData> ItemsCraftData => itemsCraftData;
 
         public void Craft(ItemCraftData craftData, PlayerController playerController)
         {
@@ -34,6 +38,8 @@ namespace Gisha.Islander.Core.Crafting
                     CraftTool(craftData, playerController);
                     break;
             }
+
+            Crafted?.Invoke();
         }
 
         private void CraftObject(ItemCraftData craftData, PlayerController playerController)
@@ -48,6 +54,7 @@ namespace Gisha.Islander.Core.Crafting
         private void CraftTool(ItemCraftData craftData, PlayerController playerController)
         {
             playerController.AddTool(craftData.Prefab);
+            itemsCraftData.Remove(craftData);
         }
     }
 }

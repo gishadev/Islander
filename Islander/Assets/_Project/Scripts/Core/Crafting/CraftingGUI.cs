@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Gisha.Islander.Player;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Gisha.Islander.Core.Crafting
         [SerializeField] private Transform recipesParent;
 
         private CraftingController _craftingController;
+        private List<GameObject> _craftingGUIElements = new List<GameObject>();
 
         private void Awake()
         {
@@ -21,9 +23,19 @@ namespace Gisha.Islander.Core.Crafting
 
         private void Start()
         {
-            foreach (var recipe in _craftingController.ItemRecipes)
-                CreateRecipeElement(recipe);
+            UpdateCraftingGUI();
         }
+
+        private void OnEnable()
+        {
+            _craftingController.Crafted += UpdateCraftingGUI;
+        }
+
+        private void OnDisable()
+        {
+            _craftingController.Crafted -= UpdateCraftingGUI;
+        }
+
 
         private void Update()
         {
@@ -31,9 +43,16 @@ namespace Gisha.Islander.Core.Crafting
                 ChangeCraftPanelVisibility(!craftPanel.activeSelf);
         }
 
-        public void ChangeCraftPanelVisibility(bool isVisible)
+        public void UpdateCraftingGUI()
         {
-            craftPanel.SetActive(isVisible);
+            if (_craftingGUIElements.Count > 0)
+            {
+                foreach (var guiElement in _craftingGUIElements)
+                    Destroy(guiElement);
+            }
+
+            foreach (var recipe in _craftingController.ItemsCraftData)
+                CreateRecipeElement(recipe);
         }
 
         private void CreateRecipeElement(ItemCraftData craftData)
@@ -52,6 +71,13 @@ namespace Gisha.Islander.Core.Crafting
             var craftButton = recipeGO.transform.Find("Btn").GetComponent<Button>();
             craftButton.onClick.AddListener(
                 () => _craftingController.Craft(craftData, FindObjectOfType<PlayerController>()));
+
+            _craftingGUIElements.Add(recipeGO);
+        }
+
+        public void ChangeCraftPanelVisibility(bool isVisible)
+        {
+            craftPanel.SetActive(isVisible);
         }
     }
 }
