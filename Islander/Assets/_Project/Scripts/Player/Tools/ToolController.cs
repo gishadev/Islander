@@ -32,16 +32,14 @@ namespace Gisha.Islander.Player.Tools
             if (Input.GetMouseButtonDown(0))
                 _equippedTool.PrimaryUse();
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                _pv.RPC("Equip", RpcTarget.AllBuffered, 0);
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-                _pv.RPC("Equip", RpcTarget.AllBuffered, 1);
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-                _pv.RPC("Equip", RpcTarget.AllBuffered, 2);
-            else if (Input.GetKeyDown(KeyCode.Alpha4))
-                _pv.RPC("Equip", RpcTarget.AllBuffered, 3);
-            else if (Input.GetKeyDown(KeyCode.Alpha5))
-                _pv.RPC("Equip", RpcTarget.AllBuffered, 4);
+            for (int i = 0; i < 10; i++)
+            {
+                if (Input.GetKeyDown((KeyCode) (49 + i)) && tools.Count > i)
+                {
+                    _pv.RPC("Equip", RpcTarget.AllBuffered, i);
+                    break;
+                }
+            }
         }
 
         [PunRPC]
