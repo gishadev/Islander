@@ -14,7 +14,7 @@ namespace Gisha.Islander.Player
         [Header("Other")] [SerializeField] private float swimmingDamagePerSecond = 10;
 
         public Action Destroyed;
-        
+
         private float _health;
         private FPSMover _fpsMover;
         private PhotonView _pv;
@@ -28,6 +28,7 @@ namespace Gisha.Islander.Player
         private void Start()
         {
             _health = maxHealth;
+            UIManager.Instance.UpdateHealthBar(_health, maxHealth);
         }
 
         private void Update()
@@ -47,15 +48,10 @@ namespace Gisha.Islander.Player
             {
                 _health = 0;
 
-                PhotonNetwork.Destroy(gameObject);
+                Destroyed?.Invoke();
             }
 
             UIManager.Instance.UpdateHealthBar(_health, maxHealth);
-        }
-
-        private void OnDestroy()
-        {
-            Destroyed?.Invoke();
         }
     }
 }
