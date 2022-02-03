@@ -156,23 +156,6 @@ namespace Gisha.Islander.Player
 
             _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier * envMultiplier,
                 ForceMode.Acceleration);
-
-            // if (IsSwimming && IsGrounded && !isOnSlope)
-            //     _rb.AddForce(_rawMoveDirection.normalized * moveSpeed * movementMultiplier * waterMultiplier,
-            //         ForceMode.Acceleration);
-            // else if (IsSwimming && IsGrounded && isOnSlope)
-            //     _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier * waterMultiplier,
-            //         ForceMode.Acceleration);
-            // else if (IsSwimming && !IsGrounded)
-            //     _rb.AddForce(_rawMoveDirection.normalized * moveSpeed * movementMultiplier * waterMultiplier,
-            //         ForceMode.Acceleration);
-            // else if (!IsSwimming && IsGrounded && !isOnSlope)
-            //     _rb.AddForce(_rawMoveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
-            // else if (!IsSwimming && IsGrounded && isOnSlope)
-            //     _rb.AddForce(_moveDirection.normalized * moveSpeed * movementMultiplier, ForceMode.Acceleration);
-            // else if (!IsSwimming && !IsGrounded)
-            //     _rb.AddForce(_rawMoveDirection.normalized * moveSpeed * movementMultiplier * airMultiplier,
-            //         ForceMode.Acceleration);
         }
 
         private bool CheckForSlope()
