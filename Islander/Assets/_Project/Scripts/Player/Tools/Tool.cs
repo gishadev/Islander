@@ -14,11 +14,8 @@ namespace Gisha.Islander.Player.Tools
 
             if (Physics.Raycast(ray, out var raycastHit, maxDistance))
             {
-                if (raycastHit.collider.CompareTag("Mineable"))
-                {
-                    Debug.Log("Mine");
+                if (raycastHit.collider.CompareTag("Mineable")) 
                     raycastHit.collider.GetComponent<IMineable>().Mine();
-                }
             }
         }
     }
