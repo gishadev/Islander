@@ -32,13 +32,15 @@ namespace Gisha.Islander.Player.Tools
         {
             for (int i = 0; i < _slots.Length; i++)
             {
+                var img = _slots[i].GetComponent<Image>();
+                
                 if (i == index)
                 {
-                    _slots[index].GetComponent<Image>().color = Color.yellow;
+                    img.color = Color.yellow;
                     continue;
                 }
 
-                _slots[index].GetComponent<Image>().color = _defSlotColor;
+                img.color = _defSlotColor;
             }
         }
     }
