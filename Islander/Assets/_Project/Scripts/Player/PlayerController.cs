@@ -1,5 +1,4 @@
 using System;
-using Gisha.Islander.Photon;
 using Gisha.Islander.Player.Tools;
 using Gisha.Islander.UI;
 using Photon.Pun;
@@ -11,6 +10,8 @@ namespace Gisha.Islander.Player
     {
         [Header("Player Settings")] [SerializeField]
         private float maxHealth = 100;
+
+        [SerializeField] private GameObject rockPrefab;
 
         [Header("Other")] [SerializeField] private float swimmingDamagePerSecond = 10;
 
@@ -33,6 +34,8 @@ namespace Gisha.Islander.Player
         {
             _health = maxHealth;
             UIManager.Instance.UpdateHealthBar(_health, maxHealth);
+
+            AddTool(rockPrefab);
         }
 
         private void Update()
@@ -60,7 +63,7 @@ namespace Gisha.Islander.Player
 
         public void AddTool(GameObject toolPrefab)
         {
-            _toolController.Tools.Add(toolPrefab);
+            _toolController.AddTool(toolPrefab);
         }
     }
 }

@@ -360,6 +360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
+  rockPrefab: {fileID: 5159271304097630950, guid: 45a181f546ae3d74685740ebc05ea09f, type: 3}
   swimmingDamagePerSecond: 25
 --- !u!114 &6832327027218691626
 MonoBehaviour:
@@ -420,8 +421,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9bb67cc8aed499abf8ec44768fc7291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tools:
-  - {fileID: 5159271304097630950, guid: 45a181f546ae3d74685740ebc05ea09f, type: 3}
 --- !u!114 &605117402
 MonoBehaviour:
   m_ObjectHideFlags: 0

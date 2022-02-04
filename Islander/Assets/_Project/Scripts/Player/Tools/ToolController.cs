@@ -6,21 +6,19 @@ namespace Gisha.Islander.Player.Tools
 {
     public class ToolController : MonoBehaviour
     {
-        [SerializeField] private List<GameObject> tools = new List<GameObject>();
-
+        private List<GameObject> _tools = new List<GameObject>();
         private Tool _equippedTool;
         private PhotonView _pv;
-
-        public List<GameObject> Tools
-        {
-            get => tools;
-            set => tools = value;
-        }
-
+        private HotbarGUI _hotbar;
 
         private void Awake()
         {
+            _hotbar = FindObjectOfType<HotbarGUI>();
             _pv = GetComponent<PhotonView>();
+        }
+
+        private void Start()
+        {
             Equip(0);
         }
 
@@ -34,12 +32,19 @@ namespace Gisha.Islander.Player.Tools
 
             for (int i = 0; i < 10; i++)
             {
-                if (Input.GetKeyDown((KeyCode) (49 + i)) && tools.Count > i)
+                if (Input.GetKeyDown((KeyCode) (49 + i)) && _tools.Count > i)
                 {
                     _pv.RPC("Equip", RpcTarget.AllBuffered, i);
                     break;
                 }
             }
+        }
+
+        public void AddTool(GameObject toolPrefab)
+        {
+            _tools.Add(toolPrefab);
+
+            _hotbar.AddToolGUI(toolPrefab, _tools.Count - 1);
         }
 
         [PunRPC]
@@ -49,10 +54,12 @@ namespace Gisha.Islander.Player.Tools
                 Destroy(_equippedTool.gameObject);
 
             var hand = Camera.main.transform.GetChild(0);
-            var toolGO = Instantiate(Tools[index], hand);
+            var toolGO = Instantiate(_tools[index], hand);
             toolGO.transform.SetPositionAndRotation(hand.position, hand.rotation);
 
             _equippedTool = toolGO.GetComponent<Tool>();
+
+            _hotbar.ToolEquipGUI(index);
         }
     }
 }
