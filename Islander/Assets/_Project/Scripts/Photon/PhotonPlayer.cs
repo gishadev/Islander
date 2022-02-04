@@ -17,12 +17,7 @@ namespace Gisha.Islander.Photon
         {
             _photonView = GetComponent<PhotonView>();
         }
-
-        private void OnEnable()
-        {
-            _playerController.Destroyed += OnDestroyPlayerController;
-        }
-
+        
         private void OnDisable()
         {
             if (_playerController != null)
@@ -36,6 +31,8 @@ namespace Gisha.Islander.Photon
 
             _spawnpoint = GameManager.Instance.Spawnpoints[PhotonNetwork.CurrentRoom.PlayerCount - 1];
             Respawn();
+            
+            _playerController.Destroyed += OnDestroyPlayerController;
         }
 
         private void OnDestroyPlayerController()
