@@ -78,6 +78,7 @@ namespace Gisha.Islander.Core.Crafting
         public void ChangeCraftPanelVisibility(bool isVisible)
         {
             craftPanel.SetActive(isVisible);
+            Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }
     }
 }
