@@ -49,6 +49,12 @@ namespace Gisha.Islander.Player
 
         public void GetDamage(float dmg)
         {
+            _pv.RPC("RPC_GetDamage", RpcTarget.All, dmg);
+        }
+
+        [PunRPC]
+        private void RPC_GetDamage(float dmg)
+        {
             _health -= dmg;
 
             if (_health < 0)
@@ -58,8 +64,10 @@ namespace Gisha.Islander.Player
                 Destroyed?.Invoke();
             }
 
-            UIManager.Instance.UpdateHealthBar(_health, maxHealth);
+            if (_pv.IsMine)
+                UIManager.Instance.UpdateHealthBar(_health, maxHealth);
         }
+
 
         public void AddTool(GameObject toolPrefab)
         {

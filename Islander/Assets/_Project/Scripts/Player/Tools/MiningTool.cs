@@ -20,6 +20,9 @@ namespace Gisha.Islander.Player.Tools
                 {
                     if (raycastHits[i].collider.CompareTag("Mineable"))
                         raycastHits[i].collider.GetComponent<IMineable>().Mine();
+                    if (raycastHits[i].collider.CompareTag("Player") &&
+                        !transform.IsChildOf(raycastHits[i].collider.transform))
+                        raycastHits[i].collider.GetComponent<PlayerController>().GetDamage(21);
                 }
             }
         }

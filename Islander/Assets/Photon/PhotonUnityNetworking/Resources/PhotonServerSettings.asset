@@ -45,6 +45,7 @@ MonoBehaviour:
   - RPC_Destroy
   - SelectTool
   - Equip
+  - RPC_GetDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1
