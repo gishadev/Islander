@@ -12,10 +12,15 @@ namespace Gisha.Islander.Player.Tools
             var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 0.25f);
 
-            if (Physics.Raycast(ray, out var raycastHit, maxDistance))
+            var raycastHits = Physics.SphereCastAll(ray.origin, 0.35f, ray.direction, maxDistance);
+
+            if (raycastHits.Length > 0)
             {
-                if (raycastHit.collider.CompareTag("Mineable")) 
-                    raycastHit.collider.GetComponent<IMineable>().Mine();
+                for (int i = 0; i < raycastHits.Length; i++)
+                {
+                    if (raycastHits[i].collider.CompareTag("Mineable"))
+                        raycastHits[i].collider.GetComponent<IMineable>().Mine();
+                }
             }
         }
     }
