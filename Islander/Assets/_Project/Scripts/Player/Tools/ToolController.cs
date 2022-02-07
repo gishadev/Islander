@@ -6,10 +6,12 @@ namespace Gisha.Islander.Player.Tools
 {
     public class ToolController : MonoBehaviour
     {
+        [SerializeField] private Transform handTrans;
+        
         private List<GameObject> _tools = new List<GameObject>();
         private Tool _equippedTool;
-        private PhotonView _pv;
         private HotbarGUI _hotbar;
+        private PhotonView _pv;
 
         private void Awake()
         {
@@ -19,7 +21,8 @@ namespace Gisha.Islander.Player.Tools
 
         private void Start()
         {
-            Equip(0);
+            if (_pv.IsMine)
+                _pv.RPC("RPC_Equip", RpcTarget.AllBuffered, 0);
         }
 
         private void Update()
@@ -34,28 +37,30 @@ namespace Gisha.Islander.Player.Tools
             {
                 if (Input.GetKeyDown((KeyCode) (49 + i)) && _tools.Count > i)
                 {
-                    _pv.RPC("Equip", RpcTarget.AllBuffered, i);
+                    _pv.RPC("RPC_Equip", RpcTarget.AllBuffered, i);
                     break;
                 }
             }
         }
 
-        public void AddTool(GameObject toolPrefab)
+        public void AddTool(string toolName)
         {
-            _tools.Add(toolPrefab);
+            var prefab = Resources.Load($"Tools/{toolName}") as GameObject;
 
-            _hotbar.AddToolGUI(toolPrefab, _tools.Count - 1);
+            _tools.Add(prefab);
+
+            if (_pv.IsMine)
+                _hotbar.AddToolGUI(prefab, _tools.Count - 1);
         }
 
         [PunRPC]
-        private void Equip(int index)
+        private void RPC_Equip(int index)
         {
             if (_equippedTool != null)
                 Destroy(_equippedTool.gameObject);
 
-            var hand = Camera.main.transform.GetChild(0);
-            var toolGO = Instantiate(_tools[index], hand);
-            toolGO.transform.SetPositionAndRotation(hand.position, hand.rotation);
+            var toolGO = Instantiate(_tools[index], handTrans);
+            toolGO.transform.SetPositionAndRotation(handTrans.position, handTrans.rotation);
 
             _equippedTool = toolGO.GetComponent<Tool>();
 

@@ -5,7 +5,7 @@ namespace Gisha.Islander.Player
 {
     public class FPSCamera : MonoBehaviour
     {
-        [SerializeField] private Transform cameraTrans;
+        [SerializeField] private Transform cameraRigTrans;
         [SerializeField] private float cameraSensitivity = 1.6f;
 
         private float _xRot, _yRot;
@@ -21,7 +21,7 @@ namespace Gisha.Islander.Player
         {
             if (!_pv.IsMine)
             {
-                Destroy(cameraTrans.gameObject);
+                Destroy(cameraRigTrans.Find("Camera").gameObject);
                 return;
             }
 
@@ -44,7 +44,7 @@ namespace Gisha.Islander.Player
         {
             _xRot -= deltaY;
             _xRot = Mathf.Clamp(_xRot, -90f, 90f);
-            cameraTrans.localRotation = Quaternion.Euler(_xRot, 0f, 0f);
+            cameraRigTrans.localRotation = Quaternion.Euler(_xRot, 0f, 0f);
         }
 
         private void ApplyBodyRotation(float deltaX)

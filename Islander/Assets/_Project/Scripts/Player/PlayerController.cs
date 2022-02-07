@@ -10,9 +10,7 @@ namespace Gisha.Islander.Player
     {
         [Header("Player Settings")] [SerializeField]
         private float maxHealth = 100;
-
-        [SerializeField] private GameObject rockPrefab;
-
+        
         [Header("Other")] [SerializeField] private float swimmingDamagePerSecond = 10;
 
         public Action Destroyed;
@@ -22,6 +20,7 @@ namespace Gisha.Islander.Player
         private ToolController _toolController;
         private FPSMover _fpsMover;
         private PhotonView _pv;
+
 
         private void Awake()
         {
@@ -35,7 +34,8 @@ namespace Gisha.Islander.Player
             _health = maxHealth;
             UIManager.Instance.UpdateHealthBar(_health, maxHealth);
 
-            AddTool(rockPrefab);
+            if (_pv.IsMine)
+                AddTool("Rock");
         }
 
         private void Update()
@@ -68,10 +68,15 @@ namespace Gisha.Islander.Player
                 UIManager.Instance.UpdateHealthBar(_health, maxHealth);
         }
 
-
-        public void AddTool(GameObject toolPrefab)
+        public void AddTool(string toolName)
         {
-            _toolController.AddTool(toolPrefab);
+            _pv.RPC("RPC_AddTool", RpcTarget.AllBuffered, toolName);
+        }
+
+        [PunRPC]
+        private void RPC_AddTool(string toolName)
+        {
+            _toolController.AddTool(toolName);
         }
     }
 }

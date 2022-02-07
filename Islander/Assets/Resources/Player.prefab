@@ -23,11 +23,43 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3575932665206177458}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.65, y: -0.5, z: 0.41}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.65, y: 0, z: 0.41}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 6832327026455062783}
+  m_Father: {fileID: 7405464422988262851}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5829978726633983553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7405464422988262851}
+  m_Layer: 0
+  m_Name: Camera Rig
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7405464422988262851
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5829978726633983553}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 6832327026455062783}
+  - {fileID: 3819453222587771436}
+  m_Father: {fileID: 6832327027218691629}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6047727828880209199
@@ -166,12 +198,11 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6832327026455062782}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 3819453222587771436}
-  m_Father: {fileID: 6832327027218691629}
+  m_Children: []
+  m_Father: {fileID: 7405464422988262851}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &6832327026455062781
@@ -262,7 +293,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 7, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6832327026455062783}
+  - {fileID: 7405464422988262851}
   - {fileID: 6832327025872093863}
   - {fileID: 5796862435259213608}
   m_Father: {fileID: 0}
@@ -360,7 +391,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  rockPrefab: {fileID: 5159271304097630950, guid: 45a181f546ae3d74685740ebc05ea09f, type: 3}
   swimmingDamagePerSecond: 25
 --- !u!114 &6832327027218691626
 MonoBehaviour:
@@ -407,7 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a5dd76949a94612a2e98cacf30c85da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraTrans: {fileID: 6832327026455062783}
+  cameraRigTrans: {fileID: 7405464422988262851}
   cameraSensitivity: 75
 --- !u!114 &8680530244576474758
 MonoBehaviour:
@@ -421,6 +451,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9bb67cc8aed499abf8ec44768fc7291, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handTrans: {fileID: 3819453222587771436}
 --- !u!114 &605117402
 MonoBehaviour:
   m_ObjectHideFlags: 0

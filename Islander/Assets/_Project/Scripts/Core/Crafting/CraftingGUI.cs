@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gisha.Islander.Photon;
 using Gisha.Islander.Player;
 using TMPro;
 using UnityEngine;
@@ -70,7 +71,7 @@ namespace Gisha.Islander.Core.Crafting
             // Updating listeners of the button.
             var craftButton = recipeGO.transform.Find("Btn").GetComponent<Button>();
             craftButton.onClick.AddListener(
-                () => _craftingController.Craft(craftData, FindObjectOfType<PlayerController>()));
+                () => _craftingController.Craft(craftData, PhotonManager.MyPhotonPlayer.PlayerController));
 
             _craftingGUIElements.Add(recipeGO);
         }

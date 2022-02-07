@@ -1,7 +1,5 @@
-using System;
 using Gisha.Islander.Core;
 using Gisha.Islander.Player;
-using Gisha.Islander.UI;
 using Photon.Pun;
 using UnityEngine;
 
@@ -13,6 +11,8 @@ namespace Gisha.Islander.Photon
         private Transform _spawnpoint;
         private PhotonView _photonView;
 
+        public PlayerController PlayerController => _playerController;
+
         private void Awake()
         {
             _photonView = GetComponent<PhotonView>();
@@ -20,8 +20,8 @@ namespace Gisha.Islander.Photon
         
         private void OnDisable()
         {
-            if (_playerController != null)
-                _playerController.Destroyed -= OnDestroyPlayerController;
+            if (PlayerController != null)
+                PlayerController.Destroyed -= OnDestroyPlayerController;
         }
 
         private void Start()
@@ -32,14 +32,14 @@ namespace Gisha.Islander.Photon
             _spawnpoint = GameManager.Instance.Spawnpoints[PhotonNetwork.CurrentRoom.PlayerCount - 1];
             Respawn();
             
-            _playerController.Destroyed += OnDestroyPlayerController;
+            PlayerController.Destroyed += OnDestroyPlayerController;
         }
 
         private void OnDestroyPlayerController()
         {
-            _playerController.Destroyed -= OnDestroyPlayerController;
+            PlayerController.Destroyed -= OnDestroyPlayerController;
             
-            PhotonNetwork.Destroy(_playerController.gameObject);
+            PhotonNetwork.Destroy(PlayerController.gameObject);
             Respawn();
         }
 
@@ -48,7 +48,7 @@ namespace Gisha.Islander.Photon
             _playerController = PhotonNetwork.Instantiate("Player", _spawnpoint.position, Quaternion.identity, 0)
                 .GetComponent<PlayerController>();
 
-            _playerController.Destroyed += OnDestroyPlayerController;
+            PlayerController.Destroyed += OnDestroyPlayerController;
         }
     }
 }

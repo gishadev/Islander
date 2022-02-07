@@ -53,7 +53,7 @@ namespace Gisha.Islander.Core.Crafting
 
         private void CraftTool(ItemCraftData craftData, PlayerController playerController)
         {
-            playerController.AddTool(craftData.Prefab);
+            playerController.AddTool(craftData.Prefab.name);
             itemsCraftData.Remove(craftData);
         }
     }
