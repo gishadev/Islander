@@ -22,7 +22,7 @@ namespace Gisha.Islander.Player.Tools
         private void Start()
         {
             if (_pv.IsMine)
-                _pv.RPC("RPC_Equip", RpcTarget.AllBuffered, 0);
+                Equip(0);
         }
 
         private void Update()
@@ -37,7 +37,7 @@ namespace Gisha.Islander.Player.Tools
             {
                 if (Input.GetKeyDown((KeyCode) (49 + i)) && _tools.Count > i)
                 {
-                    _pv.RPC("RPC_Equip", RpcTarget.AllBuffered, i);
+                    Equip(i);
                     break;
                 }
             }
@@ -53,6 +53,12 @@ namespace Gisha.Islander.Player.Tools
                 _hotbar.AddToolGUI(prefab, _tools.Count - 1);
         }
 
+        private void Equip(int index)
+        {
+            _pv.RPC("RPC_Equip", RpcTarget.AllBuffered, index);
+            _hotbar.ToolEquipGUI(index);
+        }
+        
         [PunRPC]
         private void RPC_Equip(int index)
         {
@@ -63,8 +69,6 @@ namespace Gisha.Islander.Player.Tools
             toolGO.transform.SetPositionAndRotation(handTrans.position, handTrans.rotation);
 
             _equippedTool = toolGO.GetComponent<Tool>();
-
-            _hotbar.ToolEquipGUI(index);
         }
     }
 }
