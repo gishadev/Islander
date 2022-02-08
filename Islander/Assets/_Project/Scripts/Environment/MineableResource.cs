@@ -11,13 +11,7 @@ namespace Gisha.Islander.Environment
         [SerializeField] private int resourcesToGather = 5;
 
         private int _health = 5;
-        private PhotonView _pv;
-
-        private void Awake()
-        {
-            _pv = GetComponent<PhotonView>();
-        }
-
+        
         public void Mine()
         {
             float part = transform.localScale.x / 10f;
@@ -30,13 +24,13 @@ namespace Gisha.Islander.Environment
         private void Gather()
         {
             InventoryManager.Instance.ChangeResourceCount(resourceType, resourcesToGather);
-            _pv.RPC("RPC_Destroy", RpcTarget.All);
-        }
-
-        [PunRPC]
-        private void RPC_Destroy()
-        {
             Destroy(gameObject);
         }
+
+        // [PunRPC]
+        // private void RPC_Destroy()
+        // {
+        //     Destroy(gameObject);
+        // }
     }
 }

@@ -10,15 +10,17 @@ namespace Gisha.Islander.Player
     {
         [Header("Player Settings")] [SerializeField]
         private float maxHealth = 100;
-        
+
         [Header("Other")] [SerializeField] private float swimmingDamagePerSecond = 10;
 
         public Action Destroyed;
-
+        public Vector3 ViewDirection => _fpsCamera.CameraRigTrans.forward;
+        
         private float _health;
 
         private ToolController _toolController;
         private FPSMover _fpsMover;
+        private FPSCamera _fpsCamera;
         private PhotonView _pv;
 
 
@@ -27,6 +29,7 @@ namespace Gisha.Islander.Player
             _toolController = GetComponent<ToolController>();
             _pv = GetComponent<PhotonView>();
             _fpsMover = GetComponent<FPSMover>();
+            _fpsCamera = GetComponent<FPSCamera>();
         }
 
         private void Start()

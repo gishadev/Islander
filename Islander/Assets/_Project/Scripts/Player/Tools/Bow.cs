@@ -10,9 +10,9 @@ namespace Gisha.Islander.Player.Tools
         [SerializeField] private Transform shootPoint;
         [SerializeField] private float shootForce;
 
-        public override void PrimaryUse()
+        public override void PrimaryUse(Vector3 origin, Vector3 direction)
         {
-            var arrow = PhotonNetwork.Instantiate(arrowPrefab.name, shootPoint.position, shootPoint.rotation);
+            var arrow = Instantiate(arrowPrefab, shootPoint.position, shootPoint.rotation);
             arrow.GetComponent<Projectile>().Owner = transform;
             arrow.GetComponent<Rigidbody>().AddForce(shootPoint.forward * shootForce, ForceMode.Impulse);
         }

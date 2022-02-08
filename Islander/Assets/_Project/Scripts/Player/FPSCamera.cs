@@ -12,6 +12,8 @@ namespace Gisha.Islander.Player
 
         private PhotonView _pv;
 
+        public Transform CameraRigTrans => cameraRigTrans;
+
         private void Awake()
         {
             _pv = GetComponent<PhotonView>();
@@ -21,7 +23,7 @@ namespace Gisha.Islander.Player
         {
             if (!_pv.IsMine)
             {
-                Destroy(cameraRigTrans.Find("Camera").gameObject);
+                Destroy(CameraRigTrans.Find("Camera").gameObject);
                 return;
             }
 
@@ -44,7 +46,7 @@ namespace Gisha.Islander.Player
         {
             _xRot -= deltaY;
             _xRot = Mathf.Clamp(_xRot, -90f, 90f);
-            cameraRigTrans.localRotation = Quaternion.Euler(_xRot, 0f, 0f);
+            CameraRigTrans.localRotation = Quaternion.Euler(_xRot, 0f, 0f);
         }
 
         private void ApplyBodyRotation(float deltaX)

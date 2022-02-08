@@ -1,4 +1,5 @@
 using Gisha.Islander.Environment;
+using Gisha.Islander.Photon;
 using UnityEngine;
 
 namespace Gisha.Islander.Player.Tools
@@ -7,12 +8,11 @@ namespace Gisha.Islander.Player.Tools
     {
         [SerializeField] private float maxDistance;
 
-        public override void PrimaryUse()
+        public override void PrimaryUse(Vector3 origin, Vector3 direction)
         {
-            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            Debug.DrawRay(ray.origin, ray.direction * maxDistance, Color.red, 0.25f);
+            Debug.DrawRay(origin, direction * maxDistance, Color.red, 0.25f);
 
-            var raycastHits = Physics.SphereCastAll(ray.origin, 0.35f, ray.direction, maxDistance);
+            var raycastHits = Physics.SphereCastAll(origin, 0.35f, direction, maxDistance);
 
             if (raycastHits.Length > 0)
             {
