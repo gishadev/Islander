@@ -1,5 +1,4 @@
 using Gisha.Islander.Environment;
-using Photon.Pun;
 using UnityEngine;
 
 namespace Gisha.Islander.Player.Tools
