@@ -1,6 +1,6 @@
+using Gisha.Islander.Photon;
 using Gisha.Islander.Player;
 using Gisha.Islander.Utilities;
-using Photon.Pun;
 using UnityEngine;
 
 namespace Gisha.Islander.Environment
@@ -11,19 +11,21 @@ namespace Gisha.Islander.Environment
         [SerializeField] private int resourcesToGather = 5;
 
         private int _health = 5;
-        
-        public void Mine()
+
+        public void Mine(PlayerController owner)
         {
             float part = transform.localScale.x / 10f;
             TweenAnimator.Scale(transform, transform.localScale.x - part, 0.5f, true);
             _health--;
             if (_health <= 0)
-                Gather();
+                Gather(owner);
         }
 
-        private void Gather()
+        private void Gather(PlayerController owner)
         {
-            InventoryManager.Instance.ChangeResourceCount(resourceType, resourcesToGather);
+            if (owner == PhotonManager.MyPhotonPlayer.PlayerController)
+                InventoryManager.Instance.ChangeResourceCount(resourceType, resourcesToGather);
+            
             Destroy(gameObject);
         }
 

@@ -1,5 +1,4 @@
 using Gisha.Islander.Environment;
-using Gisha.Islander.Photon;
 using UnityEngine;
 
 namespace Gisha.Islander.Player.Tools
@@ -8,7 +7,7 @@ namespace Gisha.Islander.Player.Tools
     {
         [SerializeField] private float maxDistance;
 
-        public override void PrimaryUse(Vector3 origin, Vector3 direction)
+        public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner)
         {
             Debug.DrawRay(origin, direction * maxDistance, Color.red, 0.25f);
 
@@ -19,7 +18,7 @@ namespace Gisha.Islander.Player.Tools
                 for (int i = 0; i < raycastHits.Length; i++)
                 {
                     if (raycastHits[i].collider.CompareTag("Mineable"))
-                        raycastHits[i].collider.GetComponent<IMineable>().Mine();
+                        raycastHits[i].collider.GetComponent<IMineable>().Mine(owner);
                     if (raycastHits[i].collider.CompareTag("Player") &&
                         !transform.IsChildOf(raycastHits[i].collider.transform))
                         raycastHits[i].collider.GetComponent<PlayerController>().GetDamage(21);

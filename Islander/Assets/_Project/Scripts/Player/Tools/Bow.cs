@@ -10,7 +10,7 @@ namespace Gisha.Islander.Player.Tools
         [SerializeField] private Transform shootPoint;
         [SerializeField] private float shootForce;
 
-        public override void PrimaryUse(Vector3 origin, Vector3 direction)
+        public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner)
         {
             var arrow = Instantiate(arrowPrefab, shootPoint.position, shootPoint.rotation);
             arrow.GetComponent<Projectile>().Owner = transform;

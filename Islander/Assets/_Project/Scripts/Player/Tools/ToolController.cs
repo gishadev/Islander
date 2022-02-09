@@ -65,7 +65,7 @@ namespace Gisha.Islander.Player.Tools
         private void RPC_PrimaryUse(Vector3 origin, Vector3 direction)
         {
             var controller = GetComponentInParent<PlayerController>();
-            _equippedTool.PrimaryUse(origin, direction);
+            _equippedTool.PrimaryUse(origin, direction, controller);
         }
 
         [PunRPC]
