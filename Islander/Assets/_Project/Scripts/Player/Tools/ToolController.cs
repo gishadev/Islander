@@ -78,6 +78,7 @@ namespace Gisha.Islander.Player.Tools
             toolGO.transform.SetPositionAndRotation(handTrans.position, handTrans.rotation);
 
             _equippedTool = toolGO.GetComponent<Tool>();
+            _equippedTool.Equiped?.Invoke();
         }
     }
 }

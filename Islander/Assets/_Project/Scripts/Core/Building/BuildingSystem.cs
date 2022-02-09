@@ -1,13 +1,14 @@
-using System;
 using UnityEngine;
 
 namespace Gisha.Islander.Core.Building
 {
-    public class BuildingSystem : MonoBehaviour
+    public static class BuildingSystem
     {
-        private void Start()
+        private static Grid _currentGrid;
+
+        public static void CreateGrid(Vector3 gridCenter)
         {
-            Grid grid = new Grid(5, 5, 5);
+            _currentGrid = new Grid(25, 25, 1f, gridCenter);
         }
     }
 }
