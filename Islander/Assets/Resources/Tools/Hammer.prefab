@@ -126,6 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fac33edb6157d5446a45279a12294549, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  woodPlank: {fileID: 1063046031619056847, guid: 7c4afbee9ecaaea439da70b18e102201, type: 3}
 --- !u!1 &699129068061104743
 GameObject:
   m_ObjectHideFlags: 0

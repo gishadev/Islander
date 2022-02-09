@@ -34,12 +34,21 @@ namespace Gisha.Islander.Core.Building
             }
         }
 
-        private Vector3 GetWorldPosition(int x, int z)
+        public Vector3 GetWorldPosition(int x, int z)
         {
             int xOffset = Mathf.FloorToInt(_width / 2f - _center.x);
             int zOffset = Mathf.FloorToInt(_length / 2f - _center.z);
 
             return new Vector3(x - xOffset, 0, z - zOffset) * _cellSize;
+        }
+
+        public void GetXZFromPosition(Vector3 worldPosition, out int x, out int z)
+        {
+            int xOffset = Mathf.FloorToInt(_width / 2f - _center.x);
+            int zOffset = Mathf.FloorToInt(_length / 2f - _center.z);
+            
+            x = Mathf.FloorToInt(worldPosition.x / _cellSize + xOffset);
+            z = Mathf.FloorToInt(worldPosition.z / _cellSize + zOffset);
         }
     }
 }
