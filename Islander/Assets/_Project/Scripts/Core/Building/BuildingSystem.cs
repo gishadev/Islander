@@ -8,58 +8,47 @@ namespace Gisha.Islander.Core.Building
         public static Vector3 FindBuildPositionAndRotation(Vector3 origin, out Quaternion rotation,
             out Transform raftTransform)
         {
-            var nearestPoint = FindNearestPoint(origin, 1f);
+            var nearestPoint = FindNearestPoint(origin, 1f, out var pointParent);
             if (nearestPoint == null)
             {
                 raftTransform = null;
                 rotation = Quaternion.identity;
                 return origin;
             }
-            var objectTransform = nearestPoint.transform.parent;
-            
+
+            var objectTransform = pointParent;
+
             raftTransform = objectTransform.parent;
-            rotation = nearestPoint.transform.rotation;
-            
-            return nearestPoint.transform.position + CalculateOffset(objectTransform.position, nearestPoint);
+            rotation = objectTransform.rotation;
+
+            return nearestPoint.WorldPosition + nearestPoint.LocalPosition;
         }
 
-        private static ConnectionPoint FindNearestPoint(Vector3 origin, float searchRadius)
+        private static ConnectionPoint FindNearestPoint(Vector3 origin, float searchRadius, out Transform parent)
         {
-            var points = Physics.OverlapSphere(origin, searchRadius)
-                .Where(x => x.TryGetComponent(out ConnectionPoint connectionPoint))
-                .Select(x => x.GetComponent<ConnectionPoint>());
+            var objects = Physics.OverlapSphere(origin, searchRadius)
+                .Where(x => x.TryGetComponent(out BuildingObject buildingObject))
+                .Select(x => x.GetComponent<BuildingObject>());
+            
             ConnectionPoint nearestPoint = null;
-
+            parent = null;
+            
             float minDst = Mathf.Infinity;
-            foreach (var point in points)
+            foreach (var buildingObject in objects)
             {
-                float sqrDst = Vector3.SqrMagnitude(point.transform.position - origin);
-                if (sqrDst < minDst)
+                foreach (var point in buildingObject.ConnectionPoints)
                 {
-                    nearestPoint = point;
-                    minDst = sqrDst;
+                    float sqrDst = Vector3.SqrMagnitude(point.WorldPosition - origin);
+                    if (sqrDst < minDst)
+                    {
+                        nearestPoint = point;
+                        parent = buildingObject.transform;
+                        minDst = sqrDst;
+                    }
                 }
             }
-
+            
             return nearestPoint;
-        }
-
-        private static Vector3 CalculateOffset(Vector3 center, ConnectionPoint targetPoint)
-        {
-            // switch (targetPoint.Edge)
-            // {
-            //     case Edge.Forward:
-            //         return Vector3.back / 2f;
-            //     case Edge.Right:
-            //         return Vector3.left / 2f;
-            //     case Edge.Back:
-            //         return Vector3.forward / 2f;
-            //     case Edge.Left:
-            //         return Vector3.right / 2f;
-            // }
-
-            Debug.Log(targetPoint.transform.position - center);
-            return targetPoint.transform.position - center;
         }
     }
 }

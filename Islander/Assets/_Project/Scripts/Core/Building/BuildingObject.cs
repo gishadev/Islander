@@ -7,17 +7,25 @@ namespace Gisha.Islander.Core.Building
     {
         private ConnectionPoint[] _connectionPoints;
 
+        public ConnectionPoint[] ConnectionPoints => _connectionPoints;
+
         private void Start()
         {
-            _connectionPoints = GetComponentsInChildren<ConnectionPoint>();
+            _connectionPoints = new[]
+            {
+                new ConnectionPoint(Vector3.forward / 2f, transform),
+                new ConnectionPoint(Vector3.right / 2f, transform),
+                new ConnectionPoint(Vector3.back / 2f, transform),
+                new ConnectionPoint(Vector3.left / 2f, transform)
+            };
         }
 
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.green;
-            foreach (var point in _connectionPoints)
+            foreach (var point in ConnectionPoints)
             {
-                Gizmos.DrawWireSphere(point.transform.position, .1f);
+                Gizmos.DrawWireSphere(point.WorldPosition, .1f);
             }
         }
     }

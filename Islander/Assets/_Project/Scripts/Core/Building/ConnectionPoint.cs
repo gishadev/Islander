@@ -1,29 +1,36 @@
-using System;
 using UnityEngine;
 
 namespace Gisha.Islander.Core.Building
 {
-    public class ConnectionPoint : MonoBehaviour
+    public class ConnectionPoint
     {
-        [SerializeField] private Edge edge;
+        public Edge Edge => _edge;
 
-        public Edge Edge => edge;
+        public Vector3 LocalPosition => _parent.rotation * _localPosition;
+        public Vector3 WorldPosition => _parent.position + LocalPosition;
 
-        private void Start()
+        private Vector3 _localPosition;
+        private Transform _parent;
+        private Edge _edge;
+
+        public ConnectionPoint(Vector3 localPosition, Transform parent)
         {
+            _localPosition = localPosition;
+            _parent = parent;
+
             GetCurrentEdge();
         }
 
         private void GetCurrentEdge()
         {
-            if (transform.position.x > transform.parent.position.x)
-                edge = Edge.Right;
-            if (transform.position.x < transform.parent.position.x)
-                edge = Edge.Left;
-            if (transform.position.z > transform.parent.position.z)
-                edge = Edge.Forward;
-            if (transform.position.z < transform.parent.position.z)
-                edge = Edge.Back;
+            if (LocalPosition.x > _parent.position.x)
+                _edge = Edge.Right;
+            if (LocalPosition.x < _parent.position.x)
+                _edge = Edge.Left;
+            if (LocalPosition.z > _parent.position.z)
+                _edge = Edge.Forward;
+            if (LocalPosition.z < _parent.position.z)
+                _edge = Edge.Back;
         }
     }
 
