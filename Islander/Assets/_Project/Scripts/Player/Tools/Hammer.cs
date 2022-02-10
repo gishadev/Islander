@@ -20,9 +20,11 @@ namespace Gisha.Islander.Player.Tools
 
         public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner)
         {
+            Debug.DrawRay(origin, direction * 100f, Color.red, 100f);
             if (Physics.Raycast(origin, direction, out var raycastHit))
             {
-                var position = BuildingSystem.FindBuildPositionAndRotation(raycastHit.point, out var rotation, out var raftTrans);
+                var position =
+                    BuildingSystem.FindBuildPositionAndRotation(raycastHit.point, out var rotation, out var raftTrans);
                 var obj = Instantiate(woodPlank, position, rotation);
 
                 if (raftTrans == null)

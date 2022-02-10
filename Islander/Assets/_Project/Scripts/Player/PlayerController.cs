@@ -14,8 +14,8 @@ namespace Gisha.Islander.Player
         [Header("Other")] [SerializeField] private float swimmingDamagePerSecond = 10;
 
         public Action Destroyed;
-        public Vector3 ViewDirection => _fpsCamera.CameraRigTrans.forward;
-        
+        public FPSCamera FPSCamera => _fpsCamera;
+
         private float _health;
 
         private ToolController _toolController;

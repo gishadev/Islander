@@ -33,7 +33,8 @@ namespace Gisha.Islander.Player.Tools
                 return;
 
             if (Input.GetMouseButtonDown(0))
-                _pv.RPC("RPC_PrimaryUse", RpcTarget.All, _controller.transform.position, _controller.ViewDirection);
+                _pv.RPC("RPC_PrimaryUse", RpcTarget.All, _controller.FPSCamera.CameraRigTrans.position,
+                    _controller.FPSCamera.CameraRigTrans.forward);
 
             for (int i = 0; i < 10; i++)
             {
