@@ -22,7 +22,16 @@ namespace Gisha.Islander.Player.Tools
         {
             if (Physics.Raycast(origin, direction, out var raycastHit))
             {
-                Instantiate(woodPlank, BuildingSystem.FindBuildPosition(raycastHit.point), Quaternion.identity);
+                var position = BuildingSystem.FindBuildPositionAndRotation(raycastHit.point, out var rotation, out var raftTrans);
+                var obj = Instantiate(woodPlank, position, rotation);
+
+                if (raftTrans == null)
+                {
+                    raftTrans = new GameObject("Raft").transform;
+                    raftTrans.gameObject.AddComponent<Rigidbody>();
+                }
+
+                obj.transform.SetParent(raftTrans);
             }
         }
 

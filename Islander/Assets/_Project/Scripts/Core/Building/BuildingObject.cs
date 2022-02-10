@@ -1,10 +1,16 @@
+using System;
 using UnityEngine;
 
 namespace Gisha.Islander.Core.Building
 {
     public class BuildingObject : MonoBehaviour
     {
-        [SerializeField] private ConnectionPoint[] _connectionPoints;
+        private ConnectionPoint[] _connectionPoints;
+
+        private void Start()
+        {
+            _connectionPoints = GetComponentsInChildren<ConnectionPoint>();
+        }
 
         private void OnDrawGizmos()
         {
