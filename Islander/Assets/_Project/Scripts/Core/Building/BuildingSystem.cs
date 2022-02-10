@@ -6,19 +6,17 @@ namespace Gisha.Islander.Core.Building
     public static class BuildingSystem
     {
         public static Vector3 FindBuildPositionAndRotation(Vector3 origin, out Quaternion rotation,
-            out Transform raftTransform)
+            out ConnectionPoint nearestPoint)
         {
-            var nearestPoint = FindNearestPoint(origin, 1f, out var pointParent);
+            nearestPoint = FindNearestPoint(origin, 1f, out var pointParent);
             if (nearestPoint == null)
             {
-                raftTransform = null;
                 rotation = Quaternion.identity;
                 return origin;
             }
 
             var objectTransform = pointParent;
 
-            raftTransform = objectTransform.parent;
             rotation = objectTransform.rotation;
 
             return nearestPoint.WorldPosition + nearestPoint.LocalPosition;
@@ -29,10 +27,10 @@ namespace Gisha.Islander.Core.Building
             var objects = Physics.OverlapSphere(origin, searchRadius)
                 .Where(x => x.TryGetComponent(out BuildingObject buildingObject))
                 .Select(x => x.GetComponent<BuildingObject>());
-            
+
             ConnectionPoint nearestPoint = null;
             parent = null;
-            
+
             float minDst = Mathf.Infinity;
             foreach (var buildingObject in objects)
             {
@@ -47,7 +45,7 @@ namespace Gisha.Islander.Core.Building
                     }
                 }
             }
-            
+
             return nearestPoint;
         }
     }

@@ -1,16 +1,19 @@
 using UnityEngine;
+using UnityEngineInternal;
 
 namespace Gisha.Islander.Core.Building
 {
     public class ConnectionPoint
     {
+        public bool IsBlocked => _isBlocked;
         public Edge Edge => _edge;
+        public Transform Parent => _parent;
+        public Vector3 LocalPosition => Parent.rotation * _localPosition;
+        public Vector3 WorldPosition => Parent.position + LocalPosition;
 
-        public Vector3 LocalPosition => _parent.rotation * _localPosition;
-        public Vector3 WorldPosition => _parent.position + LocalPosition;
-
-        private Vector3 _localPosition;
         private Transform _parent;
+        private bool _isBlocked;
+        private Vector3 _localPosition;
         private Edge _edge;
 
         public ConnectionPoint(Vector3 localPosition, Transform parent)
@@ -23,14 +26,19 @@ namespace Gisha.Islander.Core.Building
 
         private void GetCurrentEdge()
         {
-            if (LocalPosition.x > _parent.position.x)
+            if (LocalPosition.x > Parent.position.x)
                 _edge = Edge.Right;
-            if (LocalPosition.x < _parent.position.x)
+            if (LocalPosition.x < Parent.position.x)
                 _edge = Edge.Left;
-            if (LocalPosition.z > _parent.position.z)
+            if (LocalPosition.z > Parent.position.z)
                 _edge = Edge.Forward;
-            if (LocalPosition.z < _parent.position.z)
+            if (LocalPosition.z < Parent.position.z)
                 _edge = Edge.Back;
+        }
+
+        public void Block()
+        {
+            _isBlocked = true;
         }
     }
 

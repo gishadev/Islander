@@ -22,9 +22,12 @@ namespace Gisha.Islander.Core.Building
 
         private void OnDrawGizmos()
         {
-            Gizmos.color = Color.green;
             foreach (var point in ConnectionPoints)
             {
+                if (point.IsBlocked)
+                    Gizmos.color = Color.red;
+                else
+                    Gizmos.color = Color.green;
                 Gizmos.DrawWireSphere(point.WorldPosition, .1f);
             }
         }

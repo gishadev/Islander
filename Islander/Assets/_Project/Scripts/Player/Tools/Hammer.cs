@@ -20,20 +20,32 @@ namespace Gisha.Islander.Player.Tools
 
         public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner)
         {
-            Debug.DrawRay(origin, direction * 100f, Color.red, 100f);
             if (Physics.Raycast(origin, direction, out var raycastHit))
             {
                 var position =
-                    BuildingSystem.FindBuildPositionAndRotation(raycastHit.point, out var rotation, out var raftTrans);
+                    BuildingSystem.FindBuildPositionAndRotation(raycastHit.point, out var rotation, out var point);
+
+                if (point != null && point.IsBlocked)
+                    return;
+
                 var obj = Instantiate(woodPlank, position, rotation);
 
-                if (raftTrans == null)
+                // Creating new raft.
+                GameObject raft;
+                if (point == null)
                 {
-                    raftTrans = new GameObject("Raft").transform;
-                    raftTrans.gameObject.AddComponent<Rigidbody>();
+                    raft = new GameObject("Raft");
+                    raft.AddComponent<Rigidbody>();
+                }
+                else
+                {
+                    raft = point.Parent.parent.gameObject;
+                    //TODO: ALSO BLOCK CONNECTED POINT
+                    point.Block();
                 }
 
-                obj.transform.SetParent(raftTrans);
+
+                obj.transform.SetParent(raft.transform);
             }
         }
 
