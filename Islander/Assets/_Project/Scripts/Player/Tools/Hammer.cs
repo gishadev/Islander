@@ -22,10 +22,7 @@ namespace Gisha.Islander.Player.Tools
         {
             if (Physics.Raycast(origin, direction, out var raycastHit))
             {
-                var grid = BuildingSystem.CreateGrid(transform.position);
-                grid.GetXZFromPosition(raycastHit.point, out int x, out int z);
-                var position = grid.GetWorldPosition(x, z) + Vector3.up * 6f;
-                Instantiate(woodPlank, position, Quaternion.identity);
+                Instantiate(woodPlank, BuildingSystem.FindBuildPosition(raycastHit.point), Quaternion.identity);
             }
         }
 
