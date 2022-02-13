@@ -16,24 +16,29 @@ namespace Gisha.Islander.Core.Building
         private Vector3 _localPosition;
         private Edge _edge;
 
-        public ConnectionPoint(Vector3 localPosition, Transform parent)
+        public ConnectionPoint(Vector3 localPosition, Transform parent, Edge edge)
         {
             _localPosition = localPosition;
             _parent = parent;
-
-            GetCurrentEdge();
+            _edge = edge;
         }
-
-        private void GetCurrentEdge()
+        
+        public Edge GetOppositeEdge(Edge edge)
         {
-            if (LocalPosition.x > Parent.position.x)
-                _edge = Edge.Right;
-            if (LocalPosition.x < Parent.position.x)
-                _edge = Edge.Left;
-            if (LocalPosition.z > Parent.position.z)
-                _edge = Edge.Forward;
-            if (LocalPosition.z < Parent.position.z)
-                _edge = Edge.Back;
+            switch (edge)
+            {
+                case Edge.Forward:
+                    return Edge.Back;
+                case Edge.Right:
+                    return Edge.Left;
+                case Edge.Back:
+                    return Edge.Forward;
+                case Edge.Left:
+                    return Edge.Right;
+                default:
+                    Debug.LogError("Error in getting opposite edge. Target edge is null!");
+                    return Edge.Forward;
+            }
         }
 
         public void Block()

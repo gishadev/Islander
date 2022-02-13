@@ -5,7 +5,44 @@ namespace Gisha.Islander.Core.Building
 {
     public static class BuildingSystem
     {
-        public static Vector3 FindBuildPositionAndRotation(Vector3 origin, out Quaternion rotation,
+        public static void Build(GameObject buildingObjectPrefab, RaycastHit hitInfo)
+        {
+            var position =
+                FindBuildPositionAndRotation(hitInfo.point, out var rotation, out var targetConnectionPoint);
+
+            if (targetConnectionPoint != null && targetConnectionPoint.IsBlocked)
+                return;
+
+            var buildingObject = Object.Instantiate(buildingObjectPrefab, position, rotation)
+                .GetComponent<BuildingObject>();
+
+            // Creating new raft.
+            GameObject raft;
+            if (targetConnectionPoint == null)
+            {
+                raft = new GameObject("Raft");
+                raft.AddComponent<Rigidbody>();
+            }
+            // Building object for an old raft.
+            else
+            {
+                raft = targetConnectionPoint.Parent.parent.gameObject;
+                BlockConnectionPoints(targetConnectionPoint, buildingObject);
+            }
+
+            buildingObject.transform.SetParent(raft.transform);
+        }
+
+        private static void BlockConnectionPoints(ConnectionPoint targetPoint, BuildingObject newBuildingObject)
+        {
+            var oppositeEdge = targetPoint.GetOppositeEdge(targetPoint.Edge);
+            var newConnectionPoint = newBuildingObject.GetPointByEdge(oppositeEdge);
+
+            targetPoint.Block();
+            newConnectionPoint?.Block();
+        }
+
+        private static Vector3 FindBuildPositionAndRotation(Vector3 origin, out Quaternion rotation,
             out ConnectionPoint nearestPoint)
         {
             nearestPoint = FindNearestPoint(origin, 1f, out var pointParent);
