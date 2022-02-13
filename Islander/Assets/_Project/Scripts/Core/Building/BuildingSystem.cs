@@ -1,20 +1,34 @@
+using UnityEditor;
 using UnityEngine;
 
 namespace Gisha.Islander.Core.Building
 {
     public static class BuildingSystem
     {
-        public static void Build(RaycastHit hitInfo, GameObject raftPrefab)
+        private static BuildingSystemData _buildingSystemData;
+
+        private static bool _isInitialized;
+
+        public static void Build(RaycastHit hitInfo)
         {
+            if (!_isInitialized)
+                Initialize();
+
             if (hitInfo.collider.CompareTag("Raft"))
                 TryModify();
             else
-                SpawnRaft(raftPrefab, hitInfo.point);
+                SpawnRaft(hitInfo.point);
         }
 
-        private static void SpawnRaft(GameObject raftPrefab, Vector3 position)
+        private static void Initialize()
         {
-            Object.Instantiate(raftPrefab, position, Quaternion.identity);
+            _isInitialized = true;
+            _buildingSystemData = Resources.FindObjectsOfTypeAll<BuildingSystemData>()[0];
+        }
+
+        private static void SpawnRaft(Vector3 position)
+        {
+            Object.Instantiate(_buildingSystemData.RaftPrefabs[0], position, Quaternion.identity);
         }
 
         private static void TryModify()

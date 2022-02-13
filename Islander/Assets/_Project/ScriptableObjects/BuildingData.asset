@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74749b00168140a9bdb23631f47113a3, type: 3}
+  m_Name: BuildingData
+  m_EditorClassIdentifier: 
+  raftPrefabs:
+  - {fileID: 4310458856361244130, guid: eef116fe23e29cd47aedd8083335811f, type: 3}
+  - {fileID: 2505870660175087897, guid: ea7928cc9af6da14abf6afab7b760d39, type: 3}
+  - {fileID: 540956190166689075, guid: e2471b5f818c71a47b3655a6828f7060, type: 3}
