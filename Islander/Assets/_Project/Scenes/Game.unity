@@ -1626,8 +1626,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 743103001}
-  m_LocalRotation: {x: -0.04727578, y: 0.9154404, z: 0.38338983, w: 0.11289892}
-  m_LocalPosition: {x: -1.2089393, y: -5.4815855, z: -62.01355}
+  m_LocalRotation: {x: -0.20865709, y: 0.30031523, z: 0.06752807, w: 0.92828494}
+  m_LocalPosition: {x: -16.021788, y: -8.041648, z: -54.396507}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 901060826}
@@ -3042,9 +3042,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemsCraftData:
-  - {fileID: 11400000, guid: 3e47994927dd156459277bbb4129b0dc, type: 2}
-  - {fileID: 11400000, guid: bb2aac839cda4c243b3e920aa3223b67, type: 2}
-  - {fileID: 11400000, guid: 0eab6d961c98cf64d9fd90a3ef8ecf45, type: 2}
   - {fileID: 11400000, guid: 1fc652949a11ae24cbaf83f81b89291b, type: 2}
   - {fileID: 11400000, guid: 6933abc2fb127534b8334787fac49690, type: 2}
   - {fileID: 11400000, guid: dc5bb90b85cf6d642a24ffb4b668af9f, type: 2}

@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8462ff4c38124dbea9b79660ebe29487, type: 3}
-  m_Name: Pickaxe
+  m_Name: Raft3
   m_EditorClassIdentifier: 
-  itemCraftType: 1
-  craftRecipe:
-    resourcesForCraft:
-    - resourceType: 0
+  recipe:
+    resourcesForCreation:
+    - resourceType: 2
       count: 10
-    - resourceType: 1
-      count: 15
-  prefab: {fileID: 2772608048462803666, guid: 404b10f77b128fa40a0843ec259220b4, type: 3}
+    - resourceType: 3
+      count: 5
+  prefab: {fileID: 2505870660175087897, guid: ea7928cc9af6da14abf6afab7b760d39, type: 3}

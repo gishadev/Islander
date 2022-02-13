@@ -17,7 +17,7 @@ namespace Gisha.Islander.Core.Building
             if (hitInfo.collider.TryGetComponent(out Raft raft))
                 TryModify(raft);
             else
-                SpawnRaft(hitInfo.point, 0);
+                Spawn(hitInfo.point, 0);
         }
 
         private static void Initialize()
@@ -26,7 +26,7 @@ namespace Gisha.Islander.Core.Building
             _buildingSystemData = Resources.FindObjectsOfTypeAll<BuildingSystemData>()[0];
         }
 
-        private static void SpawnRaft(Vector3 position, int level)
+        private static void Spawn(Vector3 position, int level)
         {
             Object.Instantiate(_buildingSystemData.RaftPrefabs[level], position, Quaternion.identity);
         }
@@ -36,7 +36,7 @@ namespace Gisha.Islander.Core.Building
             if (targetRaft.Level >= _buildingSystemData.RaftPrefabs.Length - 1)
                 return;
 
-            SpawnRaft(targetRaft.transform.position, targetRaft.Level + 1);
+            Spawn(targetRaft.transform.position, targetRaft.Level + 1);
             Object.Destroy(targetRaft.gameObject);
         }
     }

@@ -56,22 +56,22 @@ namespace Gisha.Islander.Core.Crafting
                 CreateRecipeElement(recipe);
         }
 
-        private void CreateRecipeElement(ItemCraftData craftData)
+        private void CreateRecipeElement(ItemCreationData creationData)
         {
             var recipeGO = Instantiate(recipeElementPrefab, recipesParent);
 
             string costText = "";
-            foreach (var resourceForCraft in craftData.Recipe.ResourcesForCraft)
+            foreach (var resourceForCraft in creationData.Recipe.ResourcesForCreation)
                 costText += $"{resourceForCraft.Count} {resourceForCraft.ResourceType}, \n";
 
             // Changing UI Text.
-            recipeGO.transform.Find("Name").GetComponent<TMP_Text>().text = craftData.name;
+            recipeGO.transform.Find("Name").GetComponent<TMP_Text>().text = creationData.name;
             recipeGO.transform.Find("Cost").GetComponent<TMP_Text>().text = costText;
 
             // Updating listeners of the button.
             var craftButton = recipeGO.transform.Find("Btn").GetComponent<Button>();
             craftButton.onClick.AddListener(
-                () => _craftingController.Craft(craftData, PhotonManager.MyPhotonPlayer.PlayerController));
+                () => _craftingController.Craft(creationData, PhotonManager.MyPhotonPlayer.PlayerController));
 
             _craftingGUIElements.Add(recipeGO);
         }

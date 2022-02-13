@@ -10,11 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8462ff4c38124dbea9b79660ebe29487, type: 3}
-  m_Name: Bow
+  m_Name: Axe
   m_EditorClassIdentifier: 
-  itemCraftType: 1
-  craftRecipe:
-    resourcesForCraft:
+  recipe:
+    resourcesForCreation:
     - resourceType: 0
-      count: 10
-  prefab: {fileID: 5468854561329888152, guid: 990585dfb3cad2241b7520bf2582aa97, type: 3}
+      count: 5
+    - resourceType: 1
+      count: 3
+  prefab: {fileID: 6443311490499174108, guid: 351593871c391744ba175a8841206112, type: 3}

@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8462ff4c38124dbea9b79660ebe29487, type: 3}
-  m_Name: SpeedBoat
+  m_Name: Raft1
   m_EditorClassIdentifier: 
-  craftRecipe:
-    resourcesForCraft:
+  recipe:
+    resourcesForCreation:
     - resourceType: 0
-      count: 10
-    - resourceType: 3
-      count: 10
-  prefab: {fileID: 2505870660175087897, guid: ea7928cc9af6da14abf6afab7b760d39, type: 3}
+      count: 15
+  prefab: {fileID: 4310458856361244130, guid: eef116fe23e29cd47aedd8083335811f, type: 3}

@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8462ff4c38124dbea9b79660ebe29487, type: 3}
-  m_Name: FisherBoat
+  m_Name: Pickaxe
   m_EditorClassIdentifier: 
-  craftRecipe:
-    resourcesForCraft:
+  recipe:
+    resourcesForCreation:
     - resourceType: 0
-      count: 15
-    - resourceType: 1
-      count: 10
-    - resourceType: 2
       count: 5
-  prefab: {fileID: 540956190166689075, guid: e2471b5f818c71a47b3655a6828f7060, type: 3}
+    - resourceType: 1
+      count: 3
+  prefab: {fileID: 2772608048462803666, guid: 404b10f77b128fa40a0843ec259220b4, type: 3}

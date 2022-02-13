@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8462ff4c38124dbea9b79660ebe29487, type: 3}
-  m_Name: Axe
+  m_Name: Raft2
   m_EditorClassIdentifier: 
-  itemCraftType: 1
-  craftRecipe:
-    resourcesForCraft:
+  recipe:
+    resourcesForCreation:
     - resourceType: 0
-      count: 10
+      count: 15
     - resourceType: 1
       count: 10
-  prefab: {fileID: 6443311490499174108, guid: 351593871c391744ba175a8841206112, type: 3}
+  prefab: {fileID: 540956190166689075, guid: e2471b5f818c71a47b3655a6828f7060, type: 3}

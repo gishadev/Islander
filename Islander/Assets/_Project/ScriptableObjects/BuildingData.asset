@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raftPrefabs:
   - {fileID: 4310458856361244130, guid: eef116fe23e29cd47aedd8083335811f, type: 3}
-  - {fileID: 2505870660175087897, guid: ea7928cc9af6da14abf6afab7b760d39, type: 3}
   - {fileID: 540956190166689075, guid: e2471b5f818c71a47b3655a6828f7060, type: 3}
+  - {fileID: 2505870660175087897, guid: ea7928cc9af6da14abf6afab7b760d39, type: 3}

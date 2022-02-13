@@ -10,11 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8462ff4c38124dbea9b79660ebe29487, type: 3}
-  m_Name: Hammer
+  m_Name: Bow
   m_EditorClassIdentifier: 
-  itemCraftType: 1
-  craftRecipe:
-    resourcesForCraft:
+  recipe:
+    resourcesForCreation:
     - resourceType: 0
-      count: 5
-  prefab: {fileID: 699129067480008495, guid: 85f6bbfd2d6864543b9b47028c06aedb, type: 3}
+      count: 10
+  prefab: {fileID: 5468854561329888152, guid: 990585dfb3cad2241b7520bf2582aa97, type: 3}
