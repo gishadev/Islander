@@ -73,13 +73,16 @@ namespace Gisha.Islander.Player.Tools
         private void RPC_Equip(int index)
         {
             if (_equippedTool != null)
+            {
+                _equippedTool.Equiped?.Invoke(false);
                 Destroy(_equippedTool.gameObject);
+            }
 
             var toolGO = Instantiate(_tools[index], handTrans);
             toolGO.transform.SetPositionAndRotation(handTrans.position, handTrans.rotation);
 
             _equippedTool = toolGO.GetComponent<Tool>();
-            _equippedTool.Equiped?.Invoke();
+            _equippedTool.Equiped?.Invoke(true);
         }
     }
 }

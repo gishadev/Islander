@@ -1,3 +1,4 @@
+using System;
 using Gisha.Islander.Core.Building;
 using UnityEngine;
 
@@ -5,6 +6,8 @@ namespace Gisha.Islander.Player.Tools
 {
     public class Hammer : Tool
     {
+        private BuildingGUI _buildingGUI;
+
         private void OnEnable()
         {
             Equiped += OnEquip;
@@ -14,15 +17,17 @@ namespace Gisha.Islander.Player.Tools
         {
             Equiped -= OnEquip;
         }
-
+        
         public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner)
         {
             if (Physics.Raycast(origin, direction, out var raycastHit))
                 BuildingSystem.Build(raycastHit);
         }
 
-        private void OnEquip()
+        private void OnEquip(bool isEquip)
         {
+            _buildingGUI = FindObjectOfType<BuildingGUI>();
+            _buildingGUI.ChangePanelVisibility(isEquip);
         }
     }
 }

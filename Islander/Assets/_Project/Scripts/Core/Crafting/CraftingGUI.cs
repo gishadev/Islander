@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Gisha.Islander.Photon;
-using Gisha.Islander.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
