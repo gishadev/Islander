@@ -1,3 +1,4 @@
+using Gisha.Islander.Core.Crafting;
 using UnityEngine;
 
 namespace Gisha.Islander.Core.Building
@@ -6,8 +7,8 @@ namespace Gisha.Islander.Core.Building
         order = 0)]
     public class BuildingSystemData : ScriptableObject
     {
-        [SerializeField] private GameObject[] raftPrefabs;
+        [SerializeField] private ItemCreationData[] raftsCreationData;
 
-        public GameObject[] RaftPrefabs => raftPrefabs;
+        public ItemCreationData[] RaftsCreationData => raftsCreationData;
     }
 }

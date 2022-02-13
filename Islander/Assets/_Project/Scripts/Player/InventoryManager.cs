@@ -1,4 +1,5 @@
 using System;
+using Gisha.Islander.Core.Crafting;
 using Gisha.Islander.UI;
 using UnityEngine;
 
@@ -19,6 +20,26 @@ namespace Gisha.Islander.Player
         private void Awake()
         {
             Instance = this;
+        }
+
+        public bool CheckIfEnoughResources(ItemCreationData creationData)
+        {
+            // Check if all resources are in an enough count to craft an item. 
+            foreach (var resourceForCraft in creationData.Recipe.ResourcesForCreation)
+                if (resourceForCraft.Count > GetResourceCount(resourceForCraft.ResourceType))
+                {
+                    Debug.Log($"Not enough {resourceForCraft.ResourceType} to create {creationData.name}");
+                    return false;
+                }
+
+            return true;
+        }
+
+        public void SpendResources(ItemCreationData creationData)
+        {
+            // Subtract resources count.
+            foreach (var resourceForCraft in creationData.Recipe.ResourcesForCreation)
+                ChangeResourceCount(resourceForCraft.ResourceType, -resourceForCraft.Count);
         }
 
         public void ChangeResourceCount(ResourceType resourceType, int count)

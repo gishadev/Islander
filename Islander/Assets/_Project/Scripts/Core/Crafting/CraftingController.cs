@@ -16,17 +16,10 @@ namespace Gisha.Islander.Core.Crafting
 
         public void Craft(ItemCreationData creationData, PlayerController playerController)
         {
-            // Check if all resources are in an enough count to craft an item. 
-            foreach (var resourceForCraft in creationData.Recipe.ResourcesForCreation)
-                if (resourceForCraft.Count > InventoryManager.Instance.GetResourceCount(resourceForCraft.ResourceType))
-                {
-                    Debug.Log($"Not enough {resourceForCraft.ResourceType} to craft {creationData.name}");
-                    return;
-                }
+            if (!InventoryManager.Instance.CheckIfEnoughResources(creationData))
+                return;
 
-            // Subtract resources count.
-            foreach (var resourceForCraft in creationData.Recipe.ResourcesForCreation)
-                InventoryManager.Instance.ChangeResourceCount(resourceForCraft.ResourceType, -resourceForCraft.Count);
+            InventoryManager.Instance.SpendResources(creationData);
 
             CraftTool(creationData, playerController);
 

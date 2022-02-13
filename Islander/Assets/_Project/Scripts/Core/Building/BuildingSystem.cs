@@ -1,4 +1,5 @@
-using UnityEditor;
+using Gisha.Islander.Core.Crafting;
+using Gisha.Islander.Player;
 using UnityEngine;
 
 namespace Gisha.Islander.Core.Building
@@ -14,10 +15,21 @@ namespace Gisha.Islander.Core.Building
             if (!_isInitialized)
                 Initialize();
 
+            // Modification just changes raft level.
+            int raftLevel = 0;
             if (hitInfo.collider.TryGetComponent(out Raft raft))
-                TryModify(raft);
-            else
-                Spawn(hitInfo.point, 0);
+                TryModifyRaft(raft, out raftLevel);
+
+            // Spawning of the raft (zero level or modified one)
+            var creationData = _buildingSystemData.RaftsCreationData[raftLevel];
+            if (InventoryManager.Instance.CheckIfEnoughResources(creationData))
+            {
+                if (raft != null)
+                    Object.Destroy(raft.gameObject);
+
+                SpawnRaft(creationData, hitInfo.point);
+                InventoryManager.Instance.SpendResources(creationData);
+            }
         }
 
         private static void Initialize()
@@ -26,18 +38,18 @@ namespace Gisha.Islander.Core.Building
             _buildingSystemData = Resources.FindObjectsOfTypeAll<BuildingSystemData>()[0];
         }
 
-        private static void Spawn(Vector3 position, int level)
+        private static void SpawnRaft(ItemCreationData creationData, Vector3 position)
         {
-            Object.Instantiate(_buildingSystemData.RaftPrefabs[level], position, Quaternion.identity);
+            Object.Instantiate(creationData.Prefab, position, Quaternion.identity);
         }
 
-        private static void TryModify(Raft targetRaft)
+        private static void TryModifyRaft(Raft targetRaft, out int raftLevel)
         {
-            if (targetRaft.Level >= _buildingSystemData.RaftPrefabs.Length - 1)
+            raftLevel = 0;
+            if (targetRaft.Level >= _buildingSystemData.RaftsCreationData.Length - 1)
                 return;
 
-            Spawn(targetRaft.transform.position, targetRaft.Level + 1);
-            Object.Destroy(targetRaft.gameObject);
+            raftLevel = targetRaft.Level + 1;
         }
     }
 }
