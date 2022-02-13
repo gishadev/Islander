@@ -6,7 +6,7 @@ namespace Gisha.Islander.Player.Tools
 {
     public class Hammer : Tool
     {
-        [SerializeField] private GameObject woodPlank;
+        [SerializeField] private GameObject raftPrefab;
 
         private void OnEnable()
         {
@@ -21,7 +21,7 @@ namespace Gisha.Islander.Player.Tools
         public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner)
         {
             if (Physics.Raycast(origin, direction, out var raycastHit))
-                BuildingSystem.Build(woodPlank, raycastHit);
+                BuildingSystem.Build(raycastHit, raftPrefab);
         }
 
         private void OnEquip()

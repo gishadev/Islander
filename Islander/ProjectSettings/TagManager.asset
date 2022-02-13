@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Mineable
+  - Raft
   layers:
   - Default
   - TransparentFX
