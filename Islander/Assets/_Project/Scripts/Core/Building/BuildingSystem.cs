@@ -1,5 +1,6 @@
 using Gisha.Islander.Core.Crafting;
 using Gisha.Islander.Player;
+using UnityEditor;
 using UnityEngine;
 
 namespace Gisha.Islander.Core.Building
@@ -35,7 +36,9 @@ namespace Gisha.Islander.Core.Building
         private static void Initialize()
         {
             _isInitialized = true;
-            _buildingSystemData = Resources.FindObjectsOfTypeAll<BuildingSystemData>()[0];
+            _buildingSystemData =
+                (BuildingSystemData) AssetDatabase.LoadAssetAtPath(
+                    "Assets/_Project/ScriptableObjects/BuildingData.asset", typeof(BuildingSystemData));
         }
 
         private static void SpawnRaft(ItemCreationData creationData, Vector3 position)
