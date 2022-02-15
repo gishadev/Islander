@@ -15,7 +15,5 @@ MonoBehaviour:
   recipe:
     resourcesForCreation:
     - resourceType: 0
-      count: 15
-    - resourceType: 1
       count: 10
   prefab: {fileID: 540956190166689075, guid: e2471b5f818c71a47b3655a6828f7060, type: 3}

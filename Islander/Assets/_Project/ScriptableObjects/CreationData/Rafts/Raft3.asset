@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   recipe:
     resourcesForCreation:
-    - resourceType: 2
+    - resourceType: 1
       count: 10
-    - resourceType: 3
-      count: 5
   prefab: {fileID: 2505870660175087897, guid: ea7928cc9af6da14abf6afab7b760d39, type: 3}

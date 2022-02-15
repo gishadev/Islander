@@ -1058,6 +1058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingPanel: {fileID: 1116154749}
+  buildOperationText: {fileID: 1241992337}
   resourcesToBuildText: {fileID: 355176716}
 --- !u!1 &509571200
 GameObject:
@@ -1776,8 +1777,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 743103001}
-  m_LocalRotation: {x: 0.08133207, y: 0.92098105, z: 0.23402545, w: -0.3006846}
-  m_LocalPosition: {x: 20.964584, y: -7.2432675, z: -57.21961}
+  m_LocalRotation: {x: 0.12296077, y: 0.772567, z: 0.1495957, w: -0.6046835}
+  m_LocalPosition: {x: 29.19858, y: -12.516969, z: -49.97079}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 901060826}
