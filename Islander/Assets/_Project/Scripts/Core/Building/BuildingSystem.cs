@@ -49,8 +49,7 @@ namespace Gisha.Islander.Core.Building
         {
             _isInitialized = true;
             _buildingSystemData =
-                (BuildingSystemData) AssetDatabase.LoadAssetAtPath(
-                    "Assets/_Project/ScriptableObjects/BuildingData.asset", typeof(BuildingSystemData));
+                (BuildingSystemData) Resources.Load("BuildingData", typeof(BuildingSystemData));
         }
 
         private static void SpawnRaft(ItemCreationData creationData, Vector3 position)
