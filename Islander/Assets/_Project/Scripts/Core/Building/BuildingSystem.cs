@@ -1,4 +1,3 @@
-using Gisha.Islander.Core.Crafting;
 using Gisha.Islander.Player;
 using UnityEditor;
 using UnityEngine;

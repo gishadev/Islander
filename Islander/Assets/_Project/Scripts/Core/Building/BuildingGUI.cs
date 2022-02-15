@@ -1,5 +1,4 @@
 using System;
-using Gisha.Islander.Core.Crafting;
 using TMPro;
 using UnityEngine;
 

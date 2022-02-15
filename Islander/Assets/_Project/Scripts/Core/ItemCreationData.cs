@@ -2,7 +2,7 @@ using System;
 using Gisha.Islander.Player;
 using UnityEngine;
 
-namespace Gisha.Islander.Core.Crafting
+namespace Gisha.Islander.Core
 {
     [CreateAssetMenu(fileName = "ItemCreationData", menuName = "Scriptable Objects/Item Creation Data", order = 0)]
     public class ItemCreationData : ScriptableObject

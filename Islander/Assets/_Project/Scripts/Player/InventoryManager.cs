@@ -1,5 +1,5 @@
 using System;
-using Gisha.Islander.Core.Crafting;
+using Gisha.Islander.Core;
 using Gisha.Islander.UI;
 using UnityEngine;
 
