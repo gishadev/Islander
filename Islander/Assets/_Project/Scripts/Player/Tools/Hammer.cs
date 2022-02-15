@@ -34,7 +34,7 @@ namespace Gisha.Islander.Player.Tools
         public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner)
         {
             if (Physics.Raycast(origin, direction, out var raycastHit))
-                BuildingSystem.Build(raycastHit);
+                BuildingSystem.Build(raycastHit, owner);
         }
 
         private void PrebuildRaycastCheck()

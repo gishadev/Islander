@@ -23,8 +23,7 @@ namespace Gisha.Islander.Environment
 
         private void Gather(PlayerController owner)
         {
-            if (owner == PhotonManager.MyPhotonPlayer.PlayerController)
-                InventoryManager.Instance.ChangeResourceCount(resourceType, resourcesToGather);
+            owner.InventoryManager.ChangeResourceCount(resourceType, resourcesToGather);
             
             Destroy(gameObject);
         }

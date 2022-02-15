@@ -1,13 +1,14 @@
 using System;
 using Gisha.Islander.Core;
 using Gisha.Islander.UI;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Gisha.Islander.Player
 {
     public class InventoryManager : MonoBehaviour
     {
-        public static InventoryManager Instance { get; private set; }
+        public static InventoryManager My { get; private set; }
 
         private int _woodCount, _stoneCount, _ironCount, _titaniumCount;
 
@@ -16,10 +17,14 @@ namespace Gisha.Islander.Player
         public int IronCount => _ironCount;
         public int TitaniumCount => _titaniumCount;
 
+        private PhotonView _pv;
 
         private void Awake()
         {
-            Instance = this;
+            _pv = GetComponent<PhotonView>();
+
+            if (_pv.IsMine)
+                My = this;
         }
 
         public bool CheckIfEnoughResources(ItemCreationData creationData)
@@ -62,7 +67,8 @@ namespace Gisha.Islander.Player
                     throw new ArgumentOutOfRangeException(nameof(resourceType), resourceType, null);
             }
 
-            UIManager.Instance.UpdateResourcesCount();
+            if (this == My)
+                UIManager.Instance.UpdateResourcesCount();
         }
 
         public int GetResourceCount(ResourceType resourceType)

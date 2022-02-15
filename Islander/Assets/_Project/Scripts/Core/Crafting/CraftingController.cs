@@ -16,10 +16,10 @@ namespace Gisha.Islander.Core.Crafting
 
         public void Craft(ItemCreationData creationData, PlayerController playerController)
         {
-            if (!InventoryManager.Instance.CheckIfEnoughResources(creationData))
+            if (!playerController.InventoryManager.CheckIfEnoughResources(creationData))
                 return;
 
-            InventoryManager.Instance.SpendResources(creationData);
+            playerController.InventoryManager.SpendResources(creationData);
 
             CraftTool(creationData, playerController);
 

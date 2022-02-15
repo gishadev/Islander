@@ -10,7 +10,7 @@ namespace Gisha.Islander.Core.Building
 
         private static bool _isInitialized;
 
-        public static void Build(RaycastHit hitInfo)
+        public static void Build(RaycastHit hitInfo, PlayerController owner)
         {
             if (!_isInitialized)
                 Initialize();
@@ -22,13 +22,13 @@ namespace Gisha.Islander.Core.Building
 
             // Spawning of the raft (zero level or modified one)
             var creationData = _buildingSystemData.RaftsCreationData[raftLevel];
-            if (InventoryManager.Instance.CheckIfEnoughResources(creationData))
+            if (owner.InventoryManager.CheckIfEnoughResources(creationData))
             {
                 if (raft != null)
                     Object.Destroy(raft.gameObject);
 
                 SpawnRaft(creationData, hitInfo.point);
-                InventoryManager.Instance.SpendResources(creationData);
+                owner.InventoryManager.SpendResources(creationData);
             }
         }
 

@@ -15,10 +15,12 @@ namespace Gisha.Islander.Player
 
         public Action Destroyed;
         public FPSCamera FPSCamera => _fpsCamera;
+        public InventoryManager InventoryManager => _inventoryManager;
 
         private float _health;
 
         private ToolController _toolController;
+        private InventoryManager _inventoryManager;
         private FPSMover _fpsMover;
         private FPSCamera _fpsCamera;
         private PhotonView _pv;
@@ -26,6 +28,7 @@ namespace Gisha.Islander.Player
 
         private void Awake()
         {
+            _inventoryManager = GetComponent<InventoryManager>();
             _toolController = GetComponent<ToolController>();
             _pv = GetComponent<PhotonView>();
             _fpsMover = GetComponent<FPSMover>();

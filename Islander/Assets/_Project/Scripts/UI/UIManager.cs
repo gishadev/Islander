@@ -20,10 +20,10 @@ namespace Gisha.Islander.UI
 
         public void UpdateResourcesCount()
         {
-            woodCountText.text = InventoryManager.Instance.WoodCount.ToString();
-            stoneCountText.text = InventoryManager.Instance.StoneCount.ToString();
-            ironCountText.text = InventoryManager.Instance.IronCount.ToString();
-            titaniumCountText.text = InventoryManager.Instance.TitaniumCount.ToString();
+            woodCountText.text = InventoryManager.My.WoodCount.ToString();
+            stoneCountText.text = InventoryManager.My.StoneCount.ToString();
+            ironCountText.text = InventoryManager.My.IronCount.ToString();
+            titaniumCountText.text = InventoryManager.My.TitaniumCount.ToString();
         }
 
         public void UpdateHealthBar(float health, float maxHealth)
