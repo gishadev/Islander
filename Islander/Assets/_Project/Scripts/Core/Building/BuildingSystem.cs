@@ -33,6 +33,19 @@ namespace Gisha.Islander.Core.Building
             }
         }
 
+        public static ItemCreationData GetCreationDataFromRaycast(RaycastHit hitInfo)
+        {
+            if (!_isInitialized)
+                Initialize();
+
+            int raftLevel = 0;
+            if (hitInfo.collider.TryGetComponent(out Raft raft))
+                TryModifyRaft(raft, out raftLevel);
+
+            return _buildingSystemData.RaftsCreationData[raftLevel];
+        }
+
+
         private static void Initialize()
         {
             _isInitialized = true;

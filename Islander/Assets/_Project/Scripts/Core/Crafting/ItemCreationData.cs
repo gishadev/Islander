@@ -13,7 +13,7 @@ namespace Gisha.Islander.Core.Crafting
         public Recipe Recipe => recipe;
         public GameObject Prefab => prefab;
     }
-    
+
     [Serializable]
     public class Recipe
     {
