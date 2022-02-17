@@ -54,7 +54,7 @@ namespace Gisha.Islander.Core.Building
 
         private static void SpawnRaft(ItemCreationData creationData, Vector3 position)
         {
-            Object.Instantiate(creationData.Prefab, position, Quaternion.identity);
+            Object.Instantiate(creationData.Prefab, position + Vector3.up, Quaternion.identity);
         }
 
         private static void TryModifyRaft(Raft targetRaft, out int raftLevel)
