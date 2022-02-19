@@ -38,7 +38,7 @@ namespace Gisha.Islander.Core.Crafting
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.F))
                 ChangeCraftPanelVisibility(!craftPanel.activeSelf);
         }
 
