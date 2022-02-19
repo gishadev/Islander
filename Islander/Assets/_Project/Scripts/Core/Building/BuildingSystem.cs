@@ -1,3 +1,4 @@
+using Gisha.Islander.Photon;
 using Gisha.Islander.Player;
 using UnityEditor;
 using UnityEngine;
@@ -27,7 +28,8 @@ namespace Gisha.Islander.Core.Building
                 if (raft != null)
                     Object.Destroy(raft.gameObject);
 
-                SpawnRaft(creationData, hitInfo.point);
+                owner.SpawnRaft(creationData.Prefab, hitInfo.point);
+                // SpawnRaft(creationData, hitInfo.point);
                 owner.InventoryManager.SpendResources(creationData);
             }
         }
@@ -52,10 +54,10 @@ namespace Gisha.Islander.Core.Building
                 (BuildingSystemData) Resources.Load("BuildingData", typeof(BuildingSystemData));
         }
 
-        private static void SpawnRaft(ItemCreationData creationData, Vector3 position)
-        {
-            Object.Instantiate(creationData.Prefab, position + Vector3.up, Quaternion.identity);
-        }
+        // private static void SpawnRaft(ItemCreationData creationData, Vector3 position)
+        // {
+        //     Object.Instantiate(creationData.Prefab, position + Vector3.up, Quaternion.identity);
+        // }
 
         private static void TryModifyRaft(Raft targetRaft, out int raftLevel)
         {

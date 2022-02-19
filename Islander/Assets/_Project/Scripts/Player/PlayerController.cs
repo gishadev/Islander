@@ -84,5 +84,11 @@ namespace Gisha.Islander.Player
         {
             _toolController.AddTool(toolName);
         }
+
+        public void SpawnRaft(GameObject prefab, Vector3 position)
+        {
+            if (_pv.IsMine)
+                PhotonNetwork.Instantiate($"Rafts/{prefab.name}", position + Vector3.up, Quaternion.identity);
+        }
     }
 }
