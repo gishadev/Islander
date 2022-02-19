@@ -70,6 +70,12 @@ namespace Gisha.Islander.Player
 
             if (Input.GetKeyDown(jumpKey) && IsGrounded && !IsSwimming)
                 Jump();
+            
+            if (Input.GetKey(jumpKey) && IsSwimming)
+            {
+                if (CheckGroundInFront())
+                    Jump();
+            }
 
             // Setting move direction according to slopes under the player.
             if (CheckForSlope() && IsGrounded)
@@ -82,7 +88,7 @@ namespace Gisha.Islander.Player
         {
             if (!photonView.IsMine)
                 return;
-            
+
             MovePlayer();
         }
 
@@ -117,11 +123,8 @@ namespace Gisha.Islander.Player
 
         private void Jump()
         {
-            if (IsGrounded)
-            {
-                _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
-                _rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-            }
+            _rb.velocity = new Vector3(_rb.velocity.x, 0, _rb.velocity.z);
+            _rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
         }
 
         private void ControlSpeed()
@@ -171,6 +174,12 @@ namespace Gisha.Islander.Player
         {
             float dst = IsSwimming ? groundDistance * groundDistanceWaterMultiplier : groundDistance;
             return Physics.CheckSphere(groundCheck.position, dst, groundMask);
+        }
+
+        private bool CheckGroundInFront()
+        {
+            var ray = new Ray(transform.position, transform.forward);
+            return Physics.SphereCast(ray, 0.5f, 0.5f, groundMask);
         }
 
         private bool CheckSwimming()
