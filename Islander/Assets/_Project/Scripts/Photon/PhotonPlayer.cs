@@ -5,18 +5,12 @@ using UnityEngine;
 
 namespace Gisha.Islander.Photon
 {
-    public class PhotonPlayer : MonoBehaviour
+    public class PhotonPlayer : MonoBehaviourPun
     {
         private PlayerController _playerController;
         private Transform _spawnpoint;
-        private PhotonView _photonView;
 
         public PlayerController PlayerController => _playerController;
-
-        private void Awake()
-        {
-            _photonView = GetComponent<PhotonView>();
-        }
         
         private void OnDisable()
         {
@@ -26,7 +20,7 @@ namespace Gisha.Islander.Photon
 
         private void Start()
         {
-            if (!_photonView.IsMine)
+            if (!photonView.IsMine)
                 return;
 
             _spawnpoint = GameManager.Instance.Spawnpoints[PhotonNetwork.CurrentRoom.PlayerCount - 1];

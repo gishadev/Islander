@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Gisha.Islander.Player
 {
-    public class InventoryManager : MonoBehaviour
+    public class InventoryManager : MonoBehaviourPun
     {
         public static InventoryManager My { get; private set; }
 
@@ -16,14 +16,10 @@ namespace Gisha.Islander.Player
         public int StoneCount => _stoneCount;
         public int IronCount => _ironCount;
         public int TitaniumCount => _titaniumCount;
-
-        private PhotonView _pv;
-
+        
         private void Awake()
         {
-            _pv = GetComponent<PhotonView>();
-
-            if (_pv.IsMine)
+            if (photonView.IsMine)
                 My = this;
         }
 

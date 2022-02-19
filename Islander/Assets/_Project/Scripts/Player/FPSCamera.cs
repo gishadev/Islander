@@ -3,25 +3,18 @@ using UnityEngine;
 
 namespace Gisha.Islander.Player
 {
-    public class FPSCamera : MonoBehaviour
+    public class FPSCamera : MonoBehaviourPun
     {
         [SerializeField] private Transform cameraRigTrans;
         [SerializeField] private float cameraSensitivity = 1.6f;
 
         private float _xRot, _yRot;
-
-        private PhotonView _pv;
-
+        
         public Transform CameraRigTrans => cameraRigTrans;
-
-        private void Awake()
-        {
-            _pv = GetComponent<PhotonView>();
-        }
-
+        
         private void Start()
         {
-            if (!_pv.IsMine)
+            if (!photonView.IsMine)
             {
                 Destroy(CameraRigTrans.Find("Camera").gameObject);
                 return;
@@ -32,7 +25,7 @@ namespace Gisha.Islander.Player
 
         private void FixedUpdate()
         {
-            if (!_pv.IsMine)
+            if (!photonView.IsMine)
                 return;
 
             var mouseX = Input.GetAxis("Mouse X") * cameraSensitivity * Time.fixedDeltaTime;

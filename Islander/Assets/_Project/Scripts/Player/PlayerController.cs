@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Gisha.Islander.Player
 {
-    public class PlayerController : MonoBehaviour
+    public class PlayerController : MonoBehaviourPun
     {
         [Header("Player Settings")] [SerializeField]
         private float maxHealth = 100;
@@ -23,14 +23,11 @@ namespace Gisha.Islander.Player
         private InventoryManager _inventoryManager;
         private FPSMover _fpsMover;
         private FPSCamera _fpsCamera;
-        private PhotonView _pv;
-
-
+        
         private void Awake()
         {
             _inventoryManager = GetComponent<InventoryManager>();
             _toolController = GetComponent<ToolController>();
-            _pv = GetComponent<PhotonView>();
             _fpsMover = GetComponent<FPSMover>();
             _fpsCamera = GetComponent<FPSCamera>();
         }
@@ -40,13 +37,13 @@ namespace Gisha.Islander.Player
             _health = maxHealth;
             UIManager.Instance.UpdateHealthBar(_health, maxHealth);
 
-            if (_pv.IsMine)
+            if (photonView.IsMine)
                 AddTool("Rock");
         }
 
         private void Update()
         {
-            if (!_pv.IsMine)
+            if (!photonView.IsMine)
                 return;
 
             if (_fpsMover.IsSwimming)
@@ -55,7 +52,7 @@ namespace Gisha.Islander.Player
 
         public void GetDamage(float dmg)
         {
-            _pv.RPC("RPC_GetDamage", RpcTarget.All, dmg);
+            photonView.RPC("RPC_GetDamage", RpcTarget.All, dmg);
         }
 
         [PunRPC]
@@ -70,13 +67,13 @@ namespace Gisha.Islander.Player
                 Destroyed?.Invoke();
             }
 
-            if (_pv.IsMine)
+            if (photonView.IsMine)
                 UIManager.Instance.UpdateHealthBar(_health, maxHealth);
         }
 
         public void AddTool(string toolName)
         {
-            _pv.RPC("RPC_AddTool", RpcTarget.AllBuffered, toolName);
+            photonView.RPC("RPC_AddTool", RpcTarget.AllBuffered, toolName);
         }
 
         [PunRPC]
@@ -87,7 +84,7 @@ namespace Gisha.Islander.Player
 
         public void SpawnRaft(GameObject prefab, Vector3 position)
         {
-            if (_pv.IsMine)
+            if (photonView.IsMine)
                 PhotonNetwork.Instantiate($"Rafts/{prefab.name}", position + Vector3.up, Quaternion.identity);
         }
     }

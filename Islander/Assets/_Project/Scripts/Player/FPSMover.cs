@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Gisha.Islander.Player
 {
-    public class FPSMover : MonoBehaviour
+    public class FPSMover : MonoBehaviourPun
     {
         [SerializeField] private float playerHeight = 2f;
 
@@ -44,18 +44,16 @@ namespace Gisha.Islander.Player
         private RaycastHit _slopeHit;
 
         private Rigidbody _rb;
-        private PhotonView _pv;
 
         private void Awake()
         {
-            _pv = GetComponent<PhotonView>();
             _rb = GetComponent<Rigidbody>();
             _rb.freezeRotation = true;
         }
 
         private void Update()
         {
-            if (!_pv.IsMine)
+            if (!photonView.IsMine)
                 return;
 
             IsGrounded = CheckGround();
@@ -82,7 +80,7 @@ namespace Gisha.Islander.Player
 
         private void FixedUpdate()
         {
-            if (!_pv.IsMine)
+            if (!photonView.IsMine)
                 return;
             
             MovePlayer();
