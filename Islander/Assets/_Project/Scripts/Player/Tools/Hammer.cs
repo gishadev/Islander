@@ -1,8 +1,6 @@
-using System;
 using Gisha.Islander.Core.Building;
 using Gisha.Islander.Photon;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace Gisha.Islander.Player.Tools
 {

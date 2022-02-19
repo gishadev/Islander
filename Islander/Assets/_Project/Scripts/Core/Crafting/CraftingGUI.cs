@@ -34,15 +34,14 @@ namespace Gisha.Islander.Core.Crafting
         {
             _craftingController.Crafted -= UpdateCraftingGUI;
         }
-
-
+        
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.E))
                 ChangeCraftPanelVisibility(!craftPanel.activeSelf);
         }
 
-        public void UpdateCraftingGUI()
+        private void UpdateCraftingGUI()
         {
             if (_craftingGUIElements.Count > 0)
             {
