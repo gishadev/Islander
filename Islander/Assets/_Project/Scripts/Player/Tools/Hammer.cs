@@ -10,24 +10,31 @@ namespace Gisha.Islander.Player.Tools
     {
         private BuildingGUI _buildingGUI;
         private PlayerController _myPlayerController;
+        private PlayerController _parentController;
 
         private void Awake()
         {
             _myPlayerController = PhotonManager.MyPhotonPlayer.PlayerController;
+            _parentController = GetComponentInParent<PlayerController>();
         }
 
         private void OnEnable()
         {
-            Equiped += OnEquip;
+            if (_myPlayerController == _parentController)
+                Equiped += OnEquip;
         }
 
         private void OnDisable()
         {
-            Equiped -= OnEquip;
+            if (_myPlayerController == _parentController)
+                Equiped -= OnEquip;
         }
 
         private void Update()
         {
+            if (_myPlayerController != _parentController)
+                return;
+
             PrebuildRaycastCheck();
         }
 
