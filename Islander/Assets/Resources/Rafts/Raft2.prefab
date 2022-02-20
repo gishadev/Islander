@@ -168,7 +168,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cab16420be064708af920d96af2c626d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterLevel: 0
+  waterLevel: 0.2
   level: 1
 --- !u!1 &6772094918672192792
 GameObject:

@@ -18,7 +18,7 @@ namespace Gisha.Islander.Player.Tools
                 for (int i = 0; i < raycastHits.Length; i++)
                 {
                     if (raycastHits[i].collider.CompareTag("Mineable"))
-                        raycastHits[i].collider.GetComponent<IMineable>().Mine(owner);
+                        raycastHits[i].collider.GetComponentInParent<IMineable>().Mine(owner);
                     if (raycastHits[i].collider.CompareTag("Player") &&
                         !transform.IsChildOf(raycastHits[i].collider.transform))
                         raycastHits[i].collider.GetComponent<PlayerController>().GetDamage(21);
