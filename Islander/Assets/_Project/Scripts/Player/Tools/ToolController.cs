@@ -19,6 +19,9 @@ namespace Gisha.Islander.Player.Tools
             _controller = GetComponentInParent<PlayerController>();
             _hotbar = FindObjectOfType<HotbarGUI>();
             _pv = GetComponent<PhotonView>();
+
+            if (_pv.IsMine)
+                _hotbar.ResetGUI();
         }
 
         private void Start()

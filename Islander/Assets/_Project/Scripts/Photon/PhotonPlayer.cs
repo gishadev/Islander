@@ -1,3 +1,4 @@
+using System;
 using Gisha.Islander.Core;
 using Gisha.Islander.Player;
 using Photon.Pun;
@@ -10,6 +11,8 @@ namespace Gisha.Islander.Photon
         private PlayerController _playerController;
         private Transform _spawnpoint;
 
+        public Action PlayerRespawned;
+        
         public PlayerController PlayerController => _playerController;
         
         private void OnDisable()
@@ -43,6 +46,7 @@ namespace Gisha.Islander.Photon
                 .GetComponent<PlayerController>();
 
             PlayerController.Destroyed += OnDestroyPlayerController;
+            PlayerRespawned?.Invoke();
         }
     }
 }

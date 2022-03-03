@@ -15,6 +15,8 @@ namespace Gisha.Islander.Core.Crafting
         private CraftingController _craftingController;
         private List<GameObject> _craftingGUIElements = new List<GameObject>();
 
+        private bool _isInitialized;
+
         private void Awake()
         {
             _craftingController = FindObjectOfType<CraftingController>();
@@ -33,14 +35,21 @@ namespace Gisha.Islander.Core.Crafting
         private void OnDisable()
         {
             _craftingController.Crafted -= UpdateCraftingGUI;
+            PhotonManager.MyPhotonPlayer.PlayerRespawned -= UpdateCraftingGUI;
         }
-        
+
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.E))
                 ChangeCraftPanelVisibility(!craftPanel.activeSelf);
         }
 
+        private void ResetGUI()
+        {
+            UpdateCraftingGUI();
+        }
+        
+        
         private void UpdateCraftingGUI()
         {
             if (_craftingGUIElements.Count > 0)
@@ -75,6 +84,12 @@ namespace Gisha.Islander.Core.Crafting
 
         public void ChangeCraftPanelVisibility(bool isVisible)
         {
+            if (!_isInitialized)
+            {
+                PhotonManager.MyPhotonPlayer.PlayerRespawned += ResetGUI;
+                _isInitialized = true;
+            }
+            
             craftPanel.SetActive(isVisible);
             Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }

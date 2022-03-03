@@ -8,17 +8,20 @@ namespace Gisha.Islander.Player.Tools
     {
         [SerializeField] private GameObject itemGUIPrefab;
 
-        private Color _defSlotColor;
+        private Color _defSlotColor = new Color(0.8f, 0.8f, 0.8f);
         private Transform[] _slots;
 
-        private void Start()
+        public void ResetGUI()
         {
             _slots = new Transform[transform.childCount];
 
             for (int i = 0; i < transform.childCount; i++)
+            {
                 _slots[i] = transform.GetChild(i);
 
-            _defSlotColor = _slots[0].GetComponent<Image>().color;
+                if (_slots[i].childCount > 0)
+                    Destroy(_slots[i].GetChild(0).gameObject);
+            }
         }
 
 
@@ -33,7 +36,7 @@ namespace Gisha.Islander.Player.Tools
             for (int i = 0; i < _slots.Length; i++)
             {
                 var img = _slots[i].GetComponent<Image>();
-                
+
                 if (i == index)
                 {
                     img.color = Color.yellow;

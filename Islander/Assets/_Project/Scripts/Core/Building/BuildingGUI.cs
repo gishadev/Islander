@@ -1,4 +1,5 @@
 using System;
+using Gisha.Islander.Photon;
 using TMPro;
 using UnityEngine;
 
@@ -10,8 +11,27 @@ namespace Gisha.Islander.Core.Building
         [SerializeField] private TMP_Text buildOperationText;
         [SerializeField] private TMP_Text resourcesToBuildText;
 
+        private bool _isInitialized;
+
+        private void OnDisable()
+        {
+            PhotonManager.MyPhotonPlayer.PlayerRespawned -= ResetGUI;
+        }
+
+        private void ResetGUI()
+        {
+            ChangePanelVisibility(false);
+            _isInitialized = false;
+        }
+
         public void ChangePanelVisibility(bool isVisible)
         {
+            if (!_isInitialized)
+            {
+                PhotonManager.MyPhotonPlayer.PlayerRespawned += ResetGUI;
+                _isInitialized = true;
+            }
+
             buildingPanel.SetActive(isVisible);
         }
 

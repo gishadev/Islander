@@ -14,6 +14,7 @@ namespace Gisha.Islander.Player
         [Header("Other")] [SerializeField] private float swimmingDamagePerSecond = 10;
 
         public Action Destroyed;
+        
         public FPSCamera FPSCamera => _fpsCamera;
         public InventoryManager InventoryManager => _inventoryManager;
 
@@ -23,7 +24,7 @@ namespace Gisha.Islander.Player
         private InventoryManager _inventoryManager;
         private FPSMover _fpsMover;
         private FPSCamera _fpsCamera;
-        
+
         private void Awake()
         {
             _inventoryManager = GetComponent<InventoryManager>();
@@ -36,6 +37,7 @@ namespace Gisha.Islander.Player
         {
             _health = maxHealth;
             UIManager.Instance.UpdateHealthBar(_health, maxHealth);
+            UIManager.Instance.UpdateResourcesCount();
 
             if (photonView.IsMine)
                 AddTool("Rock");
