@@ -18,7 +18,10 @@ namespace Gisha.Islander.Core
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Player"))
+            {
                 other.transform.SetParent(null);
+                other.transform.rotation = Quaternion.Euler(0, other.transform.rotation.eulerAngles.y, 0);
+            }
         }
     }
 }
