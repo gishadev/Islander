@@ -126,3 +126,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 2
+  damage: 0.5
+  axeEfficiency: 1
+  pickaxeEfficiency: 1

@@ -10,13 +10,20 @@ namespace Gisha.Islander.Environment
         [SerializeField] private ResourceType resourceType;
         [SerializeField] private int resourcesToGather = 5;
 
-        private int _health = 5;
+        private float _health = 5;
 
-        public void Mine(PlayerController owner)
+        public void Mine(PlayerController owner, float damage, float pickaxeEfficiency, float axeEfficiency)
         {
             float part = transform.localScale.x / 10f;
             TweenAnimator.Scale(transform, transform.localScale.x - part, 0.5f, true);
-            _health--;
+
+            float relDamage;
+            if (resourceType == ResourceType.Wood)
+                relDamage = damage * axeEfficiency;
+            else
+                relDamage = damage * pickaxeEfficiency;
+
+            _health -= relDamage;
             if (_health <= 0)
                 Gather(owner);
         }
@@ -24,7 +31,7 @@ namespace Gisha.Islander.Environment
         private void Gather(PlayerController owner)
         {
             owner.InventoryManager.ChangeResourceCount(resourceType, resourcesToGather);
-            
+
             Destroy(gameObject);
         }
 

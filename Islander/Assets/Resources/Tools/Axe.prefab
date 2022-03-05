@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 2
+  damage: 2
+  axeEfficiency: 1
+  pickaxeEfficiency: 0.2
 --- !u!1 &8168151767134277890
 GameObject:
   m_ObjectHideFlags: 0
