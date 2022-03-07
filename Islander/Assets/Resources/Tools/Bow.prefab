@@ -69,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arrowPrefab: {fileID: 118627626085939782, guid: 2def94df48a881e4a8ec46965dc1b430, type: 3}
   shootPoint: {fileID: 5468854561329888153}
-  shootForce: 25
+  shootForce: 35
 --- !u!1001 &456451986397085958
 PrefabInstance:
   m_ObjectHideFlags: 0
