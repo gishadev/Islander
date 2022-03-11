@@ -1,12 +1,13 @@
 using System.Collections.Generic;
 using Gisha.Islander.Photon;
+using Gisha.Islander.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Gisha.Islander.Core.Crafting
 {
-    public class CraftingGUI : MonoBehaviour
+    public class CraftingGUI : GUIController
     {
         [SerializeField] private GameObject craftPanel;
         [Space] [SerializeField] private GameObject recipeElementPrefab;
@@ -44,7 +45,7 @@ namespace Gisha.Islander.Core.Crafting
                 ChangeCraftPanelVisibility(!craftPanel.activeSelf);
         }
 
-        private void ResetGUI()
+        public override void ResetGUI()
         {
             UpdateCraftingGUI();
         }

@@ -1,17 +1,18 @@
+using Gisha.Islander.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace Gisha.Islander.Player.Tools
 {
-    public class HotbarGUI : MonoBehaviour
+    public class HotbarGUI : GUIController
     {
         [SerializeField] private GameObject itemGUIPrefab;
 
         private Color _defSlotColor = new Color(0.8f, 0.8f, 0.8f);
         private Transform[] _slots;
 
-        public void ResetGUI()
+        public override void ResetGUI()
         {
             _slots = new Transform[transform.childCount];
 

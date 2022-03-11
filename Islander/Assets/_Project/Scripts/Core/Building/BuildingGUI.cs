@@ -1,11 +1,12 @@
 using System;
 using Gisha.Islander.Photon;
+using Gisha.Islander.UI;
 using TMPro;
 using UnityEngine;
 
 namespace Gisha.Islander.Core.Building
 {
-    public class BuildingGUI : MonoBehaviour
+    public class BuildingGUI : GUIController
     {
         [SerializeField] private GameObject buildingPanel;
         [SerializeField] private TMP_Text buildOperationText;
@@ -18,7 +19,7 @@ namespace Gisha.Islander.Core.Building
             PhotonManager.MyPhotonPlayer.PlayerRespawned -= ResetGUI;
         }
 
-        private void ResetGUI()
+        public override void ResetGUI()
         {
             ChangePanelVisibility(false);
             _isInitialized = false;
