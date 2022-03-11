@@ -1,4 +1,3 @@
-using System;
 using Gisha.Islander.Player;
 using UnityEngine;
 

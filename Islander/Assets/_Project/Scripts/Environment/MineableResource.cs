@@ -1,4 +1,3 @@
-using Gisha.Islander.Photon;
 using Gisha.Islander.Player;
 using Gisha.Islander.Utilities;
 using UnityEngine;

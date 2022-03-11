@@ -1,4 +1,3 @@
-using System;
 using Gisha.Islander.Player;
 using TMPro;
 using UnityEngine;
@@ -11,7 +10,6 @@ namespace Gisha.Islander.UI
 
         [SerializeField] private TMP_Text woodCountText, stoneCountText, ironCountText, titaniumCountText;
         [SerializeField] private Transform healthBar;
-
 
         private void Awake()
         {
