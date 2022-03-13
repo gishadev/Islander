@@ -183,3 +183,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waterLevel: 0.2
   level: 0
+  health: 100

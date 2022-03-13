@@ -1,4 +1,5 @@
 using System;
+using Gisha.Islander.Core;
 using Gisha.Islander.Player.Tools;
 using Gisha.Islander.UI;
 using Photon.Pun;
@@ -6,7 +7,7 @@ using UnityEngine;
 
 namespace Gisha.Islander.Player
 {
-    public class PlayerController : MonoBehaviourPun
+    public class PlayerController : MonoBehaviourPun, IDamageable
     {
         [Header("Player Settings")] [SerializeField]
         private float maxHealth = 100;

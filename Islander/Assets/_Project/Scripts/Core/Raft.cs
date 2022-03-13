@@ -1,11 +1,13 @@
 using System.Collections.Generic;
+using Photon.Pun;
 using UnityEngine;
 
 namespace Gisha.Islander.Core
 {
-    public class Raft : Floater
+    public class Raft : Floater, IDamageable
     {
         [SerializeField] private int level;
+        [SerializeField] private float health = 100f;
 
         public int Level => level;
 
@@ -19,7 +21,30 @@ namespace Gisha.Islander.Core
                     playerTrans.SetParent(null);
             }
         }
-        
+
+        public void GetDamage(float damage)
+        {
+            health -= damage;
+
+            if (health <= 0)
+            {
+                for (var i = 0; i < _playersOnRaft.Count; i++)
+                {
+                    if (_playersOnRaft[i] != null)
+                        UnRootPlayer(_playersOnRaft[i]);
+                }
+
+                PhotonNetwork.Destroy(gameObject);
+            }
+        }
+
+        private void UnRootPlayer(Transform player)
+        {
+            _playersOnRaft.Remove(player);
+            player.SetParent(null);
+            player.rotation = Quaternion.Euler(0, player.rotation.eulerAngles.y, 0);
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Player"))
@@ -33,9 +58,7 @@ namespace Gisha.Islander.Core
         {
             if (other.CompareTag("Player"))
             {
-                _playersOnRaft.Remove(other.transform);
-                other.transform.SetParent(null);
-                other.transform.rotation = Quaternion.Euler(0, other.transform.rotation.eulerAngles.y, 0);
+                UnRootPlayer(other.transform);
             }
         }
     }

@@ -1,4 +1,4 @@
-using Gisha.Islander.Player;
+using Gisha.Islander.Core;
 using UnityEngine;
 
 namespace Gisha.Islander.Environment
@@ -27,8 +27,11 @@ namespace Gisha.Islander.Environment
         private void OnCollisionEnter(Collision other)
         {
             if (other.collider.CompareTag("Player") && !Owner.IsChildOf(other.transform))
-                other.collider.GetComponent<PlayerController>().GetDamage(30);
+                other.collider.GetComponent<IDamageable>().GetDamage(30);
 
+            if (other.collider.CompareTag("Raft"))
+                other.collider.GetComponent<IDamageable>().GetDamage(25);
+                
             Destroy(gameObject);
         }
     }

@@ -24,7 +24,7 @@ namespace Gisha.Islander.Core
             if (transform.position.y < waterLevel)
             {
                 FloatOnWater();
-                
+
                 if (!_isOnWater)
                     ApplyWaterSettings();
             }
