@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Photon.Pun;
 using UnityEngine;
@@ -12,6 +13,12 @@ namespace Gisha.Islander.Core
         public int Level => level;
 
         private List<Transform> _playersOnRaft = new List<Transform>();
+        private PhotonView _pv;
+
+        private void OnEnable()
+        {
+            _pv = GetComponent<PhotonView>();
+        }
 
         private void OnDisable()
         {
@@ -34,7 +41,8 @@ namespace Gisha.Islander.Core
                         UnRootPlayer(_playersOnRaft[i]);
                 }
 
-                PhotonNetwork.Destroy(gameObject);
+                if (_pv.IsMine)
+                    PhotonNetwork.Destroy(gameObject);
             }
         }
 
