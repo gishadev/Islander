@@ -5,6 +5,8 @@ namespace Gisha.Islander.Environment
 {
     public class Projectile : MonoBehaviour
     {
+        [SerializeField] private float damage = 25f;
+        [SerializeField] private float raycastDistance = 0.5f;
         public Transform Owner { get; set; }
 
         private Rigidbody _rb;
@@ -22,17 +24,28 @@ namespace Gisha.Islander.Environment
         private void Update()
         {
             transform.rotation = Quaternion.LookRotation(_rb.velocity.normalized);
+
+            Raycast();
         }
 
-        private void OnCollisionEnter(Collision other)
+        private void Raycast()
         {
-            if (other.collider.CompareTag("Player") && !Owner.IsChildOf(other.transform))
-                other.collider.GetComponent<IDamageable>().GetDamage(30);
+            if (Physics.Raycast(transform.position, transform.forward, out var hitInfo, raycastDistance))
+            {
+                if (hitInfo.collider.CompareTag("Player") && !Owner.IsChildOf(hitInfo.transform) ||
+                    hitInfo.collider.CompareTag("Raft"))
+                    hitInfo.collider.GetComponent<IDamageable>().GetDamage(damage);
 
-            if (other.collider.CompareTag("Raft"))
-                other.collider.GetComponent<IDamageable>().GetDamage(25);
-                
-            Destroy(gameObject);
+                Destroy(gameObject);
+            }
+        }
+        
+        
+        
+        private void OnDrawGizmos()
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawRay(transform.position, transform.forward * raycastDistance);
         }
     }
 }
