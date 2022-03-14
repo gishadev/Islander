@@ -7,6 +7,7 @@ namespace Gisha.Islander.Environment
     {
         [SerializeField] private float damage = 25f;
         [SerializeField] private float raycastDistance = 0.5f;
+        [SerializeField] private float raycastRadius = 0.15f;
         public Transform Owner { get; set; }
 
         private Rigidbody _rb;
@@ -30,7 +31,8 @@ namespace Gisha.Islander.Environment
 
         private void Raycast()
         {
-            if (Physics.Raycast(transform.position, transform.forward, out var hitInfo, raycastDistance))
+            Ray ray = new Ray(transform.position, transform.forward);
+            if (Physics.SphereCast(ray, raycastRadius, out var hitInfo, raycastDistance))
             {
                 if (hitInfo.collider.CompareTag("Player") && !Owner.IsChildOf(hitInfo.transform) ||
                     hitInfo.collider.CompareTag("Raft"))
@@ -39,13 +41,13 @@ namespace Gisha.Islander.Environment
                 Destroy(gameObject);
             }
         }
-        
-        
-        
+
+
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawRay(transform.position, transform.forward * raycastDistance);
+            Gizmos.DrawWireSphere(transform.position, raycastRadius);
         }
     }
 }
