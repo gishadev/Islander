@@ -10,12 +10,16 @@ namespace Gisha.Islander.Player.Tools
         [SerializeField] private Transform shootPoint;
         [SerializeField] private float shootForce;
 
-        public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner)
+        public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
+            InteractType interactType)
         {
-            var arrow = Instantiate(arrowPrefab, origin, shootPoint.rotation);
-            
-            arrow.GetComponent<Projectile>().Owner = transform;
-            arrow.GetComponent<Rigidbody>().AddForce(direction * shootForce, ForceMode.Impulse);
+            if (interactType == InteractType.Release)
+            {
+                var arrow = Instantiate(arrowPrefab, origin, shootPoint.rotation);
+
+                arrow.GetComponent<Projectile>().Owner = transform;
+                arrow.GetComponent<Rigidbody>().AddForce(direction * shootForce, ForceMode.Impulse);
+            }
         }
     }
 }

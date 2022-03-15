@@ -36,8 +36,11 @@ namespace Gisha.Islander.Player.Tools
                 return;
 
             if (Input.GetMouseButtonDown(0))
-                _pv.RPC("RPC_PrimaryUse", RpcTarget.AllBuffered, _controller.FPSCamera.CameraRigTrans.position,
-                    _controller.FPSCamera.CameraRigTrans.forward);
+                SendPrimaryUse(InteractType.Press);
+            if (Input.GetMouseButton(0))
+                SendPrimaryUse(InteractType.Hold);
+            if (Input.GetMouseButtonUp(0))
+                SendPrimaryUse(InteractType.Release);
 
             for (int i = 0; i < 10; i++)
             {
@@ -47,6 +50,12 @@ namespace Gisha.Islander.Player.Tools
                     break;
                 }
             }
+        }
+
+        private void SendPrimaryUse(InteractType interactType)
+        {
+            _pv.RPC("RPC_PrimaryUse", RpcTarget.AllBuffered, _controller.FPSCamera.CameraRigTrans.position,
+                _controller.FPSCamera.CameraRigTrans.forward, (int) interactType);
         }
 
         public void AddTool(string toolName)
@@ -66,10 +75,10 @@ namespace Gisha.Islander.Player.Tools
         }
 
         [PunRPC]
-        private void RPC_PrimaryUse(Vector3 origin, Vector3 direction)
+        private void RPC_PrimaryUse(Vector3 origin, Vector3 direction, int interactType)
         {
             var controller = GetComponentInParent<PlayerController>();
-            _equippedTool.PrimaryUse(origin, direction, controller);
+            _equippedTool.PrimaryUse(origin, direction, controller, (InteractType) interactType);
         }
 
         [PunRPC]
@@ -87,5 +96,12 @@ namespace Gisha.Islander.Player.Tools
             _equippedTool = toolGO.GetComponent<Tool>();
             _equippedTool.Equiped?.Invoke(true);
         }
+    }
+
+    public enum InteractType
+    {
+        Press,
+        Hold,
+        Release
     }
 }

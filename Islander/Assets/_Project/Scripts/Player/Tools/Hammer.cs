@@ -36,10 +36,14 @@ namespace Gisha.Islander.Player.Tools
             PrebuildRaycastCheck();
         }
 
-        public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner)
+        public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
+            InteractType interactType)
         {
-            if (Physics.Raycast(origin, direction, out var raycastHit))
-                BuildingSystem.Build(raycastHit, owner);
+            if (interactType == InteractType.Press)
+            {
+                if (Physics.Raycast(origin, direction, out var raycastHit))
+                    BuildingSystem.Build(raycastHit, owner);
+            }
         }
 
         private void PrebuildRaycastCheck()
