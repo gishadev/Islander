@@ -12,15 +12,10 @@ namespace Gisha.Islander.Player.Tools
 
         public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner)
         {
-            var arrow = Instantiate(arrowPrefab, shootPoint.position, shootPoint.rotation);
-            var shootDir = direction;
-
-            // Finding hit point to shoot correctly into crosshair.
-            if (Physics.Raycast(origin, direction, out var hitInfo))
-                shootDir = (hitInfo.point - shootPoint.position).normalized;
+            var arrow = Instantiate(arrowPrefab, origin, shootPoint.rotation);
             
             arrow.GetComponent<Projectile>().Owner = transform;
-            arrow.GetComponent<Rigidbody>().AddForce(shootDir * shootForce, ForceMode.Impulse);
+            arrow.GetComponent<Rigidbody>().AddForce(direction * shootForce, ForceMode.Impulse);
         }
     }
 }
