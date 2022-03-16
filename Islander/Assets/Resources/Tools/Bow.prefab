@@ -67,6 +67,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6035a225d6947c5841cdcce05fc33f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  delayInSeconds: 1
   arrowPrefab: {fileID: 118627626085939782, guid: 2def94df48a881e4a8ec46965dc1b430, type: 3}
   shootPoint: {fileID: 5468854561329888153}
   maxShootForce: 30

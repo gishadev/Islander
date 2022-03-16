@@ -9,6 +9,8 @@ namespace Gisha.Islander.Player.Tools
         public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
             InteractType interactType)
         {
+            base.PrimaryUse(origin, direction, owner, interactType);
+            
             if (interactType == InteractType.Press)
             {
                 Debug.DrawRay(origin, direction * maxDistance, Color.red, 0.25f);
@@ -32,6 +34,8 @@ namespace Gisha.Islander.Player.Tools
                             col.GetComponent<Rigidbody>().AddForce(direction * 5f, ForceMode.Impulse);
                     }
                 }
+                
+                ResetDelay();
             }
         }
     }
