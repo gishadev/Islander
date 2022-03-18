@@ -33,7 +33,7 @@ namespace Gisha.Islander.Player.Tools
                     }
                 }
                 
-                ResetDelay();
+                ResetDelay(true);
             }
         }
     }

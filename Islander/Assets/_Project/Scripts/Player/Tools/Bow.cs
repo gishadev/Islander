@@ -33,7 +33,7 @@ namespace Gisha.Islander.Player.Tools
 
                 _charge = 0f;
 
-                ResetDelay();
+                ResetDelay(false);
             }
 
             ProgressCircle.Instance.SetProgress(_charge);

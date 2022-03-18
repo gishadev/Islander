@@ -44,7 +44,7 @@ namespace Gisha.Islander.Player.Tools
                 if (Physics.Raycast(origin, direction, out var raycastHit))
                     BuildingSystem.Build(raycastHit, owner);
 
-                ResetDelay();
+                ResetDelay(true);
             }
         }
 
