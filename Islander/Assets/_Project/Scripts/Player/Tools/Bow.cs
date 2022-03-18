@@ -12,11 +12,9 @@ namespace Gisha.Islander.Player.Tools
 
         private float _charge;
 
-        public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
+        protected override void InitiatePrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
             InteractType interactType)
         {
-            base.PrimaryUse(origin, direction, owner, interactType);
-            
             if (interactType == InteractType.Press)
                 _charge = 0f;
 
@@ -34,7 +32,7 @@ namespace Gisha.Islander.Player.Tools
                 arrow.GetComponent<Rigidbody>().AddForce(direction * maxShootForce * _charge, ForceMode.Impulse);
 
                 _charge = 0f;
-                
+
                 ResetDelay();
             }
 

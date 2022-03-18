@@ -6,11 +6,9 @@ namespace Gisha.Islander.Player.Tools
     {
         [SerializeField] private float maxDistance;
 
-        public override void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
+        protected override void InitiatePrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
             InteractType interactType)
         {
-            base.PrimaryUse(origin, direction, owner, interactType);
-            
             if (interactType == InteractType.Press)
             {
                 Debug.DrawRay(origin, direction * maxDistance, Color.red, 0.25f);

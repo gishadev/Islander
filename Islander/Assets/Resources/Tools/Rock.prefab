@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb4a5b1b02c441bbcbff212dbaee6f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayInSeconds: 1
+  delayInSeconds: 0.3
   maxDistance: 2
-  damage: 0.5
+  damage: 1
   axeEfficiency: 1
   pickaxeEfficiency: 1

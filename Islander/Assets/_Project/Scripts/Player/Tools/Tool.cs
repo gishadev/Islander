@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Gisha.Islander.Player.Tools
@@ -9,25 +10,31 @@ namespace Gisha.Islander.Player.Tools
 
         public Action<bool> Equiped;
 
-        private bool IsDelay => _currentDelay > 0f;
+        private bool _isDelay;
         private float _currentDelay;
 
-        public virtual void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
+        public void PrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
             InteractType interactType)
         {
-            if (IsDelay)
+            if (_isDelay)
                 return;
+
+            InitiatePrimaryUse(origin, direction, owner, interactType);
         }
 
-        private void Update()
+        protected abstract void InitiatePrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
+            InteractType interactType);
+        
+        private IEnumerator DelayCoroutine()
         {
-            if (IsDelay)
-                _currentDelay -= Time.deltaTime;
+            _isDelay = true;
+            yield return new WaitForSeconds(delayInSeconds);
+            _isDelay = false;
         }
 
         public void ResetDelay()
         {
-            _currentDelay = delayInSeconds;
+            StartCoroutine(DelayCoroutine());
         }
     }
 }
