@@ -11,25 +11,36 @@ namespace Gisha.Islander.Photon
         private void Awake()
         {
             PhotonNetwork.ConnectUsingSettings();
+            PhotonNetwork.NickName = "Player " + Random.Range(0, 99999);
         }
-        
-        public override void OnConnectedToMaster()
+
+        public static void HostRoom()
         {
-            Debug.Log("OnConnectedToMaster() was called by PUN.");
+            if (!PhotonNetwork.IsConnectedAndReady)
+                return;
+
+            var random = new System.Random();
+            var id = random.Next();
 
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.IsVisible = true;
             roomOptions.MaxPlayers = 4;
 
-            PhotonNetwork.JoinOrCreateRoom("Hello", roomOptions, TypedLobby.Default);
+            Debug.LogError(id.ToString());
+            PhotonNetwork.CreateRoom(id.ToString(), roomOptions, TypedLobby.Default);
         }
 
-        public override void OnJoinedRoom()
+        public override void OnConnectedToMaster()
         {
-            MyPhotonPlayer = PhotonNetwork.Instantiate("PhotonPlayer", Vector3.zero, Quaternion.identity, 0)
-                .GetComponent<PhotonPlayer>();
-            Debug.Log("We now in a room");
+            Debug.Log("OnConnectedToMaster() was called by PUN.");
         }
+
+        // public override void OnJoinedRoom()
+        // {
+        //     // MyPhotonPlayer = PhotonNetwork.Instantiate("PhotonPlayer", Vector3.zero, Quaternion.identity, 0)
+        //     //     .GetComponent<PhotonPlayer>();
+        //     Debug.Log("We now in a room");
+        // }
 
         public override void OnJoinRoomFailed(short returnCode, string message)
         {
