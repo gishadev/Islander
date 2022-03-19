@@ -20,14 +20,13 @@ namespace Gisha.Islander.Photon
                 return;
 
             var random = new System.Random();
-            var id = random.Next();
+            string id = random.Next(0, 9999999).ToString("D7");
 
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.IsVisible = true;
             roomOptions.MaxPlayers = 4;
-
-            Debug.LogError(id.ToString());
-            PhotonNetwork.CreateRoom(id.ToString(), roomOptions, TypedLobby.Default);
+            Debug.LogError(id);
+            PhotonNetwork.CreateRoom(id, roomOptions, TypedLobby.Default);
         }
 
         public override void OnConnectedToMaster()

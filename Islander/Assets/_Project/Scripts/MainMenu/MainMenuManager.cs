@@ -10,8 +10,8 @@ namespace Gisha.Islander.MainMenu
     {
         [SerializeField] private GameObject hostScreen;
         [SerializeField] private Button hostBtn, enterRoomBtn;
-        [SerializeField] private TMP_Text roomIDInput;
-        
+        [SerializeField] private TMP_InputField roomIDInput;
+
         private void Awake()
         {
             hostBtn.interactable = false;
@@ -33,6 +33,7 @@ namespace Gisha.Islander.MainMenu
         public override void OnJoinedRoom()
         {
             hostScreen.SetActive(true);
+            Debug.LogError(PhotonNetwork.CurrentRoom.Name);
         }
 
         public void OnClick_Host()

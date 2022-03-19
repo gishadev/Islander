@@ -1561,7 +1561,7 @@ MonoBehaviour:
   hostScreen: {fileID: 1930700794}
   hostBtn: {fileID: 1073244866}
   enterRoomBtn: {fileID: 637906022}
-  roomIDInput: {fileID: 1061426838}
+  roomIDInput: {fileID: 1790146432}
 --- !u!4 &900457746
 Transform:
   m_ObjectHideFlags: 0
@@ -3437,7 +3437,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1894526767}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 900457745}
+        m_TargetAssemblyTypeName: Gisha.Islander.MainMenu.MainMenuManager, Assembly-CSharp
+        m_MethodName: OnClick_Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1894526767
 MonoBehaviour:
   m_ObjectHideFlags: 0
