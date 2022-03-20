@@ -1,6 +1,3 @@
-using System;
-using ExitGames.Client.Photon;
-using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

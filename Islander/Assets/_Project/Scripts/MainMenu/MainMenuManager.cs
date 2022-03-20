@@ -46,7 +46,7 @@ namespace Gisha.Islander.MainMenu
             RoomOptions roomOptions = new RoomOptions();
             roomOptions.IsVisible = true;
             roomOptions.MaxPlayers = 4;
-            Debug.LogError(id);
+            
             PhotonNetwork.CreateRoom(id, roomOptions, TypedLobby.Default);
         }
 
