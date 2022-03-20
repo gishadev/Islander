@@ -36,7 +36,7 @@ namespace Gisha.Islander.Player.Tools
                 ResetDelay(false);
             }
 
-            ProgressCircle.Instance.SetProgress(_charge);
+            ProgressCircle.Instance.SetProgress(_charge, owner);
         }
     }
 }

@@ -1,3 +1,5 @@
+using Gisha.Islander.Photon;
+using Gisha.Islander.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,9 +18,10 @@ namespace Gisha.Islander.UI
             _circle = GetComponent<Image>();
         }
 
-        public void SetProgress(float value)
+        public void SetProgress(float value, PlayerController owner)
         {
-            _circle.fillAmount = value;
+            if (Equals(PhotonManager.MyPhotonPlayer.PlayerController, owner))
+                _circle.fillAmount = value;
         }
     }
 }

@@ -40,15 +40,14 @@ namespace Gisha.Islander.Player.Tools
         {
             _isDelay = true;
             _currentDelay = delayInSeconds;
-            bool isOwner = Owner.Equals(PhotonManager.MyPhotonPlayer.PlayerController);
 
             while (_currentDelay > 0)
             {
                 yield return null;
                 _currentDelay -= Time.deltaTime;
 
-                if (updateProgressCircle && isOwner)
-                    ProgressCircle.Instance.SetProgress(_currentDelay / delayInSeconds);
+                if (updateProgressCircle)
+                    ProgressCircle.Instance.SetProgress(_currentDelay / delayInSeconds, Owner);
             }
 
             _isDelay = false;
