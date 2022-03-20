@@ -33,7 +33,6 @@ namespace Gisha.Islander.MainMenu
         public override void OnJoinedRoom()
         {
             hostScreen.SetActive(true);
-            Debug.LogError(PhotonNetwork.CurrentRoom.Name);
         }
 
         public void OnClick_Host()

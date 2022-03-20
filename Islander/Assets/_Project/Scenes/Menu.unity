@@ -1479,7 +1479,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1930700798}
+      - m_Target: {fileID: 900457747}
         m_TargetAssemblyTypeName: Gisha.Islander.MainMenu.HostRoomMenu, Assembly-CSharp
         m_MethodName: OnClick_Close
         m_Mode: 1
@@ -1539,6 +1539,7 @@ GameObject:
   m_Component:
   - component: {fileID: 900457746}
   - component: {fileID: 900457745}
+  - component: {fileID: 900457747}
   m_Layer: 0
   m_Name: MenuManager
   m_TagString: Untagged
@@ -1576,6 +1577,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &900457747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 900457744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5951605ee8cddd4094422b54aeffd2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hostRoomScreen: {fileID: 1930700794}
+  playerRoomListingParent: {fileID: 1109307841}
+  playerRoomListingPrefab: {fileID: 8006540331053734986, guid: 5991a3d56d22e934c896af568685081e, type: 3}
 --- !u!1 &973108103
 GameObject:
   m_ObjectHideFlags: 0
@@ -3633,7 +3649,6 @@ GameObject:
   - component: {fileID: 1930700795}
   - component: {fileID: 1930700797}
   - component: {fileID: 1930700796}
-  - component: {fileID: 1930700798}
   m_Layer: 5
   m_Name: Host Room Screen
   m_TagString: Untagged
@@ -3701,20 +3716,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1930700794}
   m_CullTransparentMesh: 1
---- !u!114 &1930700798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1930700794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5951605ee8cddd4094422b54aeffd2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerRoomListingParent: {fileID: 1109307841}
-  playerRoomListingPrefab: {fileID: 8006540331053734986, guid: 5991a3d56d22e934c896af568685081e, type: 3}
 --- !u!1 &2015921928
 GameObject:
   m_ObjectHideFlags: 0
