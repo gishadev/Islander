@@ -1,3 +1,6 @@
+using System;
+using ExitGames.Client.Photon;
+using Photon.Pun;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,8 +11,10 @@ namespace Gisha.Islander.MainMenu
     {
         [SerializeField] private TMP_Text playerName;
         [SerializeField] private Image readyIcon;
-
-        public bool IsReady { get; private set; }
+        
+        public bool IsReady => _isReady;
+        
+        private bool _isReady;
         
         public void SetName(string name)
         {
@@ -23,7 +28,7 @@ namespace Gisha.Islander.MainMenu
             else
                 readyIcon.color = Color.red;
 
-            IsReady = isReady;
+            _isReady = isReady;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Gisha.Islander.Photon
             if (!photonView.IsMine)
                 return;
 
-            _spawnpoint = GameManager.Instance.Spawnpoints[PhotonNetwork.CurrentRoom.PlayerCount - 1];
+            _spawnpoint = GameManager.Instance.Spawnpoints[PhotonNetwork.LocalPlayer.ActorNumber - 1];
             Respawn();
             
             PlayerController.Destroyed += OnDestroyPlayerController;

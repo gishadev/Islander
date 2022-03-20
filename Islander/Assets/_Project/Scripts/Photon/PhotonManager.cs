@@ -1,32 +1,52 @@
 using Photon.Pun;
-using Photon.Realtime;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 namespace Gisha.Islander.Photon
 {
     public class PhotonManager : MonoBehaviourPunCallbacks
     {
+        private static PhotonManager Instance { get; set; }
+
         public static PhotonPlayer MyPhotonPlayer;
 
         private void Awake()
         {
+            CreateInstance();
+
             PhotonNetwork.ConnectUsingSettings();
             PhotonNetwork.NickName = "Player " + Random.Range(0, 99999);
         }
 
-        public static void HostRoom()
+        public override void OnEnable()
         {
-            if (!PhotonNetwork.IsConnectedAndReady)
-                return;
+            SceneManager.sceneLoaded += OnSceneLoaded;
+        }
 
-            var random = new System.Random();
-            string id = random.Next(0, 9999999).ToString("D7");
+        public override void OnDisable()
+        {
+            SceneManager.sceneLoaded -= OnSceneLoaded;
+        }
 
-            RoomOptions roomOptions = new RoomOptions();
-            roomOptions.IsVisible = true;
-            roomOptions.MaxPlayers = 4;
-            Debug.LogError(id);
-            PhotonNetwork.CreateRoom(id, roomOptions, TypedLobby.Default);
+        private void CreateInstance()
+        {
+            DontDestroyOnLoad(gameObject);
+
+            if (Instance == null)
+                Instance = this;
+            else
+            {
+                if (Instance != this)
+                    Destroy(gameObject);
+            }
+        }
+
+        private void OnSceneLoaded(Scene arg0, LoadSceneMode loadSceneMode)
+        {
+            if (arg0.name == "Game")
+                MyPhotonPlayer = PhotonNetwork.Instantiate("PhotonPlayer", Vector3.zero, Quaternion.identity, 0)
+                    .GetComponent<PhotonPlayer>();
         }
 
         public override void OnConnectedToMaster()

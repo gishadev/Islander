@@ -1,5 +1,5 @@
-using Gisha.Islander.Photon;
 using Photon.Pun;
+using Photon.Realtime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -37,7 +37,17 @@ namespace Gisha.Islander.MainMenu
 
         public void OnClick_Host()
         {
-            PhotonManager.HostRoom();
+            if (!PhotonNetwork.IsConnectedAndReady)
+                return;
+
+            var random = new System.Random();
+            string id = random.Next(0, 9999999).ToString("D7");
+
+            RoomOptions roomOptions = new RoomOptions();
+            roomOptions.IsVisible = true;
+            roomOptions.MaxPlayers = 4;
+            Debug.LogError(id);
+            PhotonNetwork.CreateRoom(id, roomOptions, TypedLobby.Default);
         }
 
         public void OnClick_EnterRoom()
