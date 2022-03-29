@@ -3396,7 +3396,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1616567686}
   - component: {fileID: 1616567689}
-  - component: {fileID: 1616567688}
   - component: {fileID: 1616567687}
   m_Layer: 0
   m_Name: GUICamera
@@ -3452,14 +3451,6 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
---- !u!81 &1616567688
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616567685}
-  m_Enabled: 1
 --- !u!20 &1616567689
 Camera:
   m_ObjectHideFlags: 0
@@ -3488,7 +3479,7 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: 0
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 32
@@ -4942,6 +4933,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraRigTrans: {fileID: 7405464422942963916}
   cameraSensitivity: 75
+  _hudController:
+    environmentHUDCanvas: {fileID: 1976434738}
+    maxRaycastDistance: 8
 --- !u!1 &6832327027272934366
 GameObject:
   m_ObjectHideFlags: 0

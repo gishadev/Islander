@@ -1,3 +1,4 @@
+using System;
 using Photon.Pun;
 using UnityEngine;
 
@@ -7,11 +8,13 @@ namespace Gisha.Islander.Player
     {
         [SerializeField] private Transform cameraRigTrans;
         [SerializeField] private float cameraSensitivity = 1.6f;
+        [Space] [SerializeField] private EnvironmentHUDController _hudController;
+
 
         private float _xRot, _yRot;
-        
+
         public Transform CameraRigTrans => cameraRigTrans;
-        
+
         private void Start()
         {
             if (!photonView.IsMine)
@@ -35,6 +38,11 @@ namespace Gisha.Islander.Player
             ApplyBodyRotation(mouseX);
         }
 
+        private void Update()
+        {
+            _hudController.Raycast(CameraRigTrans.position, CameraRigTrans.forward);
+        }
+
         private void ApplyCameraRotation(float deltaY)
         {
             _xRot -= deltaY;
@@ -46,6 +54,33 @@ namespace Gisha.Islander.Player
         {
             _yRot = deltaX;
             transform.Rotate(Vector3.up * _yRot);
+        }
+    }
+
+    [Serializable]
+    public class EnvironmentHUDController
+    {
+        [SerializeField] private GameObject environmentHUDCanvas;
+        [SerializeField] private float maxRaycastDistance;
+
+        public void Raycast(Vector3 origin, Vector3 direction)
+        {
+            if (Physics.Raycast(origin, direction, out var hitInfo, maxRaycastDistance))
+            {
+                if (hitInfo.collider.CompareTag("Mineable"))
+                {
+                    environmentHUDCanvas.SetActive(true);
+                    Vector3 hudPosition = new Vector3(hitInfo.transform.position.x, hitInfo.point.y,
+                        hitInfo.transform.position.z);
+                    
+                    environmentHUDCanvas.transform.position = hudPosition;
+                    environmentHUDCanvas.transform.rotation = Quaternion.LookRotation(direction);
+                    return;
+                }
+            }
+
+
+            environmentHUDCanvas.SetActive(false);
         }
     }
 }
