@@ -1,4 +1,6 @@
 using System;
+using Gisha.Islander.Environment;
+using Gisha.Islander.UI;
 using Photon.Pun;
 using UnityEngine;
 
@@ -8,12 +10,23 @@ namespace Gisha.Islander.Player
     {
         [SerializeField] private Transform cameraRigTrans;
         [SerializeField] private float cameraSensitivity = 1.6f;
-        [Space] [SerializeField] private EnvironmentHUDController _hudController;
 
+        [Header("HUD Controller")] [SerializeField]
+        private EnvironmentHUDController hudController;
+
+        [SerializeField] private float maxRaycastDistance;
+        [SerializeField] private float sphereCastRadius = 0.25f;
 
         private float _xRot, _yRot;
 
         public Transform CameraRigTrans => cameraRigTrans;
+
+        private void Awake()
+        {
+            if (photonView.IsMine)
+                hudController = new EnvironmentHUDController(FindObjectOfType<EnvironmentHUD>(), maxRaycastDistance,
+                    sphereCastRadius);
+        }
 
         private void Start()
         {
@@ -40,7 +53,8 @@ namespace Gisha.Islander.Player
 
         private void Update()
         {
-            _hudController.Raycast(CameraRigTrans.position, CameraRigTrans.forward);
+            if (photonView.IsMine)
+                hudController.Raycast(CameraRigTrans.position, CameraRigTrans.forward);
         }
 
         private void ApplyCameraRotation(float deltaY)
@@ -60,27 +74,63 @@ namespace Gisha.Islander.Player
     [Serializable]
     public class EnvironmentHUDController
     {
-        [SerializeField] private GameObject environmentHUDCanvas;
-        [SerializeField] private float maxRaycastDistance;
+        private float _maxRaycastDistance;
+        private float _sphereCastRadius = 0.25f;
 
+        private EnvironmentHUD _environmentHUD;
+        private GameObject _lastRaycastTarget;
+        private MineableResource _lastMineable;
+
+        public EnvironmentHUDController(EnvironmentHUD environmentHUD, float maxRaycastDistance, float sphereCastRadius)
+        {
+            _environmentHUD = environmentHUD;
+            _maxRaycastDistance = maxRaycastDistance;
+            _sphereCastRadius = sphereCastRadius;
+        }
+
+        // TODO: OPTIMIZE THIS THING (TOO LAGGY)
         public void Raycast(Vector3 origin, Vector3 direction)
         {
-            if (Physics.Raycast(origin, direction, out var hitInfo, maxRaycastDistance))
+            Ray ray = new Ray(origin, direction);
+
+            if (Physics.SphereCast(ray, _sphereCastRadius, out var hitInfo, _maxRaycastDistance))
             {
                 if (hitInfo.collider.CompareTag("Mineable"))
                 {
-                    environmentHUDCanvas.SetActive(true);
+                    ShowHUD();
+
                     Vector3 hudPosition = new Vector3(hitInfo.transform.position.x, hitInfo.point.y,
                         hitInfo.transform.position.z);
-                    
-                    environmentHUDCanvas.transform.position = hudPosition;
-                    environmentHUDCanvas.transform.rotation = Quaternion.LookRotation(direction);
+                    _environmentHUD.transform.position = hudPosition;
+                    _environmentHUD.transform.rotation = Quaternion.LookRotation(direction);
+
+                    if (_lastRaycastTarget == null || _lastRaycastTarget != hitInfo.collider.gameObject)
+                    {
+                        _lastRaycastTarget = hitInfo.collider.gameObject;
+                        _lastMineable = hitInfo.collider.GetComponentInParent<MineableResource>();
+                    }
+
+                    if (_lastMineable != null)
+                    {
+                        _environmentHUD.UpdateHUD(_lastMineable.ResourceType.ToString(),
+                            _lastMineable.HealthPercentage);
+                    }
+
                     return;
                 }
             }
 
+            HideHUD();
+        }
 
-            environmentHUDCanvas.SetActive(false);
+        public void HideHUD()
+        {
+            _environmentHUD.Hide();
+        }
+
+        public void ShowHUD()
+        {
+            _environmentHUD.Show();
         }
     }
 }
