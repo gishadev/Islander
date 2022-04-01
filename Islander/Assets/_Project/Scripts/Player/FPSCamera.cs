@@ -33,6 +33,7 @@ namespace Gisha.Islander.Player
             if (!photonView.IsMine)
             {
                 Destroy(CameraRigTrans.Find("Camera").gameObject);
+                Destroy(CameraRigTrans.Find("GUICamera").gameObject);
                 return;
             }
 
