@@ -5776,14 +5776,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 901060826}
     m_Modifications:
-    - target: {fileID: 2972080827749303300, guid: 7bc529b5395e4f94ab67c5e3a7e7ecf1, type: 3}
-      propertyPath: sceneViewId
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4659340035007412594, guid: 7bc529b5395e4f94ab67c5e3a7e7ecf1, type: 3}
-      propertyPath: sceneViewId
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4684785615143234102, guid: 7bc529b5395e4f94ab67c5e3a7e7ecf1, type: 3}
       propertyPath: m_Name
       value: Island
@@ -5831,26 +5823,6 @@ PrefabInstance:
     - target: {fileID: 5352637140814049420, guid: 7bc529b5395e4f94ab67c5e3a7e7ecf1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6207648251951166981, guid: 7bc529b5395e4f94ab67c5e3a7e7ecf1, type: 3}
-      propertyPath: sceneViewId
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6207648252330725201, guid: 7bc529b5395e4f94ab67c5e3a7e7ecf1, type: 3}
-      propertyPath: sceneViewId
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6207648252337994879, guid: 7bc529b5395e4f94ab67c5e3a7e7ecf1, type: 3}
-      propertyPath: sceneViewId
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6207648253317153730, guid: 7bc529b5395e4f94ab67c5e3a7e7ecf1, type: 3}
-      propertyPath: sceneViewId
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6207648253748365634, guid: 7bc529b5395e4f94ab67c5e3a7e7ecf1, type: 3}
-      propertyPath: sceneViewId
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bc529b5395e4f94ab67c5e3a7e7ecf1, type: 3}
