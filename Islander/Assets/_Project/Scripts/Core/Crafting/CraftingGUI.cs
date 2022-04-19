@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Gisha.Islander.Photon;
+using Gisha.Islander.Player;
 using Gisha.Islander.UI;
 using TMPro;
 using UnityEngine;
@@ -31,25 +32,20 @@ namespace Gisha.Islander.Core.Crafting
         private void OnEnable()
         {
             _craftingController.Crafted += UpdateCraftingGUI;
+            GUIRaycaster.TotemOpened += ChangeCraftPanelVisibility;
         }
 
         private void OnDisable()
         {
             _craftingController.Crafted -= UpdateCraftingGUI;
             PhotonManager.MyPhotonPlayer.PlayerRespawned -= UpdateCraftingGUI;
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-                ChangeCraftPanelVisibility(!craftPanel.activeSelf);
+            GUIRaycaster.TotemOpened -= ChangeCraftPanelVisibility;
         }
 
         public override void ResetGUI()
         {
             UpdateCraftingGUI();
         }
-        
         
         private void UpdateCraftingGUI()
         {
@@ -90,7 +86,7 @@ namespace Gisha.Islander.Core.Crafting
                 PhotonManager.MyPhotonPlayer.PlayerRespawned += ResetGUI;
                 _isInitialized = true;
             }
-            
+
             craftPanel.SetActive(isVisible);
             Cursor.lockState = isVisible ? CursorLockMode.None : CursorLockMode.Locked;
         }

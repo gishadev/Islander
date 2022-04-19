@@ -601,7 +601,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraRigTrans: {fileID: 7405464422988262851}
   cameraSensitivity: 75
-  maxRaycastDistance: 8
+  maxRaycastDistance: 4
   sphereCastRadius: 0.25
 --- !u!114 &8680530244576474758
 MonoBehaviour:

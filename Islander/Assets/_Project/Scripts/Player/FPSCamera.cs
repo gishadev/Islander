@@ -11,20 +11,20 @@ namespace Gisha.Islander.Player
         [SerializeField] private Transform cameraRigTrans;
         [SerializeField] private float cameraSensitivity = 1.6f;
 
-        [Header("HUD Controller")] [SerializeField]
-        private EnvironmentHUDController hudController;
+        [Header("GUI Raycaster")] [SerializeField]
+        private GUIRaycaster guiRaycaster;
 
         [SerializeField] private float maxRaycastDistance;
         [SerializeField] private float sphereCastRadius = 0.25f;
 
-        private float _xRot, _yRot;
-
         public Transform CameraRigTrans => cameraRigTrans;
+
+        private float _xRot, _yRot;
 
         private void Awake()
         {
             if (photonView.IsMine)
-                hudController = new EnvironmentHUDController(FindObjectOfType<EnvironmentHUD>(), maxRaycastDistance,
+                guiRaycaster = new GUIRaycaster(FindObjectOfType<EnvironmentHUD>(), maxRaycastDistance,
                     sphereCastRadius);
         }
 
@@ -55,7 +55,7 @@ namespace Gisha.Islander.Player
         private void Update()
         {
             if (photonView.IsMine)
-                hudController.Raycast(CameraRigTrans.position, CameraRigTrans.forward);
+                guiRaycaster.Raycast(CameraRigTrans.position, CameraRigTrans.forward);
         }
 
         private void ApplyCameraRotation(float deltaY)
@@ -73,8 +73,11 @@ namespace Gisha.Islander.Player
     }
 
     [Serializable]
-    public class EnvironmentHUDController
+    public class GUIRaycaster
     {
+        public static Action<bool> TotemOpened;
+        //private bool _totemOpened;
+
         private float _maxRaycastDistance;
         private float _sphereCastRadius = 0.25f;
 
@@ -82,7 +85,7 @@ namespace Gisha.Islander.Player
         private GameObject _lastRaycastTarget;
         private MineableResource _lastMineable;
 
-        public EnvironmentHUDController(EnvironmentHUD environmentHUD, float maxRaycastDistance, float sphereCastRadius)
+        public GUIRaycaster(EnvironmentHUD environmentHUD, float maxRaycastDistance, float sphereCastRadius)
         {
             _environmentHUD = environmentHUD;
             _maxRaycastDistance = maxRaycastDistance;
@@ -119,8 +122,17 @@ namespace Gisha.Islander.Player
 
                     return;
                 }
+
+                if (hitInfo.collider.CompareTag("Totem"))
+                {
+                    if (Input.GetKeyDown(KeyCode.E))
+                        TotemOpened?.Invoke(true);
+
+                    return;
+                }
             }
 
+            TotemOpened?.Invoke(false);
             HideHUD();
         }
 
