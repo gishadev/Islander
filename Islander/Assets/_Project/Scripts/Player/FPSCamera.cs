@@ -24,8 +24,7 @@ namespace Gisha.Islander.Player
         private void Awake()
         {
             if (photonView.IsMine)
-                guiRaycaster = new GUIRaycaster(FindObjectOfType<EnvironmentHUD>(), maxRaycastDistance,
-                    sphereCastRadius);
+                guiRaycaster = new GUIRaycaster(maxRaycastDistance, sphereCastRadius);
         }
 
         private void Start()
@@ -76,18 +75,13 @@ namespace Gisha.Islander.Player
     public class GUIRaycaster
     {
         public static Action<bool> TotemOpened;
-        //private bool _totemOpened;
+        public static Action<bool, RaycastHit, Vector3> HUDShowed;
 
         private float _maxRaycastDistance;
         private float _sphereCastRadius = 0.25f;
 
-        private EnvironmentHUD _environmentHUD;
-        private GameObject _lastRaycastTarget;
-        private MineableResource _lastMineable;
-
-        public GUIRaycaster(EnvironmentHUD environmentHUD, float maxRaycastDistance, float sphereCastRadius)
+        public GUIRaycaster(float maxRaycastDistance, float sphereCastRadius)
         {
-            _environmentHUD = environmentHUD;
             _maxRaycastDistance = maxRaycastDistance;
             _sphereCastRadius = sphereCastRadius;
         }
@@ -101,25 +95,7 @@ namespace Gisha.Islander.Player
             {
                 if (hitInfo.collider.CompareTag("Mineable"))
                 {
-                    ShowHUD();
-
-                    Vector3 hudPosition = new Vector3(hitInfo.transform.position.x, hitInfo.point.y,
-                        hitInfo.transform.position.z);
-                    _environmentHUD.transform.position = hudPosition;
-                    _environmentHUD.transform.rotation = Quaternion.LookRotation(direction);
-
-                    if (_lastRaycastTarget == null || _lastRaycastTarget != hitInfo.collider.gameObject)
-                    {
-                        _lastRaycastTarget = hitInfo.collider.gameObject;
-                        _lastMineable = hitInfo.collider.GetComponentInParent<MineableResource>();
-                    }
-
-                    if (_lastMineable != null)
-                    {
-                        _environmentHUD.UpdateHUD(_lastMineable.ResourceType.ToString(),
-                            _lastMineable.HealthPercentage);
-                    }
-
+                    HUDShowed?.Invoke(true, hitInfo, direction);
                     return;
                 }
 
@@ -133,17 +109,7 @@ namespace Gisha.Islander.Player
             }
 
             TotemOpened?.Invoke(false);
-            HideHUD();
-        }
-
-        public void HideHUD()
-        {
-            _environmentHUD.Hide();
-        }
-
-        public void ShowHUD()
-        {
-            _environmentHUD.Show();
+            HUDShowed?.Invoke(false, hitInfo, direction);
         }
     }
 }

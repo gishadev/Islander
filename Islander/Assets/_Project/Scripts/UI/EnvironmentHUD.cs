@@ -1,3 +1,6 @@
+using System;
+using Gisha.Islander.Environment;
+using Gisha.Islander.Player;
 using TMPro;
 using UnityEngine;
 
@@ -9,17 +12,45 @@ namespace Gisha.Islander.UI
         [SerializeField] private TMP_Text objectNameText;
         [SerializeField] private Transform healthBar;
 
-        public void Hide()
+        private GameObject _lastRaycastTarget;
+        private MineableResource _lastMineable;
+        
+        private void OnEnable()
         {
-            infoPanel.SetActive(false);
+            GUIRaycaster.HUDShowed += Show;
         }
 
-        public void Show()
+        private void OnDisable()
         {
-            infoPanel.SetActive(true);
+            GUIRaycaster.HUDShowed -= Show;
         }
 
-        public void UpdateHUD(string objName, float healthPercentage)
+        private void Show(bool status, RaycastHit hitInfo, Vector3 direction)
+        {
+            infoPanel.SetActive(status);
+            if (!status)
+                return;
+            
+            Vector3 hudPosition = new Vector3(hitInfo.transform.position.x, hitInfo.point.y,
+                hitInfo.transform.position.z);
+            
+            transform.position = hudPosition;
+            transform.rotation = Quaternion.LookRotation(direction);
+            
+            if (_lastRaycastTarget == null || _lastRaycastTarget != hitInfo.collider.gameObject)
+            {
+                _lastRaycastTarget = hitInfo.collider.gameObject;
+                _lastMineable = hitInfo.collider.GetComponentInParent<MineableResource>();
+            }
+
+            if (_lastMineable != null)
+            {
+                UpdateHUD(_lastMineable.ResourceType.ToString(),
+                    _lastMineable.HealthPercentage);
+            }
+        }
+
+        private void UpdateHUD(string objName, float healthPercentage)
         {
             objectNameText.text = objName;
             healthBar.localScale = new Vector3(healthPercentage, 1f, 1f);
