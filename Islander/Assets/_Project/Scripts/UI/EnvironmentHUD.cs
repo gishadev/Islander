@@ -9,12 +9,13 @@ namespace Gisha.Islander.UI
     public class EnvironmentHUD : MonoBehaviour
     {
         [SerializeField] private GameObject infoPanel;
-        [SerializeField] private TMP_Text objectNameText;
+        [SerializeField] private TMP_Text titleText;
+        [SerializeField] private TMP_Text subtitleText;
         [SerializeField] private Transform healthBar;
 
         private GameObject _lastRaycastTarget;
         private MineableResource _lastMineable;
-        
+
         private void OnEnable()
         {
             GUIRaycaster.HUDShowed += Show;
@@ -25,35 +26,48 @@ namespace Gisha.Islander.UI
             GUIRaycaster.HUDShowed -= Show;
         }
 
-        private void Show(bool status, RaycastHit hitInfo, Vector3 direction)
+        private void Show(bool status, EnvironmentHUDType hudType, RaycastHit hitInfo, Vector3 direction)
         {
             infoPanel.SetActive(status);
             if (!status)
                 return;
-            
+
             Vector3 hudPosition = new Vector3(hitInfo.transform.position.x, hitInfo.point.y,
                 hitInfo.transform.position.z);
-            
+
             transform.position = hudPosition;
             transform.rotation = Quaternion.LookRotation(direction);
-            
-            if (_lastRaycastTarget == null || _lastRaycastTarget != hitInfo.collider.gameObject)
+
+            if (hudType == EnvironmentHUDType.Mineable)
             {
-                _lastRaycastTarget = hitInfo.collider.gameObject;
-                _lastMineable = hitInfo.collider.GetComponentInParent<MineableResource>();
+                if (_lastRaycastTarget == null || _lastRaycastTarget != hitInfo.collider.gameObject)
+                {
+                    _lastRaycastTarget = hitInfo.collider.gameObject;
+                    _lastMineable = hitInfo.collider.GetComponentInParent<MineableResource>();
+                }
+
+                if (_lastMineable != null)
+                {
+                    UpdateHUD(_lastMineable.ResourceType.ToString(), "", _lastMineable.HealthPercentage);
+                }
             }
 
-            if (_lastMineable != null)
-            {
-                UpdateHUD(_lastMineable.ResourceType.ToString(),
-                    _lastMineable.HealthPercentage);
-            }
+            else if (hudType == EnvironmentHUDType.Totem)
+                UpdateHUD("Totem", "Press [E] to open totem", 1f);
         }
 
-        private void UpdateHUD(string objName, float healthPercentage)
+        private void UpdateHUD(string title, string subtitle, float healthPercentage)
         {
-            objectNameText.text = objName;
+            titleText.text = title;
+            subtitleText.text = subtitle;
+
             healthBar.localScale = new Vector3(healthPercentage, 1f, 1f);
         }
+    }
+
+    public enum EnvironmentHUDType
+    {
+        Mineable,
+        Totem
     }
 }
