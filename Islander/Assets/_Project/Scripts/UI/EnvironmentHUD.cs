@@ -47,13 +47,14 @@ namespace Gisha.Islander.UI
                 }
 
                 if (_lastMineable != null)
-                {
                     UpdateHUD(_lastMineable.ResourceType.ToString(), "", _lastMineable.HealthPercentage);
-                }
             }
 
             else if (hudType == EnvironmentHUDType.Totem)
-                UpdateHUD("Totem", "Press [E] to open totem", 1f);
+            {
+                var totem = hitInfo.collider.GetComponentInParent<Totem>();
+                UpdateHUD("Totem", "Press [E] to open totem", totem.HealthPercentage);
+            }
         }
 
         private void UpdateHUD(string title, string subtitle, float healthPercentage)

@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 4839443000693460484}
   - component: {fileID: 7263691078782778062}
   - component: {fileID: 9209066278645062404}
+  - component: {fileID: 8715675404491042414}
   m_Layer: 0
   m_Name: Totem
   m_TagString: Totem
@@ -128,3 +129,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -462981019419857548, guid: 3ab26389dfbe10f41a591f1db5ba499d, type: 3}
+--- !u!114 &8715675404491042414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9209066278645062427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78eb5c0cb4034f5ea2b9f3eb6675db5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 30
