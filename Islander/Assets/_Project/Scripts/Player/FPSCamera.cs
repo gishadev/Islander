@@ -75,7 +75,7 @@ namespace Gisha.Islander.Player
     public class GUIRaycaster
     {
         public static Action<bool> TotemOpened;
-        public static Action<bool, RaycastHit, Vector3> HUDShowed;
+        public static Action<bool, EnvironmentHUDType, RaycastHit, Vector3> HUDShowed;
 
         private float _maxRaycastDistance;
         private float _sphereCastRadius = 0.25f;
@@ -95,12 +95,14 @@ namespace Gisha.Islander.Player
             {
                 if (hitInfo.collider.CompareTag("Mineable"))
                 {
-                    HUDShowed?.Invoke(true, hitInfo, direction);
+                    HUDShowed?.Invoke(true, EnvironmentHUDType.Mineable, hitInfo, direction);
                     return;
                 }
 
                 if (hitInfo.collider.CompareTag("Totem"))
                 {
+                    HUDShowed?.Invoke(true, EnvironmentHUDType.Totem, hitInfo, direction);
+                    
                     if (Input.GetKeyDown(KeyCode.E))
                         TotemOpened?.Invoke(true);
 
@@ -109,7 +111,7 @@ namespace Gisha.Islander.Player
             }
 
             TotemOpened?.Invoke(false);
-            HUDShowed?.Invoke(false, hitInfo, direction);
+            HUDShowed?.Invoke(false, EnvironmentHUDType.Mineable, hitInfo, direction);
         }
     }
 }
