@@ -1,3 +1,4 @@
+using Gisha.Islander.Environment;
 using UnityEngine;
 
 namespace Gisha.Islander.Core
@@ -6,13 +7,19 @@ namespace Gisha.Islander.Core
     {
         public static GameManager Instance { get; private set; }
 
-        [SerializeField] private Transform[] spawnpoints;
+        [SerializeField] private Totem[] totems;
 
-        public Transform[] Spawnpoints => spawnpoints;
+        public Totem[] Totems => totems;
 
         private void Awake()
         {
             Instance = this;
+        }
+
+        [ContextMenu("Find All Totems")]
+        public void FindAllTotems()
+        {
+            totems = FindObjectsOfType<Totem>();
         }
     }
 }

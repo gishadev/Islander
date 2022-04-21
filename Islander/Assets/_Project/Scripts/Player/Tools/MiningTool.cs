@@ -1,5 +1,6 @@
 using Gisha.Islander.Core;
 using Gisha.Islander.Environment;
+using Gisha.Islander.Utilities;
 using UnityEngine;
 
 namespace Gisha.Islander.Player.Tools
@@ -24,15 +25,8 @@ namespace Gisha.Islander.Player.Tools
                 {
                     for (int i = 0; i < raycastHits.Length; i++)
                     {
-                        if (raycastHits[i].transform.TryGetComponent(out IDamageable damageable))
-                            damageable.GetDamage(owner, damage);
-
-                        // if (raycastHits[i].collider.CompareTag("Mineable"))
-                        //     raycastHits[i].collider.GetComponentInParent<IMineable>()
-                        //         .Mine(owner, damage, pickaxeEfficiency, axeEfficiency);
-                        // if (raycastHits[i].collider.CompareTag("Player") &&
-                        //     !transform.IsChildOf(raycastHits[i].collider.transform))
-                        //     raycastHits[i].collider.GetComponent<PlayerController>().GetDamage(21);
+                        var damageable = raycastHits[i].transform.GetComponentInParent<IDamageable>();
+                        damageable?.GetDamage(owner, damage);
                     }
                 }
 
