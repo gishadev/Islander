@@ -30,9 +30,9 @@ namespace Gisha.Islander.Core
             }
         }
 
-        public void GetDamage(PlayerController owner, float damage)
+        public void GetDamage(IDamager damager, PlayerController owner)
         {
-            health -= damage;
+            health -= damager.Damage;
 
             if (health <= 0)
             {

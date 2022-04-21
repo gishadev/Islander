@@ -4,8 +4,10 @@ using UnityEngine;
 
 namespace Gisha.Islander.Environment
 {
-    public class Projectile : MonoBehaviour
+    public class Projectile : MonoBehaviour, IDamager
     {
+        public float Damage => damage;
+
         [SerializeField] private float damage = 25f;
         [SerializeField] private float raycastDistance = 0.5f;
         [SerializeField] private float raycastRadius = 0.15f;
@@ -38,7 +40,7 @@ namespace Gisha.Islander.Environment
                 if (hitInfo.collider.CompareTag("Player") && !Owner.transform.IsChildOf(hitInfo.transform) ||
                     hitInfo.collider.CompareTag("Raft"))
                 {
-                    hitInfo.collider.GetComponent<IDamageable>().GetDamage(Owner, damage);
+                    hitInfo.collider.GetComponent<IDamageable>().GetDamage(this, Owner);
                 }
 
                 Destroy(gameObject);

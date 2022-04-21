@@ -1,10 +1,13 @@
+using Gisha.Islander.Core;
 using UnityEngine;
 
 namespace Gisha.Islander.Player.Tools
 {
-    public class Paddle : Tool
+    public class Paddle : Tool, IDamager
     {
         [SerializeField] private float maxDistance;
+        [SerializeField] private float damage = 5;
+        public float Damage => damage;
 
         protected override void InitiatePrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
             InteractType interactType)
@@ -24,7 +27,7 @@ namespace Gisha.Islander.Player.Tools
                         if (col.CompareTag("Player") &&
                             !transform.IsChildOf(col.transform))
                         {
-                            col.GetComponent<PlayerController>().GetDamage(owner, 5);
+                            col.GetComponent<PlayerController>().GetDamage(this, owner);
                             col.GetComponent<Rigidbody>().AddForce(direction * 25f, ForceMode.Impulse);
                         }
 

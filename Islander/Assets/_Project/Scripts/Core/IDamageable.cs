@@ -4,6 +4,11 @@ namespace Gisha.Islander.Core
 {
     public interface IDamageable
     {
-        public void GetDamage(PlayerController owner, float damage);
+        public void GetDamage(IDamager damager, PlayerController owner);
+    }
+
+    public interface IDamager
+    {
+        float Damage { get; }
     }
 }

@@ -50,15 +50,15 @@ namespace Gisha.Islander.Player
                 return;
 
             if (_fpsMover.IsSwimming)
-                GetDamage(null, swimmingDamagePerSecond * Time.deltaTime);
+                photonView.RPC("RPC_GetDamage", RpcTarget.All, swimmingDamagePerSecond * Time.deltaTime);
         }
 
-        public void GetDamage(PlayerController owner, float damage)
+        public void GetDamage(IDamager damager, PlayerController owner)
         {
             if (owner == this)
                 return;
 
-            photonView.RPC("RPC_GetDamage", RpcTarget.All, damage);
+            photonView.RPC("RPC_GetDamage", RpcTarget.All, damager.Damage);
         }
 
         [PunRPC]

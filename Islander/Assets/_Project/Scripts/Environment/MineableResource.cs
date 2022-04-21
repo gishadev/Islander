@@ -1,6 +1,7 @@
 using DG.Tweening;
 using Gisha.Islander.Core;
 using Gisha.Islander.Player;
+using Gisha.Islander.Player.Tools;
 using UnityEngine;
 
 namespace Gisha.Islander.Environment
@@ -21,15 +22,20 @@ namespace Gisha.Islander.Environment
             _health = maxHealth;
         }
 
-        public void GetDamage(PlayerController owner, float damage)
+        public void GetDamage(IDamager damager, PlayerController owner)
         {
             transform.DOPunchScale(transform.localScale / 10f, 0.5f);
 
-            float relDamage = damage;
-            // if (ResourceType == ResourceType.Wood)
-            //     relDamage = damage * axeEfficiency;
-            // else
-            //     relDamage = damage * pickaxeEfficiency;
+            float relDamage = damager.Damage;
+            if (damager is MiningTool)
+            {
+                var miningTool = (MiningTool) damager;
+
+                if (ResourceType == ResourceType.Wood)
+                    relDamage = miningTool.Damage * miningTool.AxeEfficiency;
+                else
+                    relDamage = miningTool.Damage * miningTool.PickaxeEfficiency;
+            }
 
             _health -= relDamage;
             if (_health <= 0)

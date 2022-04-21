@@ -3,12 +3,15 @@ using UnityEngine;
 
 namespace Gisha.Islander.Player.Tools
 {
-    public class MiningTool : Tool
+    public class MiningTool : Tool, IDamager
     {
         [SerializeField] private float maxDistance;
         [SerializeField] private float damage;
         [SerializeField] [Range(0, 1)] private float axeEfficiency;
         [SerializeField] [Range(0, 1)] private float pickaxeEfficiency;
+        public float Damage => damage;
+        public float AxeEfficiency => axeEfficiency;
+        public float PickaxeEfficiency => pickaxeEfficiency;
 
         protected override void InitiatePrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
             InteractType interactType)
@@ -24,7 +27,7 @@ namespace Gisha.Islander.Player.Tools
                     for (int i = 0; i < raycastHits.Length; i++)
                     {
                         var damageable = raycastHits[i].transform.GetComponentInParent<IDamageable>();
-                        damageable?.GetDamage(owner, damage);
+                        damageable?.GetDamage(this, owner);
                     }
                 }
 

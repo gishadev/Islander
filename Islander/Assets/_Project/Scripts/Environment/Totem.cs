@@ -1,4 +1,3 @@
-using System;
 using Gisha.Islander.Core;
 using Gisha.Islander.Player;
 using UnityEngine;
@@ -26,12 +25,12 @@ namespace Gisha.Islander.Environment
             _owner = owner;
         }
 
-        public void GetDamage(PlayerController owner, float damage)
+        public void GetDamage(IDamager damager, PlayerController owner)
         {
             if (owner == _owner)
                 return;
 
-            _health -= damage;
+            _health -= damager.Damage;
 
             if (_health <= 0)
                 Debug.Log("Totem was destroyed");
