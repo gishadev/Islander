@@ -24,7 +24,7 @@ namespace Gisha.Islander.Player.Tools
                         if (col.CompareTag("Player") &&
                             !transform.IsChildOf(col.transform))
                         {
-                            col.GetComponent<PlayerController>().GetDamage(5);
+                            col.GetComponent<PlayerController>().GetDamage(owner, 5);
                             col.GetComponent<Rigidbody>().AddForce(direction * 25f, ForceMode.Impulse);
                         }
 
@@ -32,7 +32,7 @@ namespace Gisha.Islander.Player.Tools
                             col.GetComponent<Rigidbody>().AddForce(direction * 5f, ForceMode.Impulse);
                     }
                 }
-                
+
                 ResetDelay(true);
             }
         }

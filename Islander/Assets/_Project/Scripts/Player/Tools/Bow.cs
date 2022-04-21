@@ -28,7 +28,7 @@ namespace Gisha.Islander.Player.Tools
             {
                 var arrow = Instantiate(arrowPrefab, origin, shootPoint.rotation);
 
-                arrow.GetComponent<Projectile>().Owner = transform;
+                arrow.GetComponent<Projectile>().Owner = transform.GetComponentInParent<PlayerController>();
                 arrow.GetComponent<Rigidbody>().AddForce(direction * maxShootForce * _charge, ForceMode.Impulse);
 
                 _charge = 0f;

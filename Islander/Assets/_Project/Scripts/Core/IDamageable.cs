@@ -1,7 +1,9 @@
+using Gisha.Islander.Player;
+
 namespace Gisha.Islander.Core
 {
     public interface IDamageable
     {
-        public void GetDamage(float damage);
+        public void GetDamage(PlayerController owner, float damage);
     }
 }

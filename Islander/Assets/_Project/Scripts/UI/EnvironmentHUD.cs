@@ -1,4 +1,3 @@
-using System;
 using Gisha.Islander.Environment;
 using Gisha.Islander.Player;
 using TMPro;
@@ -71,4 +70,6 @@ namespace Gisha.Islander.UI
         Mineable,
         Totem
     }
+    
+    
 }

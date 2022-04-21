@@ -1,4 +1,5 @@
 using Gisha.Islander.Core;
+using Gisha.Islander.Player;
 using UnityEngine;
 
 namespace Gisha.Islander.Environment
@@ -8,7 +9,7 @@ namespace Gisha.Islander.Environment
         [SerializeField] private float damage = 25f;
         [SerializeField] private float raycastDistance = 0.5f;
         [SerializeField] private float raycastRadius = 0.15f;
-        public Transform Owner { get; set; }
+        public PlayerController Owner { get; set; }
 
         private Rigidbody _rb;
 
@@ -34,9 +35,11 @@ namespace Gisha.Islander.Environment
             Ray ray = new Ray(transform.position, transform.forward);
             if (Physics.SphereCast(ray, raycastRadius, out var hitInfo, raycastDistance))
             {
-                if (hitInfo.collider.CompareTag("Player") && !Owner.IsChildOf(hitInfo.transform) ||
+                if (hitInfo.collider.CompareTag("Player") && !Owner.transform.IsChildOf(hitInfo.transform) ||
                     hitInfo.collider.CompareTag("Raft"))
-                    hitInfo.collider.GetComponent<IDamageable>().GetDamage(damage);
+                {
+                    hitInfo.collider.GetComponent<IDamageable>().GetDamage(Owner, damage);
+                }
 
                 Destroy(gameObject);
             }

@@ -1,10 +1,11 @@
 using DG.Tweening;
+using Gisha.Islander.Core;
 using Gisha.Islander.Player;
 using UnityEngine;
 
 namespace Gisha.Islander.Environment
 {
-    public class MineableResource : MonoBehaviour, IMineable
+    public class MineableResource : MonoBehaviour, IDamageable
     {
         [SerializeField] private ResourceType resourceResourceType;
         [SerializeField] private int resourcesToGather = 5;
@@ -20,15 +21,15 @@ namespace Gisha.Islander.Environment
             _health = maxHealth;
         }
 
-        public void Mine(PlayerController owner, float damage, float pickaxeEfficiency, float axeEfficiency)
+        public void GetDamage(PlayerController owner, float damage)
         {
             transform.DOPunchScale(transform.localScale / 10f, 0.5f);
 
-            float relDamage;
-            if (ResourceType == ResourceType.Wood)
-                relDamage = damage * axeEfficiency;
-            else
-                relDamage = damage * pickaxeEfficiency;
+            float relDamage = damage;
+            // if (ResourceType == ResourceType.Wood)
+            //     relDamage = damage * axeEfficiency;
+            // else
+            //     relDamage = damage * pickaxeEfficiency;
 
             _health -= relDamage;
             if (_health <= 0)

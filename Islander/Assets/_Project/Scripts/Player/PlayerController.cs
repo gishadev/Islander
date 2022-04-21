@@ -15,7 +15,7 @@ namespace Gisha.Islander.Player
         [Header("Other")] [SerializeField] private float swimmingDamagePerSecond = 10;
 
         public Action Destroyed;
-        
+
         public FPSCamera FPSCamera => _fpsCamera;
         public InventoryManager InventoryManager => _inventoryManager;
 
@@ -50,12 +50,15 @@ namespace Gisha.Islander.Player
                 return;
 
             if (_fpsMover.IsSwimming)
-                GetDamage(swimmingDamagePerSecond * Time.deltaTime);
+                GetDamage(null, swimmingDamagePerSecond * Time.deltaTime);
         }
 
-        public void GetDamage(float dmg)
+        public void GetDamage(PlayerController owner, float damage)
         {
-            photonView.RPC("RPC_GetDamage", RpcTarget.All, dmg);
+            if (owner == this)
+                return;
+
+            photonView.RPC("RPC_GetDamage", RpcTarget.All, damage);
         }
 
         [PunRPC]

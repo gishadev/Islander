@@ -1,5 +1,6 @@
 using System;
 using Gisha.Islander.Core;
+using Gisha.Islander.Player;
 using UnityEngine;
 
 namespace Gisha.Islander.Environment
@@ -16,7 +17,7 @@ namespace Gisha.Islander.Environment
             _health = maxHealth;
         }
 
-        public void GetDamage(float damage)
+        public void GetDamage(PlayerController owner, float damage)
         {
             _health -= damage;
 

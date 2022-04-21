@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Gisha.Islander.Player;
 using Photon.Pun;
 using UnityEngine;
 
@@ -29,7 +30,7 @@ namespace Gisha.Islander.Core
             }
         }
 
-        public void GetDamage(float damage)
+        public void GetDamage(PlayerController owner, float damage)
         {
             health -= damage;
 
