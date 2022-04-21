@@ -152,7 +152,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceResourceType: 2
   resourcesToGather: 5
-  maxHealth: 5
+  maxHealth: 30
 --- !u!1 &3085281352291352542
 GameObject:
   m_ObjectHideFlags: 0

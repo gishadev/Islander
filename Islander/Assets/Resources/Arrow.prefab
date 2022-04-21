@@ -102,7 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30cbdfe5967d4350aa7e9535bcf4d638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
+  damage: 20
   raycastDistance: 0.45
   raycastRadius: 0.1
 --- !u!1 &5973332521990045106

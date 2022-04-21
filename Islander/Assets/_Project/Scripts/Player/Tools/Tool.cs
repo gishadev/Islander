@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-using Gisha.Islander.Photon;
 using Gisha.Islander.UI;
 using UnityEngine;
 

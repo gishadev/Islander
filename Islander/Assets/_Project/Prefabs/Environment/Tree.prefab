@@ -249,4 +249,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resourceResourceType: 0
   resourcesToGather: 10
-  maxHealth: 5
+  maxHealth: 20

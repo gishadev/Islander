@@ -46,7 +46,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   delayInSeconds: 0.3
   maxDistance: 2
-  damage: 2
+  damage: 13
   axeEfficiency: 1
   pickaxeEfficiency: 0.2
 --- !u!1 &8168151767134277890
