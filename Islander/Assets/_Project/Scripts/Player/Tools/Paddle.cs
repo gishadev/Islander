@@ -24,15 +24,16 @@ namespace Gisha.Islander.Player.Tools
                     {
                         var col = raycastHits[i].collider;
 
-                        if (col.CompareTag("Player") &&
-                            !transform.IsChildOf(col.transform))
-                        {
-                            col.GetComponent<PlayerController>().GetDamage(this, owner);
-                            col.GetComponent<Rigidbody>().AddForce(direction * 25f, ForceMode.Impulse);
-                        }
-
                         if (col.CompareTag("Raft"))
                             col.GetComponent<Rigidbody>().AddForce(direction * 5f, ForceMode.Impulse);
+                        else if (col.CompareTag("Player") && !transform.IsChildOf(col.transform))
+                            col.GetComponent<Rigidbody>().AddForce(direction * 25f, ForceMode.Impulse);
+                        else
+                        {
+                            var damageable = raycastHits[i].transform.GetComponentInParent<IDamageable>();
+                            if (damageable != null)
+                                damageable.GetDamage(this, owner);
+                        }
                     }
                 }
 

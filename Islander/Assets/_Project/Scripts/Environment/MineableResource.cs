@@ -36,6 +36,8 @@ namespace Gisha.Islander.Environment
                 else
                     relDamage = miningTool.Damage * miningTool.PickaxeEfficiency;
             }
+            else
+                relDamage *= 0.1f;
 
             _health -= relDamage;
             if (_health <= 0)

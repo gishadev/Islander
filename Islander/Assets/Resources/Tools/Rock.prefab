@@ -129,4 +129,4 @@ MonoBehaviour:
   maxDistance: 2
   damage: 2
   axeEfficiency: 1
-  pickaxeEfficiency: 1
+  pickaxeEfficiency: 0.7
