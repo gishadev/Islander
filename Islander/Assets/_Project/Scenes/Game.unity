@@ -4371,6 +4371,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 33c092b7e8d48cc44b38e6d57f183626, type: 2}
   - {fileID: 11400000, guid: e32ee5cc82f39f848a545dd98163b169, type: 2}
   - {fileID: 11400000, guid: 308aa409b89a89d44b4681228bcf8d9c, type: 2}
+  - {fileID: 11400000, guid: bb84204fd67a5614a918fedc6d2229f1, type: 2}
   spawnForwardOffset: 1
 --- !u!1001 &1556659817
 PrefabInstance:
