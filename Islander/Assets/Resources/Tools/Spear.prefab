@@ -146,5 +146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayInSeconds: 0.55
-  maxDistance: 4
   damage: 10
+  raycastDistance: 2.5
+  raycastRadius: 0.2

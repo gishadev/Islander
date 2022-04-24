@@ -8,7 +8,6 @@ namespace Gisha.Islander.Player.Tools
     public abstract class Tool : MonoBehaviour
     {
         [SerializeField] private float delayInSeconds;
-
         public Action<bool> Equiped;
 
         private bool _isDelay;
@@ -34,7 +33,7 @@ namespace Gisha.Islander.Player.Tools
         {
             StartCoroutine(DelayCoroutine(updateProgressCircle));
         }
-
+        
         private IEnumerator DelayCoroutine(bool updateProgressCircle)
         {
             _isDelay = true;

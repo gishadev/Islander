@@ -1,7 +1,7 @@
 using DG.Tweening;
 using Gisha.Islander.Core;
 using Gisha.Islander.Player;
-using Gisha.Islander.Player.Tools;
+using Gisha.Islander.Player.Tools.MeleeTools;
 using UnityEngine;
 
 namespace Gisha.Islander.Environment

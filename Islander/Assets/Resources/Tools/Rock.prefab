@@ -126,7 +126,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   delayInSeconds: 0.3
-  maxDistance: 2
   damage: 2
+  raycastDistance: 1.25
+  raycastRadius: 0.35
   axeEfficiency: 1
   pickaxeEfficiency: 0.7

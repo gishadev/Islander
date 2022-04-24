@@ -2,7 +2,7 @@ using Gisha.Islander.Core.Building;
 using Gisha.Islander.Photon;
 using UnityEngine;
 
-namespace Gisha.Islander.Player.Tools
+namespace Gisha.Islander.Player.Tools.CustomTools
 {
     public class Hammer : Tool
     {
@@ -16,6 +16,14 @@ namespace Gisha.Islander.Player.Tools
             _parentController = GetComponentInParent<PlayerController>();
         }
 
+        private void Update()
+        {
+            if (_myPlayerController != _parentController)
+                return;
+
+            PrebuildRaycastCheck();
+        }
+
         private void OnEnable()
         {
             if (_myPlayerController == _parentController)
@@ -26,14 +34,6 @@ namespace Gisha.Islander.Player.Tools
         {
             if (_myPlayerController == _parentController)
                 Equiped -= OnEquip;
-        }
-
-        private void Update()
-        {
-            if (_myPlayerController != _parentController)
-                return;
-
-            PrebuildRaycastCheck();
         }
 
         protected override void InitiatePrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
@@ -50,8 +50,8 @@ namespace Gisha.Islander.Player.Tools
 
         private void PrebuildRaycastCheck()
         {
-            Vector3 origin = _myPlayerController.FPSCamera.CameraRigTrans.position;
-            Vector3 direction = _myPlayerController.FPSCamera.CameraRigTrans.forward;
+            var origin = _myPlayerController.FPSCamera.CameraRigTrans.position;
+            var direction = _myPlayerController.FPSCamera.CameraRigTrans.forward;
 
             if (Physics.Raycast(origin, direction, out var raycastHit))
             {

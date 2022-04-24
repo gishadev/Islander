@@ -2,14 +2,10 @@ using Gisha.Islander.Environment;
 using Gisha.Islander.UI;
 using UnityEngine;
 
-namespace Gisha.Islander.Player.Tools
+namespace Gisha.Islander.Player.Tools.RangedTools
 {
-    public class Bow : Tool
+    public class Bow : RangedTool
     {
-        [SerializeField] private GameObject arrowPrefab;
-        [SerializeField] private Transform shootPoint;
-        [SerializeField] private float maxShootForce;
-
         private float _charge;
 
         protected override void InitiatePrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
@@ -26,7 +22,7 @@ namespace Gisha.Islander.Player.Tools
 
             if (interactType == InteractType.Release)
             {
-                var arrow = Instantiate(arrowPrefab, origin, shootPoint.rotation);
+                var arrow = Instantiate(projectilePrefab, origin, shootPoint.rotation);
 
                 arrow.GetComponent<Projectile>().Owner = transform.GetComponentInParent<PlayerController>();
                 arrow.GetComponent<Rigidbody>().AddForce(direction * maxShootForce * _charge, ForceMode.Impulse);

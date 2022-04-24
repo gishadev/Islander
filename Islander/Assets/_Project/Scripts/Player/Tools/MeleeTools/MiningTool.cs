@@ -1,15 +1,12 @@
 using Gisha.Islander.Core;
 using UnityEngine;
 
-namespace Gisha.Islander.Player.Tools
+namespace Gisha.Islander.Player.Tools.MeleeTools
 {
-    public class MiningTool : Tool, IDamager
+    public class MiningTool : MeleeTool
     {
-        [SerializeField] private float maxDistance;
-        [SerializeField] private float damage;
         [SerializeField] [Range(0, 1)] private float axeEfficiency;
         [SerializeField] [Range(0, 1)] private float pickaxeEfficiency;
-        public float Damage => damage;
         public float AxeEfficiency => axeEfficiency;
         public float PickaxeEfficiency => pickaxeEfficiency;
 
@@ -18,18 +15,12 @@ namespace Gisha.Islander.Player.Tools
         {
             if (interactType == InteractType.Press)
             {
-                Debug.DrawRay(origin, direction * maxDistance, Color.red, 0.25f);
-
-                var raycastHits = Physics.SphereCastAll(origin, 0.35f, direction, maxDistance);
-
-                if (raycastHits.Length > 0)
-                {
-                    for (int i = 0; i < raycastHits.Length; i++)
+                if (RaycastCheck(origin, direction, out var raycastHits))
+                    for (var i = 0; i < raycastHits.Length; i++)
                     {
                         var damageable = raycastHits[i].transform.GetComponentInParent<IDamageable>();
                         damageable?.GetDamage(this, owner);
                     }
-                }
 
                 ResetDelay(true);
             }
