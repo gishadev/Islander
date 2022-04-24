@@ -13,7 +13,7 @@ namespace Gisha.Islander.Player.Tools.MeleeTools
         protected override void InitiatePrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
             InteractType interactType)
         {
-            if (interactType == InteractType.Press)
+            if (interactType == InteractType.Hold)
             {
                 if (RaycastCheck(origin, direction, out var raycastHits))
                     for (var i = 0; i < raycastHits.Length; i++)

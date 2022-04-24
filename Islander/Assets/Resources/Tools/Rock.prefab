@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bfb4a5b1b02c441bbcbff212dbaee6f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayInSeconds: 0.3
+  delayInSeconds: 0.5
   damage: 2
   raycastDistance: 1.25
   raycastRadius: 0.35

@@ -8,15 +8,18 @@ namespace Gisha.Islander.Player.Tools.MeleeTools
         protected override void InitiatePrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
             InteractType interactType)
         {
-            if (RaycastCheck(origin, direction, out var raycastHits))
-                for (var i = 0; i < raycastHits.Length; i++)
-                {
-                    var damageable = raycastHits[i].transform.GetComponentInParent<IDamageable>();
-                    if (damageable != null)
-                        damageable.GetDamage(this, owner);
-                }
+            if (interactType == InteractType.Hold)
+            {
+                if (RaycastCheck(origin, direction, out var raycastHits))
+                    for (var i = 0; i < raycastHits.Length; i++)
+                    {
+                        var damageable = raycastHits[i].transform.GetComponentInParent<IDamageable>();
+                        if (damageable != null)
+                            damageable.GetDamage(this, owner);
+                    }
 
-            ResetDelay(true);
+                ResetDelay(true);
+            }
         }
     }
 }
