@@ -6,6 +6,8 @@ namespace Gisha.Islander.Player.Tools.RangedTools
 {
     public class Bow : RangedTool
     {
+        [SerializeField] private float fullChargeTime = 2f;
+
         private float _charge;
 
         protected override void InitiatePrimaryUse(Vector3 origin, Vector3 direction, PlayerController owner,
@@ -16,7 +18,7 @@ namespace Gisha.Islander.Player.Tools.RangedTools
 
             if (interactType == InteractType.Hold)
             {
-                _charge += Time.deltaTime / 2f;
+                _charge += Time.deltaTime / fullChargeTime;
                 _charge = Mathf.Clamp01(_charge);
             }
 
